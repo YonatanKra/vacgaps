@@ -26,13 +26,6 @@
     }
   },
   "projects": {
-    "user-interface": {
-      "tags": []
-    },
-    "user-interface-e2e": {
-      "tags": [],
-      "implicitDependencies": ["user-interface"]
-    },
     "vaccitron": {
       "tags": []
     },
