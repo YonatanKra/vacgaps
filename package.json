@@ -24,7 +24,8 @@
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
     "help": "nx help",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
+    "mytest": "nx test user-interface --watch"
   },
   "private": true,
   "dependencies": {
@@ -34,6 +35,7 @@
     "@angular/compiler": "^11.0.0",
     "@angular/core": "^11.0.0",
     "@angular/forms": "^11.0.0",
+    "@angular/localize": "^11.0.5",
     "@angular/material": "^11.0.3",
     "@angular/platform-browser": "^11.0.0",
     "@angular/platform-browser-dynamic": "^11.0.0",
