@@ -32,6 +32,13 @@
     "user-interface-e2e": {
       "tags": [],
       "implicitDependencies": ["user-interface"]
+    },
+    "vaccitron": {
+      "tags": []
+    },
+    "vaccitron-e2e": {
+      "tags": [],
+      "implicitDependencies": ["vaccitron"]
     }
   }
 }
