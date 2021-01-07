@@ -32,6 +32,9 @@
     "vaccitron-e2e": {
       "tags": [],
       "implicitDependencies": ["vaccitron"]
+    },
+    "constants": {
+      "tags": []
     }
   }
 }
