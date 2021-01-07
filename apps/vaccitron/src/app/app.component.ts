@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserDetails } from './user-details/form/form.component';
 
 @Component({
   selector: 'vacgaps-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   name = "Friends to Vaccines";
+
+  handleUserDetails(data: UserDetails) {
+  }
 }

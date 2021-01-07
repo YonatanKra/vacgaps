@@ -2,7 +2,6 @@
 
 </vacgaps-app-header>
 <main>
-  <vacgaps-form></vacgaps-form>
+  <vacgaps-form (formData)="handleUserDetails($event)"></vacgaps-form>
 </main>
-
 <router-outlet></router-outlet>
