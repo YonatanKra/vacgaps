@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 const AgeRanges = new Map(Object.entries({
@@ -7,6 +7,13 @@ const AgeRanges = new Map(Object.entries({
   2: "36-45",
   3: "46-55",
   4: "מעל 55"
+}));
+
+const cities = new Map(Object.entries({
+  0: "Tel Aviv",
+  1: "Modiin",
+  2: "Haifa",
+  3: "Eilat"
 }));
 
 export class UserDetails {
@@ -37,13 +44,33 @@ export class FormComponent implements OnInit {
 
   ageRanges = AgeRanges;
 
+  #cities: Map<string, string>;
+
+  @Input()
+  set cityList(cities: Map<string, string>) {
+    this.#cities = cities;
+    this.filterCities(this.userDetailsForm.controls.city.value);
+  }
+
+  citiesSelectList: Map<string, string>;
+
   constructor() {
   }
 
   ngOnInit(): void {
+    if (!this.#cities) this.cityList = cities;
   }
 
   submitForm() {
     this.formData.emit(this.userDetailsForm.getRawValue());
+  }
+
+  filterCities(term: string) {
+    this.citiesSelectList = new Map(this.#cities);
+    if (term === '') return;
+    for (const [key, value] of this.citiesSelectList.entries()) {
+      if (value.toLowerCase().indexOf(term.toLowerCase()) === -1)
+        this.citiesSelectList.delete(key);
+    }
   }
 }

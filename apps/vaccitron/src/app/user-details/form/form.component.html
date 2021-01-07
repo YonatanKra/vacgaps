@@ -24,11 +24,17 @@
   <br>
   <mat-form-field appearance="fill">
     <mat-label i18n="form field|city">עיר מגורים</mat-label>
-    <mat-select matInput formControlName="city">
-      <mat-option value="0">סיכון נמוך</mat-option>
-      <mat-option value="1">סיכון בינוני</mat-option>
-      <mat-option value="2">סיכון גבוה</mat-option>
-    </mat-select>
+    <input type="text"
+           [value]="citiesSelectList.get(userDetailsForm.get('city').value)"
+           (keyup)="filterCities($event.target.value)"
+           matInput
+           [matAutocomplete]="citiesAutoComplete"
+           formControlName="city">
+    <mat-autocomplete #citiesAutoComplete="matAutocomplete">
+      <mat-option *ngFor="let city of citiesSelectList | keyvalue" [value]="city.key">
+        {{city.value}}
+      </mat-option>
+    </mat-autocomplete>
   </mat-form-field>
   <br>
   <mat-checkbox matInput formControlName="mobility" i18n="form field|mobility">ניידות</mat-checkbox>
