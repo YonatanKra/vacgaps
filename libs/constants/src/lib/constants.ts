@@ -1,3 +1,1 @@
-export function constants(): string {
-  return 'constants';
-}
+export * as CITIES from './cities';

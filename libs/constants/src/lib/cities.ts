@@ -1,4 +1,4 @@
-export const Cities = {
+export const CITIES = {
   "0": "",
   "7": "SHAHAR",
   "10": "TIROSH",
