@@ -1,1 +1,39 @@
-
+<form [formGroup]="userDetailsForm">
+  <mat-form-field appearance="fill">
+    <mat-label i18n="form field|name">שם</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label i18n="form field|age">גיל</mat-label>
+    <mat-select matInput formControlName="age">
+      <mat-option value="0">16-25</mat-option>
+      <mat-option value="1">26-35</mat-option>
+      <mat-option value="2">36-45</mat-option>
+      <mat-option value="3">46-55</mat-option>
+      <mat-option value="4">מעל 55</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label i18n="form field|risk factor">גורם סיכון</mat-label>
+    <mat-select matInput formControlName="riskFactor">
+      <mat-option value="0">סיכון נמוך</mat-option>
+      <mat-option value="1">סיכון בינוני</mat-option>
+      <mat-option value="2">סיכון גבוה</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field appearance="fill">
+    <mat-label i18n="form field|city">עיר מגורים</mat-label>
+    <mat-select matInput formControlName="city">
+      <mat-option value="0">סיכון נמוך</mat-option>
+      <mat-option value="1">סיכון בינוני</mat-option>
+      <mat-option value="2">סיכון גבוה</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-checkbox matInput formControlName="mobility" i18n="form field|mobility">ניידות</mat-checkbox>
+  <br>
+  <mat-checkbox matInput formControlName="extraPerson" i18n="form field|extra person">האם באפשרותך לקחת אדם נוסף?</mat-checkbox>
+</form>

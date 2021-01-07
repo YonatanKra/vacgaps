@@ -19,10 +19,10 @@ export class FormComponent implements OnInit {
   userDetailsForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     age: new FormControl('', [Validators.required]),
-    riskFactor: new FormControl('', [Validators.required]),
+    riskFactor: new FormControl(0, [Validators.required]),
     city: new FormControl('', [Validators.required]),
-    mobility: new FormControl('', [Validators.required]),
-    extraPerson: new FormControl('')
+    mobility: new FormControl(false, [Validators.required]),
+    extraPerson: new FormControl(false)
   });
   @Output()
   formData = new EventEmitter<UserDetails>();
