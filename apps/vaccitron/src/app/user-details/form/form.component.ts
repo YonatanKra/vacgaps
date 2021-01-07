@@ -1,6 +1,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
+const AgeRanges = new Map(Object.entries({
+  0: "16-25",
+  1: "26-35",
+  2: "36-45",
+  3: "46-55",
+  4: "מעל 55"
+}));
+
 export class UserDetails {
   extraPerson: boolean;
   mobility: boolean;
@@ -26,6 +34,8 @@ export class FormComponent implements OnInit {
   });
   @Output()
   formData = new EventEmitter<UserDetails>();
+
+  ageRanges = AgeRanges;
 
   constructor() {
   }

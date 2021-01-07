@@ -1,4 +1,4 @@
-<form [formGroup]="userDetailsForm">
+<form [formGroup]="userDetailsForm" dir="rtl">
   <mat-form-field appearance="fill">
     <mat-label i18n="form field|name">שם</mat-label>
     <input matInput formControlName="name">
@@ -7,11 +7,9 @@
   <mat-form-field appearance="fill">
     <mat-label i18n="form field|age">גיל</mat-label>
     <mat-select matInput formControlName="age">
-      <mat-option value="0">16-25</mat-option>
-      <mat-option value="1">26-35</mat-option>
-      <mat-option value="2">36-45</mat-option>
-      <mat-option value="3">46-55</mat-option>
-      <mat-option value="4">מעל 55</mat-option>
+      <mat-option *ngFor="let ageRange of ageRanges | keyvalue" value="ageRange.key">
+        {{ageRange.value}}
+      </mat-option>
     </mat-select>
   </mat-form-field>
   <br>
