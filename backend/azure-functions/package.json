@@ -4,10 +4,11 @@
   "version": "0.1.0",
   "scripts": {
     "build": "rimraf dist && tsc && cp-cli HttpTrigger/function.json dist/HttpTrigger/function.json",
-    "start": "yarn --cwd ./dist func-start",
+    "start": "cd dist && func start",
     "watch": "tsc -w",
     "func-start": "func start",
     "deploy": "chmod +x ./deploy.sh && ./deploy.sh"
+    
   },
   "devDependencies": {
     "@azure/functions": "^1.0.1-beta2",
