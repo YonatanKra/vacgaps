@@ -1,10 +1,16 @@
-prerequisites to run locally:
-
+## prerequisites to run locally:
+#### MAC
 ```
 brew tap azure/functions
 brew install azure-functions-core-tools 
 ```
-run: 
+#### Windows:
+- download [azure functions cli for window](https://go.microsoft.com/fwlink/?linkid=2135274)
+
+- also requires dotnet to be installed on.
+--- 
+## run: 
+- make sure to run it under the backend\azure-functions folder
 ```
 yarn build
 yarn start
