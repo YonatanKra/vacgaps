@@ -8,7 +8,6 @@
     "watch": "tsc -w",
     "func-start": "func start",
     "deploy": "chmod +x ./deploy.sh && ./deploy.sh"
-    
   },
   "devDependencies": {
     "@azure/functions": "^1.0.1-beta2",
