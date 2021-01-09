@@ -1,0 +1,8 @@
+{
+    "name": "@facebook-auth-playground/frontend",
+    "description": "",
+    "version": "0.1.0",
+    "scripts": {
+        "start": "npx http-server"
+    }
+}
