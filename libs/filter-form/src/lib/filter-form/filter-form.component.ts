@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { NotificationsFilter } from '@vacgaps/interfaces';
 
 @Component({
   selector: 'vacgaps-filter-form',
@@ -14,9 +15,15 @@ export class FilterFormComponent implements OnInit {
     'healthCareService': new FormControl(NaN, [])
   });
 
+  @Output()
+  formSubmit = new EventEmitter<NotificationsFilter>();
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  submitForm() {
+    this.formSubmit.emit(this.filterFields.getRawValue());
+  }
 }
