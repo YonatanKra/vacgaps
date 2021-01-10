@@ -35,6 +35,9 @@
     },
     "constants": {
       "tags": []
+    },
+    "interfaces": {
+      "tags": []
     }
   }
 }

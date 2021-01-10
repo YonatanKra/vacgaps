@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@vacgaps/constants": ["libs/constants/src/index.ts"]
+      "@vacgaps/constants": ["libs/constants/src/index.ts"],
+      "@vacgaps/interfaces": ["libs/interfaces/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

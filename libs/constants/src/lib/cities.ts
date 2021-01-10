@@ -1270,3 +1270,5 @@ export const CITIES = {
   "9700": "הוד השרון",
   "9800": "בנימינה-גבעת עדה"
 } as const;
+const citiesKeys = Object.keys(CITIES);
+export type CITIES_TYPE = typeof citiesKeys;
