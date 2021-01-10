@@ -1,0 +1,15 @@
+.devcontainer
+.vscode
+Controllers
+Models
+Services
+Test
+.eslintignore
+.eslintrc.json
+.mocharc.json
+.coverage
+.nyc_output
+.nycrc.json
+readme.md
+template.settings.json
+tsconfig.json

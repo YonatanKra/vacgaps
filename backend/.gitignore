@@ -1,0 +1,11 @@
+# Terraform
+.terraform/
+env/.env
+
+*.~vsdx
+
+azure-functions-core-tools
+
+# Load Test
+__pycache__/
+results/

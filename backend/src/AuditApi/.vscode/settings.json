@@ -1,0 +1,16 @@
+{
+    "azureFunctions.deploySubpath": ".",
+    "azureFunctions.postDeployTask": "npm install",
+    "azureFunctions.projectLanguage": "TypeScript",
+    "azureFunctions.projectRuntime": "~3",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.preDeployTask": "npm prune",
+    "peacock.color": "#eb5424",
+    "eslint.lintTask.enable": true,
+    "eslint.lintTask.options": ". --ext .ts",
+    "mochaExplorer.files": "dist/Test/**/*.spec.js",
+    "mochaExplorer.require": "source-map-support/register",
+    "typescript.validate.enable": true,
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
+}
