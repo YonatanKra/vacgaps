@@ -159,6 +159,21 @@
           }
         }
       }
+    },
+    "interfaces": {
+      "root": "libs/interfaces",
+      "sourceRoot": "libs/interfaces/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/interfaces/**/*.ts"
+            ]
+          }
+        }
+      }
     }
   },
   "cli": {
