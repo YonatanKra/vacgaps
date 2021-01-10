@@ -12,7 +12,7 @@ const CITIES_LIST = new Map(Object.entries({
 @Component({
   selector: 'test-component',
   template: `<vacgaps-filter-form (formSubmit)="handleFormUpdate($event)"
-                            ></vacgaps-filter-form>`,
+                            [cityList]="cities"></vacgaps-filter-form>`,
 })
 class TestComponent {
   cities = CITIES_LIST;
@@ -79,5 +79,32 @@ describe('FilterFormComponent', () => {
     spyOn(parentComponent, 'handleFormUpdate');
     formComponent.submitForm();
     expect(parentComponent.handleFormUpdate).toHaveBeenCalledWith(data);
+  });
+
+  it(`should filter constants Map by string in the cities list`, function() {
+    const map = new Map(Object.entries({
+      0: 'test', 1: 'zest', 2: 'completelyDifferent', 3: 'TEST'
+    }));
+    component.cityList = map;
+    fixture.detectChanges();
+    const elementsBeforeFilter = component.citiesSelectList.size;
+
+    component.filterCities('te');
+    fixture.detectChanges();
+    const elementsAfterFilter = component.citiesSelectList.size;
+
+    expect(elementsBeforeFilter).toEqual(4);
+    expect(elementsAfterFilter).toEqual(3);
+  });
+
+  it(`should receive cities list from parent via the cityList`, function() {
+    const parentFixture = TestBed.createComponent(TestComponent);
+    const formComponent = parentFixture.debugElement.query(By.css('vacgaps-filter-form')).componentInstance;
+    parentFixture.detectChanges();
+
+    expect(formComponent.citiesSelectList.size).toEqual(CITIES_LIST.size);
+    for (const [key, value] of CITIES_LIST.entries()) {
+      expect(value).toEqual(formComponent.citiesSelectList.get(key));
+    }
   });
 });
