@@ -184,6 +184,15 @@
     ora "5.1.0"
     rxjs "6.6.3"
 
+"@angular-devkit/schematics@11.0.6":
+  version "11.0.6"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-11.0.6.tgz#06631190cb22609462597cd6659080fc3313582a"
+  integrity sha512-hCyu/SSSiC6dKl/NxdWctknIrBqKR6pRe7DMArWowrZX6P9oi36LpKEFnKutE8+tXjsOqQj8XMBq9L64sXZWqg==
+  dependencies:
+    "@angular-devkit/core" "11.0.6"
+    ora "5.1.0"
+    rxjs "6.6.3"
+
 "@angular/animations@^11.0.0":
   version "11.0.5"
   resolved "https://registry.yarnpkg.com/@angular/animations/-/animations-11.0.5.tgz#44157c8bbb3f20ce1d3d6386eae956659cefd9d7"
@@ -294,10 +303,27 @@
   dependencies:
     tslib "^2.0.0"
 
+"@angular/pwa@^0.1100.6":
+  version "0.1100.6"
+  resolved "https://registry.yarnpkg.com/@angular/pwa/-/pwa-0.1100.6.tgz#424041b103b080e05f76c786b50b185b801685f0"
+  integrity sha512-2w0jJeRdpW/EhyV4fcBbLNj9C1ED16dQ+I6grQNutfT7vXmJRXC6G9dCDijKkHrmhlp6S+mhuS2H0PzbGoHRCg==
+  dependencies:
+    "@angular-devkit/core" "11.0.6"
+    "@angular-devkit/schematics" "11.0.6"
+    "@schematics/angular" "11.0.6"
+    parse5-html-rewriting-stream "6.0.1"
+
 "@angular/router@^11.0.0":
   version "11.0.5"
   resolved "https://registry.yarnpkg.com/@angular/router/-/router-11.0.5.tgz#95d47b3b510f6a49597db64cfd7ef936bb24c402"
   integrity sha512-mSD4tbzuFH4uBb9vxPQHBUbkIMoWAfVUb7r9gtn3/deOxQbVh08f2gk2iWDN3OQLAa5mNHswuLByAYSw2rPbMA==
+  dependencies:
+    tslib "^2.0.0"
+
+"@angular/service-worker@^11.0.0":
+  version "11.0.7"
+  resolved "https://registry.yarnpkg.com/@angular/service-worker/-/service-worker-11.0.7.tgz#9f1a93de8223d25d8f90a29b4bae7dfda03e800b"
+  integrity sha512-b8OaHvWqz2roaeo+f77ZA9n+OJkuDQzRNyXIs9GaUYc+nEwhXuXzHnjM9f48clvhPXAeQApgf9c121beiEbRig==
   dependencies:
     tslib "^2.0.0"
 
@@ -2125,6 +2151,15 @@
   integrity sha512-c/qwwcHyafOQuVQJj0IlBjf5yYgBI7YPJ77k4fOJYesb41jio65eaJODRUmfYKhTOFBrIZ66kgvGPlNbjuoRdQ==
   dependencies:
     any-observable "^0.3.0"
+
+"@schematics/angular@11.0.6":
+  version "11.0.6"
+  resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-11.0.6.tgz#5e52f8396e66138df0d6062130399fab830ee79e"
+  integrity sha512-XUcpOrlcp55PBHrgpIVx69lnhDY6ro35BSRmqNmjXik56qcOkfvdki8vvyW9EsWvu9/sfBSsVDdparlbVois7w==
+  dependencies:
+    "@angular-devkit/core" "11.0.6"
+    "@angular-devkit/schematics" "11.0.6"
+    jsonc-parser "2.3.1"
 
 "@schematics/angular@~11.0.1":
   version "11.0.5"
