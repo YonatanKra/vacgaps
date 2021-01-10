@@ -174,6 +174,35 @@
           }
         }
       }
+    },
+    "filter-form": {
+      "projectType": "library",
+      "root": "libs/filter-form",
+      "sourceRoot": "libs/filter-form/src",
+      "prefix": "vacgaps",
+      "targets": {
+        "lint": {
+          "executor": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/filter-form/tsconfig.lib.json",
+              "libs/filter-form/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/filter-form/**/*"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/filter-form/src/test.ts",
+            "tsConfig": "libs/filter-form/tsconfig.spec.json",
+            "karmaConfig": "libs/filter-form/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "cli": {

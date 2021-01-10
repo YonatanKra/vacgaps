@@ -38,6 +38,9 @@
     },
     "interfaces": {
       "tags": []
+    },
+    "filter-form": {
+      "tags": []
     }
   }
 }
