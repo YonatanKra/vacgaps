@@ -5,5 +5,4 @@ export interface NotificationsFilter {
   healthCareService: HEALTH_CARE_SERVICES_TYPE[number];
   availableVaccines?: number;
   dueTimeInMs?: number;
-  targetGroup?: number;
 }
