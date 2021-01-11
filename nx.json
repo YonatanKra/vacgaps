@@ -41,6 +41,9 @@
     },
     "filter-form": {
       "tags": []
+    },
+    "reports-list": {
+      "tags": []
     }
   }
 }

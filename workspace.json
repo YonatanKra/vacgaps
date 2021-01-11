@@ -203,6 +203,35 @@
           }
         }
       }
+    },
+    "reports-list": {
+      "projectType": "library",
+      "root": "libs/reports-list",
+      "sourceRoot": "libs/reports-list/src",
+      "prefix": "vacgaps",
+      "targets": {
+        "lint": {
+          "executor": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/reports-list/tsconfig.lib.json",
+              "libs/reports-list/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/reports-list/**/*"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/reports-list/src/test.ts",
+            "tsConfig": "libs/reports-list/tsconfig.spec.json",
+            "karmaConfig": "libs/reports-list/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "cli": {
