@@ -91,20 +91,20 @@ describe('ReportListPageComponent', () => {
         availableVaccines: 50,
         dueTimeInMs: 500,
       };
-      spyOn(component, 'filterList');
+      spyOn(component, 'updateFilter');
       const filterComponent = fixture.debugElement.query(By.css('vacgaps-filter-form')).componentInstance;
       filterComponent.filterFields.setValue(notificationsFilter);
-      expect(component.filterList).toHaveBeenCalledWith(notificationsFilter);
+      expect(component.updateFilter).toHaveBeenCalledWith(notificationsFilter);
     });
   });
 
-  it(`should filter the data according to incoming filter`, function() {
+  it(`should return the data according to incoming filter`, function() {
     component.reportsList = MOCK_REPORTS;
     const notificationsFilter: NotificationsFilter = {
       cities: ["100", "110"],
       healthCareService: "1"
     };
-    component.filterList(notificationsFilter);
+    component.updateFilter(notificationsFilter);
     expect(component.filteredReportsList).toEqual([
       {
         city: '100',
