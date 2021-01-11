@@ -13,7 +13,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { FormComponent } from './user-details/form/form.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -22,12 +21,18 @@ import { FilterFormModule } from '@vacgaps/filter-form';
 @NgModule({
   declarations: [
     AppComponent,
-    AppHeaderComponent,
-    FormComponent
+    AppHeaderComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([], { initialNavigation: 'enabled' }),
+    RouterModule.forRoot([
+        {
+          path: 'report-list-page',
+          loadChildren: () => import('./report-list-page/report-list-page.module').then(m => m.ReportListPageModule)
+        },
+        { path: 'login-page', loadChildren: () => import('./login-page/login-page.module').then(m => m.LoginPageModule) },
+      ],
+      { initialNavigation: 'enabled' }),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
@@ -43,6 +48,7 @@ import { FilterFormModule } from '@vacgaps/filter-form';
     FilterFormModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}
