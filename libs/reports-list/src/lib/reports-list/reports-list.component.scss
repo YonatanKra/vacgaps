@@ -2,3 +2,11 @@
   height: 600px;
   width: 100%;
 }
+
+.mat-list-item:nth-child(odd) {
+  background: burlywood;
+}
+
+.mat-list-item:nth-child(even) {
+  background: antiquewhite;
+}
