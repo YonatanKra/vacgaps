@@ -1,0 +1,15 @@
+.report-item-wrapper {
+  display: flex;
+  justify-content: space-around;
+  padding: .5em;
+  box-shadow: 5px 10px 18px #888888;
+  border-radius: 5px;
+}
+
+.report-item-wrapper:nth-child(odd) {
+  background: burlywood;
+}
+
+.report-item-wrapper:nth-child(even) {
+  background: antiquewhite;
+}

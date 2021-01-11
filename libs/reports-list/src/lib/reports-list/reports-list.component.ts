@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { VaccinesReport } from '@vacgaps/interfaces';
 
 @Component({
   selector: 'vacgaps-reports-list',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./reports-list.component.scss']
 })
 export class ReportsListComponent implements OnInit {
+  @Input()
+  reportsList: VaccinesReport[];
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }
