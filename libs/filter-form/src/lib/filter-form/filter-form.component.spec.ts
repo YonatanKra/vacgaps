@@ -18,12 +18,17 @@ const CITIES_LIST = new Map(Object.entries({
 @Component({
   selector: 'test-component',
   template: `<vacgaps-filter-form (formSubmit)="handleFormUpdate($event)"
+                                  (formUpdate)="handleFormValueUpdate($event)"
                             [cityList]="cities"></vacgaps-filter-form>`,
 })
 class TestComponent {
   cities = CITIES_LIST;
 
   handleFormUpdate(data) {
+
+  }
+
+  handleFormValueUpdate($event: NotificationsFilter) {
 
   }
 }
@@ -72,23 +77,6 @@ describe('FilterFormComponent', () => {
     expect(component.formSubmit.emit).toHaveBeenCalledWith(data);
   });
 
-  it(`should output the form data to parent component`, function() {
-    const parentFixture = TestBed.createComponent(TestComponent);
-    const parentComponent = parentFixture.componentInstance;
-    const formComponent: FilterFormComponent = parentFixture.debugElement.query(By.css('vacgaps-filter-form')).componentInstance;
-    const data: NotificationsFilter = {
-      availableVaccines: Math.round(Math.random()*100),
-      cities: ["100", "200"],
-      dueTimeInMs: 0,
-      healthCareService: '1'
-    };
-    formComponent.filterFields.setValue(data);
-    fixture.detectChanges();
-    spyOn(parentComponent, 'handleFormUpdate');
-    formComponent.submitForm();
-    expect(parentComponent.handleFormUpdate).toHaveBeenCalledWith(data);
-  });
-
   it(`should filter constants Map by string in the cities list`, function() {
     const map = new Map(Object.entries({
       0: 'test', 1: 'zest', 2: 'completelyDifferent', 3: 'TEST'
@@ -103,17 +91,6 @@ describe('FilterFormComponent', () => {
 
     expect(elementsBeforeFilter).toEqual(4);
     expect(elementsAfterFilter).toEqual(3);
-  });
-
-  it(`should receive cities list from parent via the cityList`, function() {
-    const parentFixture = TestBed.createComponent(TestComponent);
-    const formComponent = parentFixture.debugElement.query(By.css('vacgaps-filter-form')).componentInstance;
-    parentFixture.detectChanges();
-
-    expect(formComponent.citiesSelectList.size).toEqual(CITIES_LIST.size);
-    for (const [key, value] of CITIES_LIST.entries()) {
-      expect(value).toEqual(formComponent.citiesSelectList.get(key));
-    }
   });
 
   describe(`addCity`, function() {
@@ -143,14 +120,57 @@ describe('FilterFormComponent', () => {
   });
 
   it(`should submit the form on every form update`, function() {
-    spyOn(component.formSubmit, 'emit');
+    spyOn(component.formUpdate, 'emit');
     const formFieldsNames = [
       'cities', 'healthCareService', 'availableVaccines', 'dueTimeInMs',
     ];
     formFieldsNames.forEach(controlName => {
       component.filterFields.controls[controlName].setValue('new value');
     });
-    expect((component.formSubmit.emit as any).calls.count()).toEqual(formFieldsNames.length);
+    expect((component.formUpdate.emit as any).calls.count()).toEqual(formFieldsNames.length);
+  });
 
+  describe(`Integration tests`, function() {
+    let parentFixture: ComponentFixture<TestComponent>,
+      parentComponent: TestComponent, formComponent: FilterFormComponent;
+    beforeEach(function() {
+      parentFixture = TestBed.createComponent(TestComponent);
+      parentComponent = parentFixture.componentInstance;
+      formComponent = parentFixture.debugElement.query(By.css('vacgaps-filter-form')).componentInstance;
+      parentFixture.detectChanges();
+    });
+
+    it(`should output the form data to parent component`, function() {
+      const data: NotificationsFilter = {
+        availableVaccines: Math.round(Math.random()*100),
+        cities: ["100", "200"],
+        dueTimeInMs: 0,
+        healthCareService: '1'
+      };
+      formComponent.filterFields.setValue(data);
+      fixture.detectChanges();
+      spyOn(parentComponent, 'handleFormUpdate');
+      formComponent.submitForm();
+      expect(parentComponent.handleFormUpdate).toHaveBeenCalledWith(data);
+    });
+
+    it(`should receive cities list from parent via the cityList`, function() {
+      expect(formComponent.citiesSelectList.size).toEqual(CITIES_LIST.size);
+      for (const [key, value] of CITIES_LIST.entries()) {
+        expect(value).toEqual(formComponent.citiesSelectList.get(key));
+      }
+    });
+
+    it(`should output the form data to parent component on form update`, function() {
+      const data: NotificationsFilter = {
+        availableVaccines: Math.round(Math.random()*100),
+        cities: ["100", "200"],
+        dueTimeInMs: 0,
+        healthCareService: '1'
+      };
+      spyOn(parentComponent, 'handleFormValueUpdate');
+      formComponent.filterFields.setValue(data);
+      expect(parentComponent.handleFormValueUpdate).toHaveBeenCalledWith(data);
+    });
   });
 });

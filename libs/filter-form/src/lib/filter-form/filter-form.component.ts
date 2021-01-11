@@ -19,6 +19,10 @@ export class FilterFormComponent implements OnInit {
 
   @Output()
   formSubmit = new EventEmitter<NotificationsFilter>();
+
+  @Output()
+  formUpdate = new EventEmitter<NotificationsFilter>();
+
   selectedCities = new Set([]);
 
   @Input()
@@ -40,7 +44,7 @@ export class FilterFormComponent implements OnInit {
   ngOnInit(): void {
     if (!this.#cities) this.cityList = new Map(Object.entries(CITIES));
     this.filterFields.valueChanges.subscribe(() => {
-      this.submitForm();
+      this.formUpdate.emit(this.filterFields.getRawValue());
     });
   }
 
