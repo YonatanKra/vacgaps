@@ -39,6 +39,9 @@ export class FilterFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.#cities) this.cityList = new Map(Object.entries(CITIES));
+    this.filterFields.valueChanges.subscribe(() => {
+      this.submitForm();
+    });
   }
 
   submitForm() {
@@ -56,6 +59,7 @@ export class FilterFormComponent implements OnInit {
 
   addCity($event: MatAutocompleteSelectedEvent) {
     this.selectedCities.add($event.option.value);
+    this.filterFields.controls.cities.setValue([...this.selectedCities]);
     this.citiesFilterTerm = '';
   }
 }

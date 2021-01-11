@@ -1,4 +1,5 @@
 <form [formGroup]="filterFields" dir="rtl" (ngSubmit)="submitForm()">
+  {{filterFields.getRawValue() | json}}
   <div class="fields">
     <mat-form-field appearance="fill">
       <mat-label>יישוב</mat-label>
@@ -42,9 +43,9 @@
     </mat-form-field>
     -->
 
-    <mat-form-field appearance="fill">
+<!--    <mat-form-field appearance="fill">
       <mat-label>מספר חיסונים מינימלי</mat-label>
       <input type="number" matInput formControlName="availableVaccines">
-    </mat-form-field>
+    </mat-form-field>-->
   </div>
 </form>

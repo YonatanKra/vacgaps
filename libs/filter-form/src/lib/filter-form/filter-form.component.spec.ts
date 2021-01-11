@@ -130,6 +130,27 @@ describe('FilterFormComponent', () => {
       component.addCity({option: { value: '999'}} as unknown as MatAutocompleteSelectedEvent);
       expect(component.citiesFilterTerm).toEqual('');
     });
+
+    it(`should add the selected cities list to the form control`, function() {
+      const citiesListInFormBeforeAddition = component.filterFields.controls.cities.value;
+      component.addCity({option: { value: '999'}} as unknown as MatAutocompleteSelectedEvent);
+      component.addCity({option: { value: '0'}} as unknown as MatAutocompleteSelectedEvent);
+      const citiesListInFormAfterAddition = component.filterFields.controls.cities.value;
+      expect(citiesListInFormBeforeAddition).toEqual(jasmine.arrayWithExactContents([]));
+      expect(citiesListInFormAfterAddition).toEqual(jasmine.arrayWithExactContents(['999', '0']));
+
+    });
   });
 
+  it(`should submit the form on every form update`, function() {
+    spyOn(component.formSubmit, 'emit');
+    const formFieldsNames = [
+      'cities', 'healthCareService', 'availableVaccines', 'dueTimeInMs',
+    ];
+    formFieldsNames.forEach(controlName => {
+      component.filterFields.controls[controlName].setValue('new value');
+    });
+    expect((component.formSubmit.emit as any).calls.count()).toEqual(formFieldsNames.length);
+
+  });
 });
