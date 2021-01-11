@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FilterFormModule } from '@vacgaps/filter-form';
+import { ReportListPageModule } from './report-list-page/report-list-page.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { FilterFormModule } from '@vacgaps/filter-form';
     BrowserModule,
     RouterModule.forRoot([
         {
-          path: 'report-list-page',
+          path: '',
           loadChildren: () => import('./report-list-page/report-list-page.module').then(m => m.ReportListPageModule)
         },
         { path: 'login-page', loadChildren: () => import('./login-page/login-page.module').then(m => m.LoginPageModule) },
