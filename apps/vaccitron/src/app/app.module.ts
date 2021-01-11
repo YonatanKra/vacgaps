@@ -34,6 +34,7 @@ import { FbLoginModule } from './fb-login/fb-login.module';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    FbLoginModule,
     FormsModule,
     ReactiveFormsModule,
     MatSliderModule,
