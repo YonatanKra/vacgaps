@@ -3,7 +3,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FilterFormComponent } from './filter-form.component';
 import { NotificationsFilter } from '@vacgaps/interfaces';
 import { By } from '@angular/platform-browser';
-import { Component } from '@angular/core';
+import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
+import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const CITIES_LIST = new Map(Object.entries({
   0: '0',
@@ -27,7 +33,9 @@ describe('FilterFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FilterFormComponent, TestComponent ]
+      imports: [MatAutocompleteModule, MatSelectModule, MatButtonModule, MatFormFieldModule, MatInputModule, BrowserAnimationsModule],
+      declarations: [ FilterFormComponent, TestComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });
@@ -107,4 +115,21 @@ describe('FilterFormComponent', () => {
       expect(value).toEqual(formComponent.citiesSelectList.get(key));
     }
   });
+
+  describe(`addCity`, function() {
+    it(`should add city to selectedCities list`, function() {
+      const cityDoesntExistBeforeAddition = !component.selectedCities.has('999');
+      component.addCity({option: { value: '999'}} as unknown as MatAutocompleteSelectedEvent);
+      const cityExistsAfterAddition = component.selectedCities.has('999');
+      expect(cityDoesntExistBeforeAddition).toEqual(true);
+      expect(cityExistsAfterAddition).toEqual(true);
+    });
+
+    it(`should clear the autocomplete input`, function() {
+      component.citiesFilterTerm = 'some string';
+      component.addCity({option: { value: '999'}} as unknown as MatAutocompleteSelectedEvent);
+      expect(component.citiesFilterTerm).toEqual('');
+    });
+  });
+
 });

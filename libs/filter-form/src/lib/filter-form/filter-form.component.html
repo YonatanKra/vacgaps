@@ -1,1 +1,50 @@
-<p>filter-form works!</p>
+<form [formGroup]="filterFields" dir="rtl" (ngSubmit)="submitForm()">
+  <div class="fields">
+    <mat-form-field appearance="fill">
+      <mat-label>יישוב</mat-label>
+      <mat-chip-list #citiesChipList aria-label="בחירת יישובים">
+        <mat-chip
+          *ngFor="let city of selectedCities"
+          [selectable]="false"
+          [removable]="true"
+          (removed)="selectedCities.delete(city)">
+          {{cityList.get(city)}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input type="text"
+               [(ngModel)]="citiesFilterTerm"
+               [ngModelOptions]="{standalone: true}"
+               (keyup)="filterCities($event.target.value)"
+               matInput
+               [matAutocomplete]="citiesAutoComplete"
+               [matChipInputFor]="citiesChipList">
+      </mat-chip-list>
+      <mat-autocomplete (optionSelected)="addCity($event)" #citiesAutoComplete="matAutocomplete">
+        <mat-option *ngFor="let city of citiesSelectList | keyvalue" [value]="city.key">
+          {{city.value}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>קופת חולים</mat-label>
+      <mat-select matInput formControlName="healthCareService">
+        <mat-option *ngFor="let healthCareService of healthCareServices | keyvalue" value="healthCareService.key">
+          {{healthCareService.value}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--
+    <mat-form-field appearance="fill">
+      <mat-label>תוקף</mat-label>
+      <input type="datetime-local" matInput formControlName="dueTimeInMs">
+    </mat-form-field>
+    -->
+
+    <mat-form-field appearance="fill">
+      <mat-label>מספר חיסונים מינימלי</mat-label>
+      <input type="number" matInput formControlName="availableVaccines">
+    </mat-form-field>
+  </div>
+</form>

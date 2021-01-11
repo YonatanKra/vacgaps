@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NotificationsFilter } from '@vacgaps/interfaces';
-import { CITIES } from '@vacgaps/constants';
+import { CITIES, HEALTH_CARE_SERVICES } from '@vacgaps/constants';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'vacgaps-filter-form',
@@ -18,15 +19,21 @@ export class FilterFormComponent implements OnInit {
 
   @Output()
   formSubmit = new EventEmitter<NotificationsFilter>();
+  selectedCities = new Set([]);
 
   @Input()
   set cityList(citiesList: Map<string, string>) {
     this.#cities = citiesList;
-    this.filterCities(this.cityValue);
+    this.filterCities('');
   }
+  get cityList() {
+    return this.#cities;
+  }
+
   #cities: Map<string, string>;
   citiesSelectList: Map<string, string>;
-  cityValue = '';
+  healthCareServices = new Map(Object.entries(HEALTH_CARE_SERVICES));
+  citiesFilterTerm: string;
 
   constructor() { }
 
@@ -45,5 +52,10 @@ export class FilterFormComponent implements OnInit {
       if (value.toLowerCase().indexOf(term.toLowerCase()) === -1)
         this.citiesSelectList.delete(key);
     }
+  }
+
+  addCity($event: MatAutocompleteSelectedEvent) {
+    this.selectedCities.add($event.option.value);
+    this.citiesFilterTerm = '';
   }
 }

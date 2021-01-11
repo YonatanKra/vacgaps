@@ -17,6 +17,7 @@ import { FormComponent } from './user-details/form/form.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { FilterFormModule } from '@vacgaps/filter-form';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatSelectModule,
     MatInputModule,
     MatCheckboxModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    FilterFormModule
   ],
   providers: [],
   bootstrap: [AppComponent],
