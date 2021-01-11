@@ -2,10 +2,10 @@ project_name = "vacgaps"
 
 environment = "dev"
 
-location = "australiaeast"
+location = "centralus"
 
-publisher_name = "Contoso"
+publisher_name = "Erez"
 
-publisher_email = "example@contoso.com"
+publisher_email = "ereze2@gmail.com"
 
 build_id = "1"
