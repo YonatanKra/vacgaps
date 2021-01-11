@@ -7,14 +7,14 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 @Component({
   selector: 'vacgaps-filter-form',
   templateUrl: './filter-form.component.html',
-  styleUrls: ['./filter-form.component.scss']
+  styleUrls: ['./filter-form.component.scss'],
 })
 export class FilterFormComponent implements OnInit {
   filterFields = new FormGroup({
-    'availableVaccines': new FormControl('', []),
-    'cities': new FormControl([], []),
-    'dueTimeInMs': new FormControl(NaN, []),
-    'healthCareService': new FormControl(NaN, [])
+    availableVaccines: new FormControl('', []),
+    cities: new FormControl([], []),
+    dueTimeInMs: new FormControl(NaN, []),
+    healthCareService: new FormControl(NaN, []),
   });
 
   @Output()
@@ -39,7 +39,7 @@ export class FilterFormComponent implements OnInit {
   healthCareServices = new Map(Object.entries(HEALTH_CARE_SERVICES));
   citiesFilterTerm: string;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     if (!this.#cities) this.cityList = new Map(Object.entries(CITIES));

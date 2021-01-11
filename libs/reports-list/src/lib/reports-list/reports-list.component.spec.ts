@@ -1,4 +1,10 @@
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  flush,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 
 import { ReportsListComponent } from './reports-list.component';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -8,7 +14,6 @@ import { CITIES_TYPE, HEALTH_CARE_SERVICES_TYPE } from '@vacgaps/constants';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatListModule } from '@angular/material/list';
 import { animationFrameScheduler } from 'rxjs';
-
 
 /** Finish initializing the virtual scroll component at the beginning of a test. */
 function finishInit(fixture: ComponentFixture<any>) {
@@ -30,21 +35,23 @@ const REPORTS_LIST_MOCK: VaccinesReport[] = [
   {
     city: '100',
     healthCareService: '1',
-    address: 'Marom 12, Modiin'
-  }
+    address: 'Marom 12, Modiin',
+  },
 ];
 
 export class VaccineReportItem implements VaccinesReport {
-  constructor(public address: string = 'some default address',
-              public city: CITIES_TYPE[number] = "100",
-              public healthCareService: HEALTH_CARE_SERVICES_TYPE[number] = "2") {
-  }
+  constructor(
+    public address: string = 'some default address',
+    public city: CITIES_TYPE[number] = '100',
+    public healthCareService: HEALTH_CARE_SERVICES_TYPE[number] = '2'
+  ) {}
 }
 
 @Component({
   selector: 'test-component',
-  template: `
-    <vacgaps-reports-list [reportsList]="list"></vacgaps-reports-list>`
+  template: ` <vacgaps-reports-list
+    [reportsList]="list"
+  ></vacgaps-reports-list>`,
 })
 class TestComponent {
   list: VaccinesReport[] = REPORTS_LIST_MOCK;
@@ -58,9 +65,8 @@ describe('ReportsListComponent', () => {
     await TestBed.configureTestingModule({
       imports: [MatListModule, ScrollingModule],
       declarations: [ReportsListComponent, TestComponent],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-      .compileComponents();
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -72,22 +78,25 @@ describe('ReportsListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe(`integration`, function() {
+  describe(`integration`, function () {
     let parentFixture: ComponentFixture<TestComponent>,
-      parentComponent: TestComponent, reportsListComponent: ReportsListComponent;
-    beforeEach(function() {
+      parentComponent: TestComponent,
+      reportsListComponent: ReportsListComponent;
+    beforeEach(function () {
       parentFixture = TestBed.createComponent(TestComponent);
       parentComponent = parentFixture.componentInstance;
-      reportsListComponent = parentFixture.debugElement.query(By.css('vacgaps-reports-list')).componentInstance;
+      reportsListComponent = parentFixture.debugElement.query(
+        By.css('vacgaps-reports-list')
+      ).componentInstance;
       parentFixture.detectChanges();
     });
-    it(`should get a list of vaccineReports from parent`, function() {
+    it(`should get a list of vaccineReports from parent`, function () {
       expect(reportsListComponent.reportsList).toEqual(REPORTS_LIST_MOCK);
     });
   });
 
-  describe(`list view`, function() {
-    it(`should show listItems according to list size`,  fakeAsync(() => {
+  describe(`list view`, function () {
+    it(`should show listItems according to list size`, fakeAsync(() => {
       finishInit(fixture);
       component.reportsList = [
         new VaccineReportItem(),
@@ -96,8 +105,10 @@ describe('ReportsListComponent', () => {
         new VaccineReportItem(),
       ];
       fixture.detectChanges();
-      expect(fixture.debugElement.queryAll(By.css('vacgaps-reports-list-item')).length).toEqual(component.reportsList.length);
+      expect(
+        fixture.debugElement.queryAll(By.css('vacgaps-reports-list-item'))
+          .length
+      ).toEqual(component.reportsList.length);
     }));
   });
-
 });

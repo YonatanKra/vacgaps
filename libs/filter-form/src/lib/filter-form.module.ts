@@ -21,10 +21,9 @@ import { MatIconModule } from '@angular/material/icon';
     MatAutocompleteModule,
     MatSelectModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
   ],
   declarations: [FilterFormComponent],
-  exports: [FilterFormComponent]
+  exports: [FilterFormComponent],
 })
-export class FilterFormModule {
-}
+export class FilterFormModule {}

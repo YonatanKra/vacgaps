@@ -20,20 +20,28 @@ import { FilterFormModule } from '@vacgaps/filter-form';
 import { ReportListPageModule } from './report-list-page/report-list-page.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AppHeaderComponent
-  ],
+  declarations: [AppComponent, AppHeaderComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([
+    RouterModule.forRoot(
+      [
         {
           path: '',
-          loadChildren: () => import('./report-list-page/report-list-page.module').then(m => m.ReportListPageModule)
+          loadChildren: () =>
+            import('./report-list-page/report-list-page.module').then(
+              (m) => m.ReportListPageModule
+            ),
         },
-        { path: 'login-page', loadChildren: () => import('./login-page/login-page.module').then(m => m.LoginPageModule) },
+        {
+          path: 'login-page',
+          loadChildren: () =>
+            import('./login-page/login-page.module').then(
+              (m) => m.LoginPageModule
+            ),
+        },
       ],
-      { initialNavigation: 'enabled' }),
+      { initialNavigation: 'enabled' }
+    ),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
@@ -46,10 +54,9 @@ import { ReportListPageModule } from './report-list-page/report-list-page.module
     MatInputModule,
     MatCheckboxModule,
     MatAutocompleteModule,
-    FilterFormModule
+    FilterFormModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

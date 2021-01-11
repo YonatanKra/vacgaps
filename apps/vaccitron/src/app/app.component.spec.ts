@@ -11,7 +11,7 @@ describe('AppComponent', () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule],
       declarations: [AppComponent, AppHeaderComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
     fixture = TestBed.createComponent(AppComponent);
   });
@@ -21,7 +21,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have app name as Friends to Vaccines`, function() {
-    expect(fixture.componentInstance.name).toEqual( "Friends to Vaccines");
+  it(`should have app name as Friends to Vaccines`, function () {
+    expect(fixture.componentInstance.name).toEqual('Friends to Vaccines');
   });
 });

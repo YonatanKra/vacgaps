@@ -15,8 +15,9 @@ const REPORT_MOCK_ITEM = new VaccineReportItem();
 
 @Component({
   selector: 'test-component',
-  template: `
-    <vacgaps-reports-list-item [reportItem]="item"></vacgaps-reports-list-item>`
+  template: ` <vacgaps-reports-list-item
+    [reportItem]="item"
+  ></vacgaps-reports-list-item>`,
 })
 class TestComponent {
   item: VaccinesReport = REPORT_MOCK_ITEM;
@@ -27,9 +28,8 @@ describe('ReportsListItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ReportsListItemComponent, TestComponent ]
-    })
-    .compileComponents();
+      declarations: [ReportsListItemComponent, TestComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -42,29 +42,33 @@ describe('ReportsListItemComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe(`integration`, function() {
+  describe(`integration`, function () {
     let parentFixture: ComponentFixture<TestComponent>,
-      parentComponent: TestComponent, reportsListComponent: ReportsListItemComponent;
+      parentComponent: TestComponent,
+      reportsListComponent: ReportsListItemComponent;
 
-    beforeEach(function() {
+    beforeEach(function () {
       parentFixture = TestBed.createComponent(TestComponent);
       parentComponent = parentFixture.componentInstance;
-      reportsListComponent = parentFixture.debugElement.query(By.css('vacgaps-reports-list-item')).componentInstance;
+      reportsListComponent = parentFixture.debugElement.query(
+        By.css('vacgaps-reports-list-item')
+      ).componentInstance;
       parentFixture.detectChanges();
     });
-    it(`should accept an item from parent`, function() {
+    it(`should accept an item from parent`, function () {
       expect(reportsListComponent.reportItem).toEqual(REPORT_MOCK_ITEM);
     });
   });
 
-  it(`should get a string value for healthServiceProvider`, function() {
-    const report = component.reportItem = new VaccineReportItem();
-    expect(component.healthCareService).toEqual(HEALTH_CARE_SERVICES[report.healthCareService]);
+  it(`should get a string value for healthServiceProvider`, function () {
+    const report = (component.reportItem = new VaccineReportItem());
+    expect(component.healthCareService).toEqual(
+      HEALTH_CARE_SERVICES[report.healthCareService]
+    );
   });
 
-  it(`should get a string value for city`, function() {
-    const report = component.reportItem = new VaccineReportItem();
+  it(`should get a string value for city`, function () {
+    const report = (component.reportItem = new VaccineReportItem());
     expect(component.city).toEqual(CITIES[report.city]);
   });
-
 });

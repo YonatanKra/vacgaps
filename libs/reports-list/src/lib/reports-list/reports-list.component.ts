@@ -4,7 +4,7 @@ import { VaccinesReport } from '@vacgaps/interfaces';
 @Component({
   selector: 'vacgaps-reports-list',
   templateUrl: './reports-list.component.html',
-  styleUrls: ['./reports-list.component.scss']
+  styleUrls: ['./reports-list.component.scss'],
 })
 export class ReportsListComponent implements OnInit {
   @Input()
@@ -13,5 +13,4 @@ export class ReportsListComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
-
 }

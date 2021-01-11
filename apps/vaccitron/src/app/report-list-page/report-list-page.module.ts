@@ -5,9 +5,7 @@ import { ReportListPageComponent } from './report-list-page.component';
 import { FilterFormModule } from '@vacgaps/filter-form';
 import { ReportsListModule } from '@vacgaps/reports-list';
 
-const routes: Routes = [
-  { path: '', component: ReportListPageComponent }
-];
+const routes: Routes = [{ path: '', component: ReportListPageComponent }];
 
 @NgModule({
   declarations: [ReportListPageComponent],
@@ -15,7 +13,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     FilterFormModule,
-    ReportsListModule
-  ]
+    ReportsListModule,
+  ],
 })
-export class ReportListPageModule { }
+export class ReportListPageModule {}

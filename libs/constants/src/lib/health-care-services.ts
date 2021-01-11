@@ -1,8 +1,8 @@
 export const HEALTH_CARE_SERVICES = {
-  0: "כללית",
-  1: "מאוחדת",
-  2: "מכבי",
-  3: "לאומית",
+  0: 'כללית',
+  1: 'מאוחדת',
+  2: 'מכבי',
+  3: 'לאומית',
 };
 
 const healthCareServicesKeys = Object.keys(HEALTH_CARE_SERVICES);
