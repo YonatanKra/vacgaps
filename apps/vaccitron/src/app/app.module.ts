@@ -18,6 +18,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FilterFormModule } from '@vacgaps/filter-form';
 import { ReportListPageModule } from './report-list-page/report-list-page.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent, AppHeaderComponent],
@@ -54,7 +56,8 @@ import { ReportListPageModule } from './report-list-page/report-list-page.module
     MatInputModule,
     MatCheckboxModule,
     MatAutocompleteModule,
-    FilterFormModule,
+	FilterFormModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent],

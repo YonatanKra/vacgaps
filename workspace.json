@@ -18,7 +18,8 @@
             "aot": true,
             "assets": [
               "apps/vaccitron/src/favicon.ico",
-              "apps/vaccitron/src/assets"
+              "apps/vaccitron/src/assets",
+              "apps/vaccitron/src/manifest.webmanifest"
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
@@ -52,7 +53,9 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "serviceWorker": true,
+              "ngswConfigPath": "apps/vaccitron/ngsw-config.json"
             }
           }
         },
@@ -95,7 +98,9 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
             ],
             "scripts": [],
-            "assets": []
+            "assets": [
+              "apps/vaccitron/src/manifest.webmanifest"
+            ]
           }
         }
       }
