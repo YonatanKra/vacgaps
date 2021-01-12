@@ -40,7 +40,7 @@
       <mat-select matInput formControlName="healthCareService">
         <mat-option
           *ngFor="let healthCareService of healthCareServices | keyvalue"
-          value="healthCareService.key"
+          value="{{healthCareService.key}}"
         >
           {{ healthCareService.value }}
         </mat-option>
