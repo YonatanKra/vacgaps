@@ -84,7 +84,10 @@
               "apps/vaccitron/tsconfig.spec.json",
               "apps/vaccitron/tsconfig.editor.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/vaccitron/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/vaccitron/**/*"
+            ]
           }
         },
         "test": {
@@ -126,8 +129,13 @@
         "lint": {
           "executor": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/vaccitron-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/vaccitron-e2e/**/*"]
+            "tsConfig": [
+              "apps/vaccitron-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/vaccitron-e2e/**/*"
+            ]
           }
         }
       }
@@ -140,12 +148,16 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/constants/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/constants/**/*.ts"
+            ]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/constants"],
+          "outputs": [
+            "coverage/libs/constants"
+          ],
           "options": {
             "jestConfig": "libs/constants/jest.config.js",
             "passWithNoTests": true
@@ -161,7 +173,9 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/interfaces/**/*.ts"]
+            "lintFilePatterns": [
+              "libs/interfaces/**/*.ts"
+            ]
           }
         }
       }
@@ -179,7 +193,10 @@
               "libs/filter-form/tsconfig.lib.json",
               "libs/filter-form/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/filter-form/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/filter-form/**/*"
+            ]
           }
         },
         "test": {
@@ -205,7 +222,10 @@
               "libs/reports-list/tsconfig.lib.json",
               "libs/reports-list/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!libs/reports-list/**/*"]
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/reports-list/**/*"
+            ]
           }
         },
         "test": {
@@ -214,6 +234,37 @@
             "main": "libs/reports-list/src/test.ts",
             "tsConfig": "libs/reports-list/tsconfig.spec.json",
             "karmaConfig": "libs/reports-list/karma.conf.js"
+          }
+        }
+      }
+    },
+    "vaccines-reporter": {
+      "projectType": "library",
+      "root": "libs/vaccines-reporter",
+      "sourceRoot": "libs/vaccines-reporter/src",
+      "prefix": "vacgaps",
+      "targets": {
+        "lint": {
+          "executor": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/vaccines-reporter/tsconfig.lib.json",
+              "libs/vaccines-reporter/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/vaccines-reporter/**/*"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/vaccines-reporter"
+          ],
+          "options": {
+            "jestConfig": "libs/vaccines-reporter/jest.config.js",
+            "passWithNoTests": true
           }
         }
       }

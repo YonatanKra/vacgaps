@@ -18,7 +18,8 @@
       "@vacgaps/constants": ["libs/constants/src/index.ts"],
       "@vacgaps/interfaces": ["libs/interfaces/src/index.ts"],
       "@vacgaps/filter-form": ["libs/filter-form/src/index.ts"],
-      "@vacgaps/reports-list": ["libs/reports-list/src/index.ts"]
+      "@vacgaps/reports-list": ["libs/reports-list/src/index.ts"],
+      "@vacgaps/vaccines-reporter": ["libs/vaccines-reporter/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
