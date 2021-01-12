@@ -338,10 +338,10 @@ resource "azurerm_api_management_logger" "logger" {
 
 # API Management Diagnostic
 resource "azurerm_api_management_diagnostic" "diagnostic" {
-  identifier          = "applicationinsights"
-  resource_group_name = data.azurerm_resource_group.rg.name
-  api_management_name = azurerm_api_management.apim.name
-  api_management_logger_id =  azurerm_api_management_logger.logger.id 
+  identifier               = "applicationinsights"
+  resource_group_name      = data.azurerm_resource_group.rg.name
+  api_management_name      = azurerm_api_management.apim.name
+  api_management_logger_id = azurerm_api_management_logger.logger.id
 }
 
 # API Management Backend
@@ -464,10 +464,10 @@ resource "azurerm_api_management_api_operation" "test_create" {
   display_name        = "Create Test"
   method              = "POST"
   url_template        = "/{patientId}/tests"
-  template_parameter  {
-    name  = "patientId"
+  template_parameter {
+    name     = "patientId"
     required = true
-    type = "guid"
+    type     = "guid"
   }
 }
 
@@ -479,21 +479,21 @@ resource "azurerm_api_management_api_operation" "tests_load" {
   display_name        = "Load Tests"
   method              = "GET"
   url_template        = "/{patientId}/tests/*"
-  template_parameter  {
-    name  = "patientId"
+  template_parameter {
+    name     = "patientId"
     required = true
-    type = "guid"
+    type     = "guid"
   }
 }
 
 # Key Vault
 resource "azurerm_key_vault" "kv" {
-  name                        = "${var.project_name}-kv-${var.environment}"
-  resource_group_name         = data.azurerm_resource_group.rg.name
-  location                    = var.location
-  tenant_id                   = data.azurerm_client_config.current.tenant_id
-  soft_delete_enabled         = true
-  purge_protection_enabled    = false
+  name                     = "${var.project_name}-kv-${var.environment}"
+  resource_group_name      = data.azurerm_resource_group.rg.name
+  location                 = var.location
+  tenant_id                = data.azurerm_client_config.current.tenant_id
+  soft_delete_enabled      = true
+  purge_protection_enabled = false
 
   sku_name = "standard"
 }
@@ -507,7 +507,8 @@ resource "azurerm_key_vault_access_policy" "sp" {
   secret_permissions = [
     "delete",
     "get",
-    "set"
+    "set",
+    "purge"
   ]
 }
 
