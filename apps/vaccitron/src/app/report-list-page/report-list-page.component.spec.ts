@@ -118,4 +118,14 @@ describe('ReportListPageComponent', () => {
       },
     ])
   });
+
+  it(`should return data with all cities if got an empty cities filter`, function() {
+    component.reportsList = MOCK_REPORTS.map(value => { value.healthCareService = "1"; return value; });
+    const notificationsFilter: NotificationsFilter = {
+      cities: [],
+      healthCareService: "1"
+    };
+    component.updateFilter(notificationsFilter);
+    expect(component.filteredReportsList).toEqual(MOCK_REPORTS.map(value => { value.healthCareService = "1"; return value; }));
+  });
 });

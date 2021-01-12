@@ -217,11 +217,19 @@ describe('FilterFormComponent', () => {
   });
 
   it(`should emit a form update on city removal from the list`, function() {
-    component.addCity(({
-      option: { value: '999' },
-    } as unknown) as MatAutocompleteSelectedEvent);
+    component.filterFields.setValue({
+      availableVaccines: 13,
+      cities: ["999"],
+      dueTimeInMs: 50,
+      healthCareService: "1"
+    });
     spyOn(component.formUpdate, 'emit');
     component.removeCity('999');
-    expect(component.formUpdate.emit).toHaveBeenCalledWith(component.filterFields.getRawValue());
+    expect(component.formUpdate.emit).toHaveBeenCalledWith({
+      availableVaccines: 13,
+      cities: [],
+      dueTimeInMs: 50,
+      healthCareService: "1"
+    });
   });
 });

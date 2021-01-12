@@ -53,7 +53,7 @@ export class ReportListPageComponent implements OnInit {
   filterList(notificationsFilter: NotificationsFilter): VaccinesReport[] {
     return this.reportsList?.filter(report => {
       return (!notificationsFilter.healthCareService || report.healthCareService === notificationsFilter.healthCareService)
-      && (!notificationsFilter.cities || notificationsFilter.cities.includes(report.city))
+      && (!notificationsFilter.cities?.length || notificationsFilter.cities.includes(report.city))
       // TODO::add the time filter according to how it is supposed to be sent from the server (don't forget to update the interface)
     });
   }
