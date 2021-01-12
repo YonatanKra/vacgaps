@@ -6,6 +6,10 @@ import { NotificationsFilter, VaccinesReport } from '@vacgaps/interfaces';
 import { By } from '@angular/platform-browser';
 import { FilterFormModule } from '@vacgaps/filter-form';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { VaccinesReportsService } from '@vacgaps/vaccines-reporter';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+
+import { environment } from '../../environments/environment';
 
 const MOCK_REPORTS = [
   {
@@ -50,7 +54,8 @@ describe('ReportListPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FilterFormModule, NoopAnimationsModule],
+      providers: [VaccinesReportsService],
+      imports: [FilterFormModule, NoopAnimationsModule, HttpClientTestingModule],
       declarations: [ReportListPageComponent, TestComponent],
       schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
@@ -127,5 +132,14 @@ describe('ReportListPageComponent', () => {
     };
     component.updateFilter(notificationsFilter);
     expect(component.filteredReportsList).toEqual(MOCK_REPORTS.map(value => { value.healthCareService = "1"; return value; }));
+  });
+
+  it(`should query the server according to environment for reports on load`, function() {
+    const httpTestingController = TestBed.inject(HttpTestingController);
+    const vaccinesReportsService = TestBed.inject(VaccinesReportsService);
+
+    component.ngOnInit();
+    const request = httpTestingController.match();
+
   });
 });

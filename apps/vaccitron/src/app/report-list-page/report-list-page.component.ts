@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NotificationsFilter, VaccinesReport } from '@vacgaps/interfaces';
+import { VaccinesReportsService } from '@vacgaps/vaccines-reporter';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'vacgaps-report-list-page',
@@ -36,6 +38,8 @@ export class ReportListPageComponent implements OnInit {
     }
   ];
 
+  $vaccineReports = new Subject<VaccinesReport[]>();
+
   get filteredReportsList(): VaccinesReport[] {
     return this.filterList(this.#currentFilter);
   }
@@ -46,9 +50,11 @@ export class ReportListPageComponent implements OnInit {
     this.#currentFilter = newFilter;
   }
 
-  constructor() {}
+  constructor(private vaccinesReportsService: VaccinesReportsService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.vaccinesReportsService.getVaccinesReports('');
+  }
 
   filterList(notificationsFilter: NotificationsFilter): VaccinesReport[] {
     return this.reportsList?.filter(report => {
