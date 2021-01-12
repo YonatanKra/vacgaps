@@ -7,5 +7,5 @@ import { CITIES } from '@vacgaps/constants';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  name = 'Friends to Vaccines';
+  name = 'חברים לחיסונים';
 }
