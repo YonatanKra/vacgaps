@@ -14,7 +14,7 @@ export class ReportListPageComponent implements OnInit {
     return this.filterList(this.#currentFilter);
   }
 
-  #currentFilter: NotificationsFilter;
+  #currentFilter: NotificationsFilter = { healthCareService: '' };
 
   updateFilter(newFilter: NotificationsFilter) {
     this.#currentFilter = newFilter;
