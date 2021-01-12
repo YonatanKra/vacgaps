@@ -7,7 +7,7 @@
           *ngFor="let city of selectedCities"
           [selectable]="false"
           [removable]="true"
-          (removed)="selectedCities.delete(city)"
+          (removed)="removeCity(city)"
         >
           {{ cityList.get(city) }}
           <mat-icon matChipRemove>cancel</mat-icon>

@@ -215,4 +215,13 @@ describe('FilterFormComponent', () => {
       expect(parentComponent.handleFormValueUpdate).toHaveBeenCalledWith(data);
     });
   });
+
+  it(`should emit a form update on city removal from the list`, function() {
+    component.addCity(({
+      option: { value: '999' },
+    } as unknown) as MatAutocompleteSelectedEvent);
+    spyOn(component.formUpdate, 'emit');
+    component.removeCity('999');
+    expect(component.formUpdate.emit).toHaveBeenCalledWith(component.filterFields.getRawValue());
+  });
 });

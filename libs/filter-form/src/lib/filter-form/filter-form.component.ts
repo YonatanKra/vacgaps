@@ -66,4 +66,9 @@ export class FilterFormComponent implements OnInit {
     this.filterFields.controls.cities.setValue([...this.selectedCities]);
     this.citiesFilterTerm = '';
   }
+
+  removeCity(city: string) {
+    this.selectedCities.delete(city)
+    this.formUpdate.emit(this.filterFields.getRawValue());
+  }
 }
