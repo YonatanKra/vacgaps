@@ -17,5 +17,3 @@ export interface VaccinesReport {
   reporter: string;
   availableVaccines?: number;
 }
-
-const x: VaccinesReport = { address: '', branchName: '', city: '', healthCareService: '', reporter: '', updateTime: 0 };
