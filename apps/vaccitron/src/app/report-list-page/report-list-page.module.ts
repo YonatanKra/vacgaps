@@ -5,6 +5,7 @@ import { ReportListPageComponent } from './report-list-page.component';
 import { FilterFormModule } from '@vacgaps/filter-form';
 import { ReportsListModule } from '@vacgaps/reports-list';
 import { VaccinesReportsService } from '@vacgaps/vaccines-reporter';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [{ path: '', component: ReportListPageComponent }];
 
@@ -13,6 +14,7 @@ const routes: Routes = [{ path: '', component: ReportListPageComponent }];
   declarations: [ReportListPageComponent],
   imports: [
     CommonModule,
+    HttpClientModule,
     RouterModule.forChild(routes),
     FilterFormModule,
     ReportsListModule,

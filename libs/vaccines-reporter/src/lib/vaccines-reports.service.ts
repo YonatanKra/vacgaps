@@ -12,7 +12,7 @@ export class VaccinesReportsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getVaccinesReports(url: string, pollingInterval: number = 5 * 60 * 1000): Observable<VaccinesReport[]> {
+  getVaccinesReports(url: string): Observable<VaccinesReport[]> {
     return this.vaccinesReports[url] || (this.vaccinesReports[url] = this.request(url));
   }
 

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  vaccinesDataUrl: '../../assets/demo-data.json'
+  vaccinesDataUrl: '../../assets/demo-data.json',
+  reportsQueryInterval: 5000
 };
 
 /*
