@@ -84,10 +84,7 @@
               "apps/vaccitron/tsconfig.spec.json",
               "apps/vaccitron/tsconfig.editor.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/vaccitron/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/vaccitron/**/*"]
           }
         },
         "test": {
@@ -129,13 +126,8 @@
         "lint": {
           "executor": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/vaccitron-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/vaccitron-e2e/**/*"
-            ]
+            "tsConfig": ["apps/vaccitron-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/vaccitron-e2e/**/*"]
           }
         }
       }
@@ -148,16 +140,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/constants/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/constants/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/constants"
-          ],
+          "outputs": ["coverage/libs/constants"],
           "options": {
             "jestConfig": "libs/constants/jest.config.js",
             "passWithNoTests": true
@@ -173,9 +161,59 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/interfaces/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/interfaces/**/*.ts"]
+          }
+        }
+      }
+    },
+    "filter-form": {
+      "projectType": "library",
+      "root": "libs/filter-form",
+      "sourceRoot": "libs/filter-form/src",
+      "prefix": "vacgaps",
+      "targets": {
+        "lint": {
+          "executor": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/filter-form/tsconfig.lib.json",
+              "libs/filter-form/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/filter-form/**/*"]
+          }
+        },
+        "test": {
+          "executor": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/filter-form/src/test.ts",
+            "tsConfig": "libs/filter-form/tsconfig.spec.json",
+            "karmaConfig": "libs/filter-form/karma.conf.js"
+          }
+        }
+      }
+    },
+    "reports-list": {
+      "projectType": "library",
+      "root": "libs/reports-list",
+      "sourceRoot": "libs/reports-list/src",
+      "prefix": "vacgaps",
+      "targets": {
+        "lint": {
+          "executor": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/reports-list/tsconfig.lib.json",
+              "libs/reports-list/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/reports-list/**/*"]
+          }
+        },
+        "test": {
+          "executor": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/reports-list/src/test.ts",
+            "tsConfig": "libs/reports-list/tsconfig.spec.json",
+            "karmaConfig": "libs/reports-list/karma.conf.js"
           }
         }
       }
