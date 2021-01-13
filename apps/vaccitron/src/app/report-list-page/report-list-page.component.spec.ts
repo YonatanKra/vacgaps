@@ -7,37 +7,10 @@ import { By } from '@angular/platform-browser';
 import { FilterFormModule } from '@vacgaps/filter-form';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { VaccinesReportsService } from '@vacgaps/vaccines-reporter';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { environment } from '../../environments/environment';
+const MOCK_REPORTS = require('../../assets/demo-data.json');
 
-const MOCK_REPORTS = [
-  {
-    city: '100',
-    healthCareService: '1',
-    address: 'שרה אמנו 39'
-  },
-  {
-    city: '1001',
-    healthCareService: '2',
-    address: 'שרה אמנו 39'
-  },
-  {
-    city: '530',
-    healthCareService: '0',
-    address: 'שרה אמנו 39'
-  },
-  {
-    city: '2379',
-    healthCareService: '3',
-    address: 'שרה אמנו 39'
-  },
-  {
-    city: '110',
-    healthCareService: '1',
-    address: 'שרה אמנו 39'
-  }
-];
 @Component({
   selector: 'test-component',
   template: `<vacgaps-report-list-page

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  vaccinesDataUrl: 'fakeUrl'
+  vaccinesDataUrl: '../../assets/demo-data.json'
 };
 
 /*
