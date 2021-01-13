@@ -3,7 +3,6 @@ import {
   fakeAsync,
   flush,
   TestBed,
-  tick,
 } from '@angular/core/testing';
 
 import { ReportsListComponent } from './reports-list.component';
@@ -36,6 +35,9 @@ const REPORTS_LIST_MOCK: VaccinesReport[] = [
     city: '100',
     healthCareService: '1',
     address: 'Marom 12, Modiin',
+    "branchName": "wat",
+    "reporter": 'ww',
+    "updateTime": 5
   },
 ];
 
@@ -43,9 +45,13 @@ export class VaccineReportItem implements VaccinesReport {
   constructor(
     public address: string = 'some default address',
     public city: CITIES_TYPE[number] = '100',
-    public healthCareService: HEALTH_CARE_SERVICES_TYPE[number] = '2'
+    public healthCareService: HEALTH_CARE_SERVICES_TYPE[number] = '2',
+    public branchName = "wat",
+    public reporter = "ww",
+    public updateTime = 5
   ) {}
 }
+
 
 @Component({
   selector: 'test-component',
