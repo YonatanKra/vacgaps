@@ -26,12 +26,9 @@ export class FbLoginComponent implements OnInit {
     this.authService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
-      if (!this.loggedIn) {
-        this.signInWithFB();
-      }
     });
   }
-  
+
   refreshToken(): void {
     this.authService.refreshAuthToken(FacebookLoginProvider.PROVIDER_ID);
   }
