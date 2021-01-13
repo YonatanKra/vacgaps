@@ -38,6 +38,12 @@
     },
     "interfaces": {
       "tags": []
+    },
+    "filter-form": {
+      "tags": []
+    },
+    "reports-list": {
+      "tags": []
     }
   }
 }

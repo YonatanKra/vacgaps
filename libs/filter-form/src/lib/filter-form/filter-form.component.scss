@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-content: space-between;
+}
+
+.fields {
+  text-align: center;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+mat-form-field {
+  margin: 0 1em;
+}

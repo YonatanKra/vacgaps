@@ -1,0 +1,14 @@
+<mat-list dense role="list">
+  <cdk-virtual-scroll-viewport
+    [itemSize]="50"
+    minBufferPx="200"
+    maxBufferPx="400"
+    class="viewport"
+  >
+    <mat-list-item *cdkVirtualFor="let report of reportsList">
+      <vacgaps-reports-list-item
+        [reportItem]="report"
+      ></vacgaps-reports-list-item>
+    </mat-list-item>
+  </cdk-virtual-scroll-viewport>
+</mat-list>
