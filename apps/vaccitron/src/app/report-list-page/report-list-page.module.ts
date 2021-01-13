@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { ReportListPageComponent } from './report-list-page.component';
 import { FilterFormModule } from '@vacgaps/filter-form';
 import { ReportsListModule } from '@vacgaps/reports-list';
-import { FbLoginModule } from '../fb-login/fb-login.module';
+import { FbLoginModule } from '../auth/fb-login/fb-login.module';
 
 const routes: Routes = [{ path: '', component: ReportListPageComponent }];
 

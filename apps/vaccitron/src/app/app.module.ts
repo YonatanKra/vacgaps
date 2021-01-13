@@ -20,6 +20,7 @@ import { FilterFormModule } from '@vacgaps/filter-form';
 import { ReportListPageModule } from './report-list-page/report-list-page.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { LoggedInGuard } from './auth/logged-in-guard/logged-in-guard'
 
 @NgModule({
   declarations: [AppComponent, AppHeaderComponent],
@@ -33,11 +34,12 @@ import { environment } from '../environments/environment';
             import('./report-list-page/report-list-page.module').then(
               (m) => m.ReportListPageModule
             ),
+          canActivate: [LoggedInGuard]
         },
         {
           path: 'login-page',
           loadChildren: () =>
-            import('./login-page/login-page.module').then(
+            import('./auth/login-page/login-page.module').then(
               (m) => m.LoginPageModule
             ),
         },
@@ -56,7 +58,7 @@ import { environment } from '../environments/environment';
     MatInputModule,
     MatCheckboxModule,
     MatAutocompleteModule,
-	FilterFormModule,
+    FilterFormModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],

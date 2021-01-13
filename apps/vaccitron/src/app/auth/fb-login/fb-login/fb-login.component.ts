@@ -10,7 +10,7 @@ import { FacebookLoginProvider, SocialAuthService, SocialUser } from "angularx-s
 export class FbLoginComponent implements OnInit {
 
   user: SocialUser;
-  loggedIn: boolean;
+  isLoggedIn: boolean;
 
   constructor(private authService: SocialAuthService) { }
 
@@ -25,7 +25,7 @@ export class FbLoginComponent implements OnInit {
   ngOnInit(): void {
     this.authService.authState.subscribe((user) => {
       this.user = user;
-      this.loggedIn = (user != null);
+      this.isLoggedIn = (user != null);
     });
   }
 
