@@ -19,7 +19,12 @@
             "assets": [
               "apps/vaccitron/src/favicon.ico",
               "apps/vaccitron/src/assets",
-              "apps/vaccitron/src/manifest.webmanifest"
+              "apps/vaccitron/src/manifest.webmanifest",
+              {
+                "glob": "**/*",
+                "input": "libs/reports-list/src/assets/",
+                "output": "./assets/"
+              }
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
