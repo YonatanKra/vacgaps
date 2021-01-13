@@ -124,7 +124,7 @@ describe('ReportListPageComponent', () => {
     });
   });
 
-  it(`should query the server every ${environment.reportsQueryInterval} ms`, fakeAsync(function() {
+  it(`should query the server every ${environment.reportsQueryIntervalInMs} ms`, fakeAsync(function() {
     fixture.detectChanges();
     const fakeReportLists = [
       [{list1: 'data'}] as unknown as VaccinesReport[],
@@ -136,7 +136,7 @@ describe('ReportListPageComponent', () => {
     let iteration = 0;
     spyOn(vaccinesReportsService, 'getVaccinesReports').and.callFake(() => of(fakeReportLists[iteration]));
     fakeReportLists.forEach(fakeReport => {
-      tick(environment.reportsQueryInterval);
+      tick(environment.reportsQueryIntervalInMs);
       expect(component.reportsList).toEqual(fakeReport);
       iteration++;
     });
@@ -148,7 +148,7 @@ describe('ReportListPageComponent', () => {
     fixture.detectChanges();
     component.ngOnDestroy();
     const getUpdateSpy = spyOn(component, 'getUpdate');
-    tick(environment.reportsQueryInterval);
+    tick(environment.reportsQueryIntervalInMs);
     expect(getUpdateSpy.calls.count()).toEqual(0);
   }));
 });

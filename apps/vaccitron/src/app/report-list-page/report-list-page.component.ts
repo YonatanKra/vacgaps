@@ -29,7 +29,7 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getUpdate();
-    interval(environment.reportsQueryInterval)
+    interval(environment.reportsQueryIntervalInMs)
       .pipe(takeUntil(this.#onDestroy$))
       .subscribe(() => this.getUpdate());
   }
