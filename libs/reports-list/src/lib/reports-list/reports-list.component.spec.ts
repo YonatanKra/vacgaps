@@ -97,13 +97,13 @@ describe('ReportsListComponent', () => {
 
   describe(`list view`, function () {
     it(`should show listItems according to list size`, fakeAsync(() => {
-      finishInit(fixture);
       component.reportsList = [
         new VaccineReportItem(),
         new VaccineReportItem(),
         new VaccineReportItem(),
         new VaccineReportItem(),
       ];
+      finishInit(fixture);
       fixture.detectChanges();
       expect(
         fixture.debugElement.queryAll(By.css('vacgaps-reports-list-item'))
