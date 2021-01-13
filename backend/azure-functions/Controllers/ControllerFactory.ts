@@ -1,6 +1,6 @@
 import { Db, MongoClient } from "mongodb";
 import { ISettings } from "../Models/ISettings";
-import { ICollection, patchMongoCollection } from "../Services/ICollection";
+import { ICollection } from "../Services/ICollection";
 import { EnvironmentSettings } from "../Models/EnvironmentSettings";
 import { TraceContext, HttpRequest } from "@azure/functions";
 import { ExampleController } from "./ExampleController";
@@ -26,7 +26,7 @@ export class ControllerFactory {
     if (ControllerFactory.mongoDb == null) {
       ControllerFactory.mongoDb = this.createMongoDb();
     }
-    const mongoCollection = patchMongoCollection((await ControllerFactory.mongoDb).collection(collectionName));
+    const mongoCollection = (await ControllerFactory.mongoDb).collection(collectionName);
 
     return mongoCollection;
   }
