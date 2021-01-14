@@ -37,9 +37,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-
-# Backend settings
-backend/env/.env
-backend/env/.terraform/
-backend/src/AuditApi/local.settings.json
-backend/src/PatientTestsApi/local.settings.json
