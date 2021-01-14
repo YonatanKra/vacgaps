@@ -3,8 +3,8 @@
   "description": "",
   "version": "0.1.0",
   "scripts": {
-    "build": "rimraf dist && tsc && cp-cli local.settings.json dist/local.settings.json && cp-cli HttpTrigger/function.json dist/HttpTrigger/function.json && cp-cli CreateExample/function.json dist/CreateExample/function.json",
-    "start": "cd dist && func start",
+    "build": "rimraf dist && tsc",
+    "start": "func host start",
     "watch": "tsc -w",
     "func-start": "func start",
     "deploy": "chmod +x ./deploy.sh && ./deploy.sh"
