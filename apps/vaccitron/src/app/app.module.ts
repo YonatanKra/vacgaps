@@ -42,7 +42,8 @@ import { SocialAuthServiceConfigService } from './fb-login/fb-login/config/socia
           loadChildren: () =>
             import('./login-page/login-page.module').then(
               (m) => m.LoginPageModule
-            )
+            ),
+          canActivate: [AuthGuard]
         }
       ],
       { initialNavigation: 'enabled' }
