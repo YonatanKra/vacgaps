@@ -3,6 +3,7 @@ import { FacebookLoginProvider, SocialAuthService, SocialUser } from 'angularx-s
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'vacgaps-fb-login',
@@ -15,7 +16,7 @@ export class FbLoginComponent implements OnInit, OnDestroy {
   user: SocialUser;
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
 
-  constructor(private authService: SocialAuthService, private location: Location) {
+  constructor(private authService: SocialAuthService, private router: Router) {
   }
 
   ngOnDestroy(): void {
@@ -33,7 +34,7 @@ export class FbLoginComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.authService.authState.pipe(takeUntil(this.destroyed$)).subscribe((user: SocialUser) => {
-      if (user) this.location.go('');
+      if (user) this.router.navigateByUrl('');
     });
   }
 

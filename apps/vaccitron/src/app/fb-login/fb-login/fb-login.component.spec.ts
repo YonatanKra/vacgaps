@@ -5,6 +5,8 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
 import { Observable } from 'rxjs';
 import { Location } from '@angular/common';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
 
 const MockSocialAuthService = {
   _authState: undefined,
@@ -37,7 +39,7 @@ describe('FbLoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [Location, {provide: SocialAuthService, useValue: MockSocialAuthService}],
+      providers: [{provide: Router, useClass: RouterTestingModule}, {provide: SocialAuthService, useValue: MockSocialAuthService}],
       declarations: [ FbLoginComponent ],
       schemas: [NO_ERRORS_SCHEMA]
     })
