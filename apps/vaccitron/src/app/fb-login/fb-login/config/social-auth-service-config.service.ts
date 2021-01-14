@@ -9,5 +9,5 @@ export class SocialAuthServiceConfigService implements SocialAuthServiceConfig{
   constructor() { }
 
   autoLogin = true;
-  providers = [{ id: FacebookLoginProvider.PROVIDER_ID, provider: new FacebookLoginProvider('416321649791285') }];
+  providers = [{ id: FacebookLoginProvider.PROVIDER_ID, provider: new FacebookLoginProvider('1279648522401260') }];
 }
