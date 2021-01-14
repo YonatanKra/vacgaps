@@ -53,3 +53,4 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
     this.#onDestroy$.next();
   }
 }
+
