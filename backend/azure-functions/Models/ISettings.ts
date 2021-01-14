@@ -1,5 +1,5 @@
 
-export interface ISettings {
+export type Settings = {
   exampleCollection: string;
   vacGapsDatabase: string;
   mongoConnectionString: string;

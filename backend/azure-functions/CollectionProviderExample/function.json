@@ -6,7 +6,7 @@
       "direction": "in",
       "name": "req",
       "methods": [
-        "post"
+        "get"
       ],
       "route": "example"
     },
@@ -16,5 +16,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/CreateExample/index.js"
+  "scriptFile": "../dist/CollectionProviderExample/index.js"
 }
