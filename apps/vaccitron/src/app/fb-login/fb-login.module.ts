@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FbLoginComponent } from './fb-login/fb-login.component';
 import { SocialLoginModule } from 'angularx-social-login';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,6 +14,7 @@ import { SocialAuthServiceConfigService } from './fb-login/config/social-auth-se
     MatButtonModule
   ],
   providers: [
+    Location,
     {
       provide: 'SocialAuthServiceConfig',
       useClass: SocialAuthServiceConfigService
