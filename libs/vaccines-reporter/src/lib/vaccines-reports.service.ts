@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { VaccinesReport } from '@vacgaps/interfaces';
+import { VaccinesReports } from '@vacgaps/interfaces';
 import { interval, Observable, Subject } from 'rxjs';
 
 @Injectable({
@@ -8,15 +8,15 @@ import { interval, Observable, Subject } from 'rxjs';
 })
 export class VaccinesReportsService {
 
-  private vaccinesReports: { [key: string]: Observable<VaccinesReport[]> } = {};
+  private vaccinesReports: { [key: string]: Observable<VaccinesReports> } = {};
 
   constructor(private httpClient: HttpClient) { }
 
-  getVaccinesReports(url: string): Observable<VaccinesReport[]> {
+  getVaccinesReports(url: string): Observable<VaccinesReports> {
     return this.vaccinesReports[url] || (this.vaccinesReports[url] = this.request(url));
   }
 
-  request(url): Observable<VaccinesReport[]> {
-    return this.httpClient.get<VaccinesReport[]>(url);
+  request(url): Observable<VaccinesReports> {
+    return this.httpClient.get<VaccinesReports>(url);
   }
 }

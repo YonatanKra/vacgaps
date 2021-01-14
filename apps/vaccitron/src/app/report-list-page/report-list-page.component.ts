@@ -37,7 +37,7 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
   getUpdate() {
     this.vaccinesReportsService.getVaccinesReports(environment.vaccinesDataUrl)
       .subscribe(data => {
-        this.reportsList = data;
+        this.reportsList = data.reports;
       });
   }
 

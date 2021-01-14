@@ -17,3 +17,7 @@ export interface VaccinesReport {
   reporter: string;
   availableVaccines?: number;
 }
+
+export interface VaccinesReports {
+  reports: VaccinesReport[];
+}
