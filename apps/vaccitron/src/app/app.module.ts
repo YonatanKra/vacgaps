@@ -17,9 +17,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FilterFormModule } from '@vacgaps/filter-form';
-import { ReportListPageModule } from './report-list-page/report-list-page.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { AuthGuard } from './guards/auth.guard';
+import { SocialAuthService } from 'angularx-social-login';
+import { SocialAuthServiceConfigService } from './fb-login/fb-login/config/social-auth-service-config.service';
 
 @NgModule({
   declarations: [AppComponent, AppHeaderComponent],
@@ -33,14 +35,15 @@ import { environment } from '../environments/environment';
             import('./report-list-page/report-list-page.module').then(
               (m) => m.ReportListPageModule
             ),
+          canActivate: [AuthGuard]
         },
         {
           path: 'login-page',
           loadChildren: () =>
             import('./login-page/login-page.module').then(
               (m) => m.LoginPageModule
-            ),
-        },
+            )
+        }
       ],
       { initialNavigation: 'enabled' }
     ),
@@ -56,10 +59,17 @@ import { environment } from '../environments/environment';
     MatInputModule,
     MatCheckboxModule,
     MatAutocompleteModule,
-	FilterFormModule,
+    FilterFormModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [
+    SocialAuthService,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useClass: SocialAuthServiceConfigService
+    }
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}
