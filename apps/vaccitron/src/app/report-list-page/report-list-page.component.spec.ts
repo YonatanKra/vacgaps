@@ -11,7 +11,48 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-const MOCK_REPORTS = require('../../assets/demo-data.json');
+const MOCK_REPORTS = [
+  {
+    "city": "100",
+    "healthCareService": "1",
+    "address": "שרה אמנו 39",
+    "branchName": "wat",
+    "reporter": 'ww',
+    "updateTime": 5
+  },
+  {
+    "city": "1001",
+    "healthCareService": "2",
+    "address": "שרה אמנו 39",
+    "branchName": "wat",
+    "reporter": 'ww',
+    "updateTime": 5
+  },
+  {
+    "city": "530",
+    "healthCareService": "0",
+    "address": "שרה אמנו 39",
+    "branchName": "wat",
+    "reporter": 'ww',
+    "updateTime": 5
+  },
+  {
+    "city": "2379",
+    "healthCareService": "3",
+    "address": "שרה אמנו 39",
+    "branchName": "wat",
+    "reporter": 'ww',
+    "updateTime": 5
+  },
+  {
+    "city": "110",
+    "healthCareService": "1",
+    "address": "שרה אמנו 39",
+    "branchName": "wat",
+    "reporter": 'ww',
+    "updateTime": 5
+  }
+];
 
 @Component({
   selector: 'test-component',
@@ -93,12 +134,18 @@ describe('ReportListPageComponent', () => {
         {
           city: '100',
           healthCareService: '1',
-          address: 'שרה אמנו 39'
+          address: 'שרה אמנו 39',
+          "branchName": "wat",
+          "reporter": 'ww',
+          "updateTime": 5
         },
         {
           city: '110',
           healthCareService: '1',
-          address: 'שרה אמנו 39'
+          address: 'שרה אמנו 39',
+          "branchName": "wat",
+          "reporter": 'ww',
+          "updateTime": 5
         },
       ])
     });

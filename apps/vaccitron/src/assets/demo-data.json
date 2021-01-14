@@ -1,27 +1,28 @@
 [
   {
-    "city": "100",
+    "city": "7",
     "healthCareService": "1",
     "address": "שרה אמנו 39"
   },
   {
-    "city": "1001",
+    "city": "10",
     "healthCareService": "2",
     "address": "שרה אמנו 39"
   },
   {
-    "city": "530",
+    "city": "10",
     "healthCareService": "0",
     "address": "שרה אמנו 39"
   },
   {
-    "city": "2379",
+    "city": "9700",
     "healthCareService": "3",
     "address": "שרה אמנו 39"
   },
   {
-    "city": "110",
+    "city": "9700",
     "healthCareService": "1",
     "address": "שרה אמנו 39"
   }
 ]
+

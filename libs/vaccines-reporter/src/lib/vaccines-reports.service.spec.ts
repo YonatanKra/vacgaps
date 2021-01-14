@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { VaccinesReportsService } from './vaccines-reports.service';
-import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 
 describe('VaccinesReportsService', () => {
@@ -53,9 +53,9 @@ describe('VaccinesReportsService', () => {
   });
 
   it(`should return different observables for different urls`, function() {
-    const observable1 = service.getVaccinesReports('url1', 500);
-    const observable2 = service.getVaccinesReports('url2', 500);
-    const observable3 = service.getVaccinesReports('url1', 500);
+    const observable1 = service.getVaccinesReports('url1');
+    const observable2 = service.getVaccinesReports('url2');
+    const observable3 = service.getVaccinesReports('url1');
     expect(observable1 !== observable2).toEqual(true);
     expect(observable1).toEqual(observable3);
   });
