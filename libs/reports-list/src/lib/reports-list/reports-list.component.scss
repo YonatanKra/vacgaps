@@ -4,9 +4,9 @@
 }
 
 .mat-list-item:nth-child(odd) {
-  background: burlywood;
+  background: rgba(255, 255, 255, .5);
 }
 
 .mat-list-item:nth-child(even) {
-  background: antiquewhite;
+  background: rgba(255, 255, 255, .5);
 }
