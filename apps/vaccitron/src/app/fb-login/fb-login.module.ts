@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FbLoginComponent } from './fb-login/fb-login.component';
-import { SocialLoginModule, SocialAuthServiceConfig, FacebookLoginProvider } from 'angularx-social-login';
+import { SocialLoginModule } from 'angularx-social-login';
 import { MatButtonModule } from '@angular/material/button';
+import { SocialAuthServiceConfigService } from './fb-login/config/social-auth-service-config.service';
 
 @NgModule({
   declarations: [FbLoginComponent],
@@ -15,15 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
   providers: [
     {
       provide: 'SocialAuthServiceConfig',
-      useValue: {
-        autoLogin: true,
-        providers: [
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('416321649791285')
-          }
-        ]
-      } as SocialAuthServiceConfig
+      useClass: SocialAuthServiceConfigService
     }
   ]
 })
