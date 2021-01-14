@@ -8,12 +8,17 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: SocialAuthService, private router: Router) {}
+  constructor(private authService: SocialAuthService, private router: Router) {
+  }
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.authService.authState.pipe(map(user => user ?
-      this.router.parseUrl('') :
-      this.router.parseUrl('/login-page')));
+    return this.authService.authState.pipe(
+      map(user => !user ?
+        (state.url === '/login-page' ? true : this.router.parseUrl('/login-page')) :
+        (state.url === '' ? true : this.router.parseUrl(''))
+      )
+    );
   }
 }
