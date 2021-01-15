@@ -7,7 +7,7 @@
     "start": "func host start",
     "watch": "tsc -w",
     "func-start": "func start",
-    "deploy": "chmod +x ./deploy.sh && ./deploy.sh"
+    "deploy": "func azure functionapp publish vacgaps --typescript"
   },
   "devDependencies": {
     "@azure/functions": "^1.0.1-beta2",
