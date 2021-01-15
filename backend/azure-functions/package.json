@@ -4,9 +4,11 @@
   "version": "0.1.0",
   "scripts": {
     "build": "rimraf dist && tsc",
+    "clean": "npx rimraf ./dist ./node_modules",
     "start": "func host start",
     "watch": "tsc -w",
     "func-start": "func start",
+    "build:production": "npm run clean && npm install && npm run build && npm prune --production",
     "deploy": "func azure functionapp publish vacgaps --typescript"
   },
   "devDependencies": {
