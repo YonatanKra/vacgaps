@@ -1,10 +1,12 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions";
 import { CollectionProvider } from "../Services/CollectionProvider"
 
+type ExampleEntity = BaseEntity & { foo: string; };
+
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {  
   // Collection Provider usage example
-  type exampleType = { _id: string; foo: string }
-  const collection = await CollectionProvider.get<exampleType>('example');
+
+  const collection = await CollectionProvider.get<ExampleType>('example');
   collection.insertOne({ _id: 'fsdfsf', foo: 'bar' });
 
   context.res = {
