@@ -23,6 +23,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { SocialAuthService, SocialLoginModule } from 'angularx-social-login';
 import { SocialAuthServiceConfigService } from './login-page/config/social-auth-service-config.service';
 import { FbAuthService } from './login-page/fb-login/fb-auth/fb-auth.service';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [AppComponent, AppHeaderComponent],
@@ -62,7 +63,8 @@ import { FbAuthService } from './login-page/fb-login/fb-auth/fb-auth.service';
     MatAutocompleteModule,
     FilterFormModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    SocialLoginModule
+    SocialLoginModule,
+	MatCardModule
   ],
   providers: [
     FbAuthService,

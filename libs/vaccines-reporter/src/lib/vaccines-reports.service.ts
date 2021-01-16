@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { VaccinesReport } from '@vacgaps/interfaces';
 import { interval, Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
+
+interface VaccinesReportResponse {
+  reports: VaccinesReport[]
+}
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +22,6 @@ export class VaccinesReportsService {
   }
 
   request(url): Observable<VaccinesReport[]> {
-    return this.httpClient.get<VaccinesReport[]>(url);
+    return this.httpClient.get<VaccinesReportResponse>(url).pipe(map((reportsObject: VaccinesReportResponse) => reportsObject.reports));
   }
 }
