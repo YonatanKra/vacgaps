@@ -10,3 +10,13 @@
   border-radius: 5px;
   direction: rtl;
 }
+
+.report-item-wrapper>div {
+  width: 100px;
+}
+
+@media screen and (max-width: 342px) {
+  .report-item-wrapper>div {
+    width: 75px;
+  }
+}
