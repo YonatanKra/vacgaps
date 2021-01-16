@@ -20,8 +20,9 @@ import { FilterFormModule } from '@vacgaps/filter-form';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { AuthGuard } from './guards/auth.guard';
-import { SocialAuthService } from 'angularx-social-login';
-import { SocialAuthServiceConfigService } from './fb-login/fb-login/config/social-auth-service-config.service';
+import { SocialAuthService, SocialLoginModule } from 'angularx-social-login';
+import { SocialAuthServiceConfigService } from './login-page/config/social-auth-service-config.service';
+import { FbAuthService } from './login-page/fb-login/fb-auth/fb-auth.service';
 
 @NgModule({
   declarations: [AppComponent, AppHeaderComponent],
@@ -42,8 +43,7 @@ import { SocialAuthServiceConfigService } from './fb-login/fb-login/config/socia
           loadChildren: () =>
             import('./login-page/login-page.module').then(
               (m) => m.LoginPageModule
-            ),
-          canActivate: [AuthGuard]
+            )
         }
       ],
       { initialNavigation: 'enabled' }
@@ -61,10 +61,11 @@ import { SocialAuthServiceConfigService } from './fb-login/fb-login/config/socia
     MatCheckboxModule,
     MatAutocompleteModule,
     FilterFormModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    SocialLoginModule
   ],
   providers: [
-    SocialAuthService,
+    FbAuthService,
     {
       provide: 'SocialAuthServiceConfig',
       useClass: SocialAuthServiceConfigService

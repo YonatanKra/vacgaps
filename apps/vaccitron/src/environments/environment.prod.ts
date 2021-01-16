@@ -1,5 +1,9 @@
+import { FacebookLoginProvider } from 'angularx-social-login';
+
 export const environment = {
   production: true,
   vaccinesDataUrl: 'fakeUrl',
-  reportsQueryIntervalInMs: 5 * 60 * 1000 // 5 minutes
+  reportsQueryIntervalInMs: 5 * 60 * 1000,
+  loginProviderConfig: [{ id: FacebookLoginProvider.PROVIDER_ID, provider: new FacebookLoginProvider('1279648522401260') }],
+  fbLoginProviderId: FacebookLoginProvider.PROVIDER_ID
 };

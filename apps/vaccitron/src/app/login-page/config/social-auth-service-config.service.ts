@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { FacebookLoginProvider, SocialAuthServiceConfig } from 'angularx-social-login';
+import { SocialAuthServiceConfig } from 'angularx-social-login';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,5 +10,5 @@ export class SocialAuthServiceConfigService implements SocialAuthServiceConfig{
   constructor() { }
 
   autoLogin = true;
-  providers = [{ id: FacebookLoginProvider.PROVIDER_ID, provider: new FacebookLoginProvider('1279648522401260') }];
+  providers = environment.loginProviderConfig;
 }

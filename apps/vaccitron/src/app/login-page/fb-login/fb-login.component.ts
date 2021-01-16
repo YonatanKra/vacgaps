@@ -4,6 +4,7 @@ import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'vacgaps-fb-login',
@@ -16,7 +17,7 @@ export class FbLoginComponent implements OnInit, OnDestroy {
   user: SocialUser;
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
 
-  constructor(private authService: SocialAuthService, private router: Router) {
+  constructor(private authService: SocialAuthService, private location: Location) {
   }
 
   ngOnDestroy(): void {
@@ -25,7 +26,7 @@ export class FbLoginComponent implements OnInit, OnDestroy {
   }
 
   signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.authService.signIn(environment.fbLoginProviderId);
   }
 
   signOut(): void {
@@ -33,9 +34,8 @@ export class FbLoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.authService.authState.pipe(takeUntil(this.destroyed$)).subscribe((user: SocialUser) => {
-      if (user) this.router.navigateByUrl('');
+    this.authService.authState.pipe(takeUntil(this.destroyed$)).subscribe(async (user: SocialUser) => {
+      if (user) await this.location.go('/');
     });
   }
-
 }

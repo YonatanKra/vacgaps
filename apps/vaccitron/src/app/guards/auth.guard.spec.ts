@@ -4,30 +4,10 @@ import { AuthGuard } from './auth.guard';
 import { Observable } from 'rxjs';
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
 import { Router, UrlTree } from '@angular/router';
+import { FbAuthService } from '../login-page/fb-login/fb-auth/fb-auth.service';
 
-const MockSocialAuthService = {
-  _authState: undefined,
-  _initState: undefined,
-  _user: undefined,
-  autoLogin: undefined,
-  initialize: undefined,
-  initialized: undefined,
-  providers: undefined,
-  get authState(): Observable<SocialUser> {
-    return new Observable<SocialUser>();
-  },
-  get initState(): Observable<boolean> {
-    return new Observable<boolean>();
-  },
-  refreshAuthToken(providerId: string): Promise<void> {
-    return Promise.resolve(undefined);
-  },
-  signIn(providerId: string, signInOptions?: any): Promise<SocialUser> {
-    return Promise.resolve(undefined);
-  },
-  signOut(revoke?: boolean): Promise<any> {
-    return Promise.resolve(undefined);
-  }
+const MockFbAuthService = {
+
 };
 
 const MockRouter = {
@@ -40,7 +20,7 @@ describe('AuthGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{provide: Router, useValue: MockRouter}, { provide: SocialAuthService, useValue: MockSocialAuthService}]
+      providers: [{provide: Router, useValue: MockRouter}, { provide: FbAuthService, useValue: MockFbAuthService}]
     });
     guard = TestBed.inject(AuthGuard);
   });
