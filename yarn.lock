@@ -1531,6 +1531,11 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
+"@hirez_io/observer-spy@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@hirez_io/observer-spy/-/observer-spy-2.1.0.tgz#2c531366385763437d18af8b751e0eb0f2ad82f6"
+  integrity sha512-wGLRpUq3Qhcyyx2oQmx2HWe2trp6tpkUvz3U9Uqq5eywXL9uV0W9+QkeBzif8axhOQlq7Xngs9pC0S611+hkLg==
+
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -1896,6 +1901,17 @@
     strip-json-comments "2.0.1"
     tslib "^2.0.0"
 
+"@nrwl/devkit@11.1.2":
+  version "11.1.2"
+  resolved "https://registry.yarnpkg.com/@nrwl/devkit/-/devkit-11.1.2.tgz#a283a34256ae98719946f8301bad451e5c1db406"
+  integrity sha512-O4+o+UQi7z/Wkmaebq6jRf6HMjJ59A+tEItBnwPzVcWfIqfs6lMFDwx7aGTHfQH67oVX359WaiyALaHsuxEI9Q==
+  dependencies:
+    "@nrwl/tao" "11.1.2"
+    ejs "^3.1.5"
+    semver "6.3.0"
+    strip-json-comments "2.0.1"
+    tslib "^2.0.0"
+
 "@nrwl/eslint-plugin-nx@11.0.20":
   version "11.0.20"
   resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-11.0.20.tgz#d0103a780673cc87b94a6ae9c7fad150d4334a60"
@@ -1919,6 +1935,20 @@
     strip-json-comments "2.0.1"
     tslib "^2.0.0"
 
+"@nrwl/jest@11.1.2":
+  version "11.1.2"
+  resolved "https://registry.yarnpkg.com/@nrwl/jest/-/jest-11.1.2.tgz#a04ba83769f8d8559ccd4b71bee6d2bd3208fb5c"
+  integrity sha512-kRdqH33WmTkc0sq2kX39ZL4W+QwvQyVmZ1LAOAryVFB3G7uyhnp5qimyJmpSzltCAXBW0sX8NpHQ0puGUoBIGw==
+  dependencies:
+    "@angular-devkit/architect" "~0.1100.1"
+    "@angular-devkit/core" "~11.0.1"
+    "@angular-devkit/schematics" "~11.0.1"
+    "@nrwl/devkit" "11.1.2"
+    jest-resolve "^26.6.2"
+    rxjs "^6.5.4"
+    strip-json-comments "2.0.1"
+    tslib "^2.0.0"
+
 "@nrwl/linter@11.0.20":
   version "11.0.20"
   resolved "https://registry.yarnpkg.com/@nrwl/linter/-/linter-11.0.20.tgz#4ece0201a235972507d03830441133192823be00"
@@ -1928,6 +1958,45 @@
     glob "7.1.4"
     minimatch "3.0.4"
     tslib "^2.0.0"
+
+"@nrwl/linter@11.1.2":
+  version "11.1.2"
+  resolved "https://registry.yarnpkg.com/@nrwl/linter/-/linter-11.1.2.tgz#ee4a9fbe97149b73f2966f231ac2a40aa521a026"
+  integrity sha512-Opml30jyr+KJaDG1/UgCVcpcJxPqTrbYTZ9rwcs5VIWJ7EYc9gCzyCTSf31h26XQxr2WcWP6yHcdCyL+z6mGZQ==
+  dependencies:
+    "@angular-devkit/architect" "~0.1100.1"
+    glob "7.1.4"
+    minimatch "3.0.4"
+    tslib "^2.0.0"
+
+"@nrwl/node@^11.1.2":
+  version "11.1.2"
+  resolved "https://registry.yarnpkg.com/@nrwl/node/-/node-11.1.2.tgz#ae54f70b3430337b61bf8edd3e9ff45bda8dc014"
+  integrity sha512-KgVXmPOZRbHjXpIeYZij5SFE/s8F0hCWRvgHeF57wqVZQtbpWSRLTc6dWujnOPRHnvoLPiR7l5HXoukom9mtOA==
+  dependencies:
+    "@angular-devkit/architect" "~0.1100.1"
+    "@angular-devkit/build-webpack" "~0.1100.1"
+    "@angular-devkit/core" "~11.0.1"
+    "@angular-devkit/schematics" "~11.0.1"
+    "@nrwl/devkit" "11.1.2"
+    "@nrwl/jest" "11.1.2"
+    "@nrwl/linter" "11.1.2"
+    circular-dependency-plugin "5.2.0"
+    copy-webpack-plugin "6.0.3"
+    fork-ts-checker-webpack-plugin "^3.1.1"
+    fs-extra "7.0.1"
+    glob "7.1.4"
+    license-webpack-plugin "2.1.2"
+    rxjs "^6.5.4"
+    source-map-support "0.5.16"
+    tree-kill "1.2.2"
+    ts-loader "5.4.5"
+    tsconfig-paths-webpack-plugin "3.2.0"
+    tslib "^2.0.0"
+    webpack "4.42.0"
+    webpack-dev-server "3.11.0"
+    webpack-merge "4.2.1"
+    webpack-node-externals "1.7.2"
 
 "@nrwl/nx-cloud@latest":
   version "10.1.10"
@@ -1946,6 +2015,25 @@
   version "11.0.20"
   resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-11.0.20.tgz#dfca062d81bcb1ddff03cfe9f99ba05786cc101d"
   integrity sha512-S/jaeenZ0ueQZgz54AGhMtK1Obs6KTwsojfHdB+FiEve2ipBbKKeBZXXfeXlH2priH5ej5FhosCEV1DKqXLlUg==
+  dependencies:
+    "@angular-devkit/architect" "~0.1100.1"
+    "@angular-devkit/core" "~11.0.1"
+    "@angular-devkit/schematics" "~11.0.1"
+    chalk "4.1.0"
+    fs-extra "7.0.1"
+    inquirer "^6.3.1"
+    minimist "^1.2.5"
+    rxjs "^6.5.4"
+    semver "6.3.0"
+    strip-json-comments "2.0.1"
+    tmp "0.0.33"
+    tslib "^2.0.0"
+    yargs-parser "20.0.0"
+
+"@nrwl/tao@11.1.2":
+  version "11.1.2"
+  resolved "https://registry.yarnpkg.com/@nrwl/tao/-/tao-11.1.2.tgz#2e032e11f0cfcc83d997007d58d3848334369eba"
+  integrity sha512-XWf4GPxz3mLIAXgRoxh90zpBlbC7y3Sql4pwGoNamDxObO6Fx3Zo/duYNUnUuEbSrBzn5M9F0UBDwsb8awNFkw==
   dependencies:
     "@angular-devkit/architect" "~0.1100.1"
     "@angular-devkit/core" "~11.0.1"
