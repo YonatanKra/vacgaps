@@ -54,7 +54,7 @@ export class VaccineReportItem implements VaccinesReport {
 
 
 @Component({
-  selector: 'test-component',
+  selector: 'vacgaps-test-component',
   template: ` <vacgaps-reports-list
     [reportsList]="list"
   ></vacgaps-reports-list>`,
