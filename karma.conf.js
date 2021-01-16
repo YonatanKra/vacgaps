@@ -1,6 +1,6 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
-
+console.log('Testing env: ', process.env.RUN ? process.env.RUN : "DEV");
 const { join } = require('path');
 const { constants } = require('karma');
 
@@ -28,7 +28,7 @@ module.exports = () => {
     colors: true,
     logLevel: constants.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: [process.env.RUN === 'CI' ? 'ChromeHeadless' : 'Chrome'],
     singleRun: true,
   };
 };
