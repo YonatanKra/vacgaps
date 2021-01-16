@@ -1,0 +1,13 @@
+{
+  "azureFunctions.deploySubpath": ".",
+  "azureFunctions.postDeployTask": "npm install",
+  "azureFunctions.projectLanguage": "TypeScript",
+  "azureFunctions.projectRuntime": "~3",
+  "debug.internalConsoleOptions": "neverOpen",
+  "azureFunctions.preDeployTask": "npm prune",
+  "eslint.lintTask.enable": true,
+  "eslint.lintTask.options": ". --ext .ts",
+  "typescript.validate.enable": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+}
