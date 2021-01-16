@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FacebookLoginProvider, SocialAuthService, SocialUser } from 'angularx-social-login';
+import { SocialAuthService, SocialUser } from 'angularx-social-login';
 import { ReplaySubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
@@ -17,7 +16,7 @@ export class FbLoginComponent implements OnInit, OnDestroy {
   user: SocialUser;
   private destroyed$: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
 
-  constructor(private authService: SocialAuthService, private location: Location) {
+  constructor(private authService: SocialAuthService, private router: Router) {
   }
 
   ngOnDestroy(): void {
@@ -34,8 +33,8 @@ export class FbLoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.authService.authState.pipe(takeUntil(this.destroyed$)).subscribe(async (user: SocialUser) => {
-      if (user) await this.location.go('/');
+    this.authService.authState.pipe(takeUntil(this.destroyed$)).subscribe( async (user: SocialUser) => {
+      if (user) await this.router.navigate(["/"]);
     });
   }
 }

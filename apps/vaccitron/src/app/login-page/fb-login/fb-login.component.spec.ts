@@ -6,7 +6,7 @@ import { SocialAuthService, SocialUser } from 'angularx-social-login';
 import { ReplaySubject } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import Spy = jasmine.Spy;
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 const MockSocialAuthService = {
   _initState: undefined,
@@ -40,7 +40,7 @@ const routes = [
 describe('FbLoginComponent', () => {
   let component: FbLoginComponent;
   let fixture: ComponentFixture<FbLoginComponent>;
-  let location: Location;
+  let routerService: Router;
   let routerSpy: Spy;
 
   beforeEach(async () => {
@@ -57,8 +57,8 @@ describe('FbLoginComponent', () => {
     fixture = TestBed.createComponent(FbLoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    location = TestBed.inject(Location);
-    routerSpy = spyOn(location, 'go');
+    routerService = TestBed.inject(Router);
+    routerSpy = spyOn(routerService, 'navigate');
   });
 
   it('should create', () => {
@@ -74,7 +74,7 @@ describe('FbLoginComponent', () => {
 
     expect(callsToRouterAfterNonAuthUpdate).toEqual(0);
     expect(callsToRouterAfterPositiveAuthUpdate).toEqual(1);
-    expect(routerSpy).toHaveBeenCalledWith('/');
+    expect(routerSpy).toHaveBeenCalledWith(['/']);
   });
 
   it(`should remove the subscription after destroy`, function() {
