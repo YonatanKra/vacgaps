@@ -55,7 +55,7 @@ const MOCK_REPORTS = [
 ];
 
 @Component({
-  selector: 'test-component',
+  selector: 'vacgaps-test-component',
   template: `<vacgaps-report-list-page
     [reportsList]="reportsList"
   ></vacgaps-report-list-page>`,
