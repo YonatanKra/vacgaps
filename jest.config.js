@@ -1,3 +1,7 @@
 module.exports = {
-  projects: ['<rootDir>/apps/user-interface', '<rootDir>/libs/constants'],
+  projects: [
+    '<rootDir>/apps/user-interface',
+    '<rootDir>/libs/constants',
+    '<rootDir>/libs/vaccines-reporter',
+  ],
 };

@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'test-component',
+  selector: 'vacgaps-test-component',
   template: `<vacgaps-app-header [title]="title"></vacgaps-app-header>`,
 })
 export class TestComponent {
@@ -21,9 +21,8 @@ describe('AppHeaderComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MatToolbarModule, MatIconModule, MatButtonModule],
-      declarations: [ AppHeaderComponent, TestComponent ]
-    })
-    .compileComponents();
+      declarations: [AppHeaderComponent, TestComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -36,18 +35,23 @@ describe('AppHeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should display the site's title`, function() {
+  it(`should display the site's title`, function () {
     const title = 'This is a title';
     component.title = title;
     fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('h1')).nativeElement.textContent).toEqual(title);
+    expect(
+      fixture.debugElement.query(By.css('h1')).nativeElement.textContent
+    ).toEqual(title);
   });
 
-  it(`should get the title as an input`, function() {
+  it(`should get the title as an input`, function () {
     const appTitle = 'This is a title from parent';
     const parentFixture = TestBed.createComponent(TestComponent);
     parentFixture.componentInstance.title = appTitle;
     parentFixture.detectChanges();
-    expect(parentFixture.debugElement.query(By.css('vacgaps-app-header h1')).nativeElement.textContent).toEqual(appTitle);
+    expect(
+      parentFixture.debugElement.query(By.css('vacgaps-app-header h1'))
+        .nativeElement.textContent
+    ).toEqual(appTitle);
   });
 });

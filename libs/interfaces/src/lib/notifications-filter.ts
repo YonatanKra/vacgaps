@@ -1,0 +1,8 @@
+import { CITIES_TYPE, HEALTH_CARE_SERVICES_TYPE } from '@vacgaps/constants';
+
+export interface NotificationsFilter {
+  cities?: CITIES_TYPE[number][];
+  healthCareService: HEALTH_CARE_SERVICES_TYPE[number];
+  availableVaccines?: number;
+  dueTimeInMs?: number;
+}

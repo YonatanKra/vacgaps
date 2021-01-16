@@ -35,6 +35,18 @@
     },
     "constants": {
       "tags": []
+    },
+    "interfaces": {
+      "tags": []
+    },
+    "filter-form": {
+      "tags": []
+    },
+    "reports-list": {
+      "tags": []
+    },
+    "vaccines-reporter": {
+      "tags": []
     }
   }
 }

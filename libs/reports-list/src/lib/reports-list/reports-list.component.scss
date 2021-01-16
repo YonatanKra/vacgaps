@@ -1,0 +1,22 @@
+:host {
+  flex: 1;
+  display: flex;
+}
+
+.mat-list {
+  flex: 1;
+  display: flex;
+}
+
+.viewport {
+  height: 100%;
+  width: 100%;
+}
+
+.mat-list-item:nth-child(odd) {
+  background: rgba(255, 255, 255, .5);
+}
+
+.mat-list-item:nth-child(even) {
+  background: rgba(255, 255, 255, .5);
+}

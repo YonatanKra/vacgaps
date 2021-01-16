@@ -1,0 +1,29 @@
+<mat-list role="list" *ngIf="reportsList?.length">
+  <cdk-virtual-scroll-viewport
+    [itemSize]="50"
+    minBufferPx="200"
+    maxBufferPx="400"
+    class="viewport"
+  >
+    <mat-list-item *cdkVirtualFor="let report of reportsList">
+      <vacgaps-reports-list-item
+        [reportItem]="report"
+      ></vacgaps-reports-list-item>
+    </mat-list-item>
+  </cdk-virtual-scroll-viewport>
+</mat-list>
+<mat-card dir="rtl" *ngIf="!reportsList?.length">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>
+מצטערים
+    </mat-card-title>
+    <mat-card-subtitle>אין תוצאות מתאימות לחיפוש שלך</mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="../../assets/looking.jpeg" alt="תמונה של תוצאה ריקה">
+  <mat-card-content>
+    <p>
+      תמיד ניתן לחפש בעיר אחרת - אולי יהיו שם תוצאות. התוצאות מתעדכנות אוטומטית כל 5 דקות - אז אפשר להשאיר את האפליקציה פתוחה ולהתעדכן בזמן אמת.
+    </p>
+  </mat-card-content>
+</mat-card>

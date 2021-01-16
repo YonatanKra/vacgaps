@@ -1,7 +1,14 @@
-/*
- * Remove template code below
- */
 :host {
-  display: block;
+  display: flex;
+  flex-direction: column;
   min-width: 300px;
+  max-width: 800px;
+  margin: auto;
+  height: 100%;
+}
+
+main {
+  display: flex;
+  flex: 1;
+  justify-content: center;
 }

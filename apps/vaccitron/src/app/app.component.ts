@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { UserDetails } from './user-details/form/form.component';
 import { CITIES } from '@vacgaps/constants';
 
 @Component({
@@ -8,9 +7,5 @@ import { CITIES } from '@vacgaps/constants';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  name = "Friends to Vaccines";
-  cities = new Map(Object.entries(CITIES));
-
-  handleUserDetails(data: UserDetails) {
-  }
+  name = 'המשקפת';
 }
