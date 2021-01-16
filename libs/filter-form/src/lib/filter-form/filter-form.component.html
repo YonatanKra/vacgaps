@@ -13,7 +13,7 @@
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
         <input
-          dense
+          #citiesInput
           type="text"
           [(ngModel)]="citiesFilterTerm"
           [ngModelOptions]="{ standalone: true }"
