@@ -2,10 +2,14 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import { DummyLoginProvider } from 'angularx-social-login';
+
 export const environment = {
   production: false,
   vaccinesDataUrl: '../../assets/demo-data.json',
-  reportsQueryIntervalInMs: 5000
+  reportsQueryIntervalInMs: 5000,
+  loginProviderConfig: [{ id: DummyLoginProvider.PROVIDER_ID, provider: new DummyLoginProvider() }],
+  fbLoginProviderId: DummyLoginProvider.PROVIDER_ID
 };
 
 /*

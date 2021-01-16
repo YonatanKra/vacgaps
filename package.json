@@ -25,7 +25,8 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
-    "test:all": "nx run-many --target=test --all --parallel"
+    "test:all": "nx run-many --target=test --all --parallel",
+    "lint:all": "yarn nx run-many --target=lint --all --parallel"
   },
   "private": true,
   "dependencies": {
@@ -41,6 +42,7 @@
     "@angular/platform-browser-dynamic": "^11.0.0",
     "@angular/router": "^11.0.0",
     "@angular/service-worker": "^11.0.0",
+    "angularx-social-login": "^3.5.4",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "^0.10.2"

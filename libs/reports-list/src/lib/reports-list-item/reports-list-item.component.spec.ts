@@ -14,7 +14,7 @@ import { CITIES, HEALTH_CARE_SERVICES } from '@vacgaps/constants';
 const REPORT_MOCK_ITEM = new VaccineReportItem();
 
 @Component({
-  selector: 'test-component',
+  selector: 'vacgaps-test-component',
   template: ` <vacgaps-reports-list-item
     [reportItem]="item"
   ></vacgaps-reports-list-item>`,

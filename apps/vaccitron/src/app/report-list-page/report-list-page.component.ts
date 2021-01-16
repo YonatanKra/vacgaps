@@ -3,7 +3,7 @@ import { NotificationsFilter, VaccinesReport } from '@vacgaps/interfaces';
 import { VaccinesReportsService } from '@vacgaps/vaccines-reporter';
 import { interval, Subject } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'vacgaps-report-list-page',
@@ -36,6 +36,7 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
 
   getUpdate() {
     this.vaccinesReportsService.getVaccinesReports(environment.vaccinesDataUrl)
+      .pipe(take(1))
       .subscribe(data => {
         this.reportsList = data;
       });
@@ -53,3 +54,4 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
     this.#onDestroy$.next();
   }
 }
+
