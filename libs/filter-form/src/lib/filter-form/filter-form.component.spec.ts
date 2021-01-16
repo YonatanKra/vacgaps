@@ -21,7 +21,7 @@ const CITIES_LIST = new Map(
   })
 );
 @Component({
-  selector: 'test-component',
+  selector: 'vacgaps-test-component',
   template: `<vacgaps-filter-form
     (formSubmit)="handleFormUpdate($event)"
     (formUpdate)="handleFormValueUpdate($event)"
