@@ -20,6 +20,7 @@ import { FilterFormModule } from '@vacgaps/filter-form';
 import { ReportListPageModule } from './report-list-page/report-list-page.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [AppComponent, AppHeaderComponent],
@@ -32,15 +33,15 @@ import { environment } from '../environments/environment';
           loadChildren: () =>
             import('./report-list-page/report-list-page.module').then(
               (m) => m.ReportListPageModule
-            ),
+            )
         },
         {
           path: 'login-page',
           loadChildren: () =>
             import('./login-page/login-page.module').then(
               (m) => m.LoginPageModule
-            ),
-        },
+            )
+        }
       ],
       { initialNavigation: 'enabled' }
     ),
@@ -56,8 +57,9 @@ import { environment } from '../environments/environment';
     MatInputModule,
     MatCheckboxModule,
     MatAutocompleteModule,
-	FilterFormModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    FilterFormModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent],

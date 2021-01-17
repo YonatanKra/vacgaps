@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'test-component',
+  selector: 'vacgaps-test-component',
   template: `<vacgaps-app-header [title]="title"></vacgaps-app-header>`,
 })
 export class TestComponent {

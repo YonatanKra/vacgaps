@@ -25,7 +25,9 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points",
-    "test:all": "nx run-many --target=test --all --parallel"
+    "test:all": "nx run-many --target=test --all --parallel",
+    "lint:all": "yarn nx run-many --target=lint --all --parallel",
+    "test:ci": "RUN=CI yarn test:all"
   },
   "private": true,
   "dependencies": {
