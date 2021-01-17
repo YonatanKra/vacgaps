@@ -1,6 +1,46 @@
 <form [formGroup]="filterFields" dir="rtl" (ngSubmit)="submitForm()">
   <div class="fields">
     <mat-form-field appearance="fill">
+      <mat-label>מחוז</mat-label>
+      <mat-chip-list dense #districtsChipList aria-label="בחירת מחוזות">
+        <mat-chip
+          *ngFor="let district of selectedDistricts"
+          [selectable]="false"
+          [removable]="true"
+          (removed)="removeDistrict(district)"
+        >
+          {{ districtList.get(district) }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input
+          #districtsInput
+          type="text"
+          [(ngModel)]="districtsFilterTerm"
+          [ngModelOptions]="{ standalone: true }"
+          (keyup)="districtsFilterChange.next($event.target.value)"
+          matInput
+          [matAutocomplete]="districtsAutoComplete"
+          [matChipInputFor]="districtsChipList"
+        />
+      </mat-chip-list>
+      <mat-autocomplete
+        dense
+        (optionSelected)="addDistrict($event)"
+        #districtsAutoComplete="matAutocomplete"
+      >
+        <cdk-virtual-scroll-viewport itemSize="50" class="autocomplete-list-viewport">
+          <mat-option
+            *cdkVirtualFor="let district of districtsSelectList | keyvalue"
+            [value]="district.key"
+          >
+            {{ district.value }}
+          </mat-option>
+        </cdk-virtual-scroll-viewport>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    
+    <mat-form-field appearance="fill">
       <mat-label>יישוב</mat-label>
       <mat-chip-list dense #citiesChipList aria-label="בחירת יישובים">
         <mat-chip
@@ -28,7 +68,7 @@
         (optionSelected)="addCity($event)"
         #citiesAutoComplete="matAutocomplete"
       >
-        <cdk-virtual-scroll-viewport itemSize="50" class="cities-list-viewport">
+        <cdk-virtual-scroll-viewport itemSize="50" class="autocomplete-list-viewport">
           <mat-option
             *cdkVirtualFor="let city of citiesSelectList | keyvalue"
             [value]="city.key"

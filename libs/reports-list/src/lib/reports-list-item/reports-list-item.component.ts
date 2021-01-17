@@ -17,8 +17,8 @@ export class ReportsListItemComponent implements OnInit {
     return HEALTH_CARE_SERVICES[this.reportItem?.healthCareService];
   }
 
-  get city(): string {
-    return CITIES[this.reportItem?.city];
+  get cityName(): string {
+    return CITIES[this.reportItem?.city].name;
   }
 
   ngOnInit(): void {}
