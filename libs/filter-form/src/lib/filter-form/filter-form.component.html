@@ -17,7 +17,7 @@
           type="text"
           [(ngModel)]="citiesFilterTerm"
           [ngModelOptions]="{ standalone: true }"
-          (keyup)="filterCities($event.target.value)"
+          (keyup)="citiesFilterChange.next($event.target.value)"
           matInput
           [matAutocomplete]="citiesAutoComplete"
           [matChipInputFor]="citiesChipList"

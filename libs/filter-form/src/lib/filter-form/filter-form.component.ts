@@ -3,6 +3,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { NotificationsFilter } from '@vacgaps/interfaces';
 import { CITIES, HEALTH_CARE_SERVICES } from '@vacgaps/constants';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'vacgaps-filter-form',
@@ -45,6 +47,11 @@ export class FilterFormComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.#cities) this.cityList = new Map(Object.entries(CITIES));
+
+    this.citiesFilterChange
+      .pipe(debounceTime(100))
+      .subscribe(term => this.filterCities(term));
+
     this.filterFields.valueChanges.subscribe(() => {
       this.formUpdate.emit(this.filterFields.getRawValue());
     });
@@ -62,6 +69,8 @@ export class FilterFormComponent implements OnInit {
         this.citiesSelectList.delete(key);
     }
   }
+
+  citiesFilterChange = new Subject<string>();
 
   addCity($event: MatAutocompleteSelectedEvent) {
     this.selectedCities.add($event.option.value);
