@@ -12,7 +12,7 @@
     </mat-list-item>
   </cdk-virtual-scroll-viewport>
 </mat-list>
-<mat-card dir="rtl" *ngIf="!reportsList?.length">
+<mat-card dir="rtl" *ngIf="reportsList && !reportsList.length">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>
