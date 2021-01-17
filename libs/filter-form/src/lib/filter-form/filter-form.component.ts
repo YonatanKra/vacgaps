@@ -42,7 +42,8 @@ export class FilterFormComponent implements OnInit {
   citiesSelectList: Map<string, string>;
   healthCareServices = new Map(Object.entries(HEALTH_CARE_SERVICES));
   citiesFilterTerm: string;
-
+  citiesFilterChange = new Subject<string>();
+  
   constructor() {}
 
   ngOnInit(): void {
@@ -69,8 +70,6 @@ export class FilterFormComponent implements OnInit {
         this.citiesSelectList.delete(key);
     }
   }
-
-  citiesFilterChange = new Subject<string>();
 
   addCity($event: MatAutocompleteSelectedEvent) {
     this.selectedCities.add($event.option.value);
