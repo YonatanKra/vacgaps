@@ -3,22 +3,29 @@
     {
       "city": "7",
       "healthCareService": "1",
-      "address": "שרה אמנו 39"
+      "address": "שרה אמנו 39",
+      "minimalAge": 55,
+      "endTime": "2021-01-16T22:00:00"
     },
     {
       "city": "10",
       "healthCareService": "2",
-      "address": "רחוב שרה אמנו שנמצא מאחורי הפרגוד"
+      "address": "רחוב שרה אמנו שנמצא מאחורי הפרגוד",
+      "minimalAge": 40,
+      "region": "3"
     },
     {
       "city": "10",
       "healthCareService": "0",
-      "address": "שרה אמנו 39"
+      "address": "שרה אמנו 39",
+      "region": "3",
+      "endTime": "2021-01-18T21:00:00"
     },
     {
       "city": "9700",
       "healthCareService": "3",
-      "address": "שרה אמנו 39"
+      "address": "שרה אמנו 39",
+      "endTime": "2021-01-19T17:30:00"
     },
     {
       "city": "10",
