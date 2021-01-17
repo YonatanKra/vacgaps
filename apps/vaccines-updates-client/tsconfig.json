@@ -4,7 +4,12 @@
     "jsx": "react",
     "allowJs": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "@types/facebook-js-sdk",
+      "facebook-js-sdk",
+      "./node_modules/@types/facebook-js-sdk"
+    ]
   },
   "files": [],
   "include": [],

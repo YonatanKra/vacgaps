@@ -5,6 +5,8 @@ import { AddressListProvider } from '../providers/AddressesProvider';
 import { FormDataProvider } from '../providers/FormDataProvider';
 import { MainForm } from '../components/main-form';
 import { createGlobalStyle } from 'styled-components';
+import { AuthenticationProvider } from '../providers/AuthenticationProvider';
+// import 'facebook-js-sdk';
 
 const GlobalStyle = createGlobalStyle`
   html, body, #root {
@@ -30,16 +32,20 @@ const StyledMainForm = styled(MainForm)`
 
 export function App() {
   return (
-    <ThemeProvider>
-      <FormDataProvider>
-        <AddressListProvider>
-          <GlobalStyle />
-          <MainContainer>
-            <StyledMainForm />
-          </MainContainer>
-        </AddressListProvider>
-      </FormDataProvider>
-    </ThemeProvider>
+    <>
+      <GlobalStyle />
+      <ThemeProvider>
+        <AuthenticationProvider>
+          <FormDataProvider>
+            <AddressListProvider>
+              <MainContainer>
+                <StyledMainForm />
+              </MainContainer>
+            </AddressListProvider>
+          </FormDataProvider>
+        </AuthenticationProvider>
+      </ThemeProvider>
+    </>
   );
 }
 
