@@ -21,7 +21,8 @@ export class ReportsListComponent implements OnInit {
 
   openDialog(report: VaccinesReport): void {
     const dialogRef = this.dialog.open(ReportModalComponent, {
-      width: '250px',
+      width: '350px',
+      height: '230px',
       data: report,
       direction: 'rtl'
     });
