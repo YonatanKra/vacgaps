@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatSelectModule,
     MatChipsModule,
     MatIconModule,
+    ScrollingModule
   ],
   declarations: [FilterFormComponent],
   exports: [FilterFormComponent],

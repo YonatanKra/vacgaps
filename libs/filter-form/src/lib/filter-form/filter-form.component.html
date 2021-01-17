@@ -13,11 +13,11 @@
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>
         <input
-          dense
+          #citiesInput
           type="text"
           [(ngModel)]="citiesFilterTerm"
           [ngModelOptions]="{ standalone: true }"
-          (keyup)="filterCities($event.target.value)"
+          (keyup)="citiesFilterChange.next($event.target.value)"
           matInput
           [matAutocomplete]="citiesAutoComplete"
           [matChipInputFor]="citiesChipList"
@@ -28,12 +28,14 @@
         (optionSelected)="addCity($event)"
         #citiesAutoComplete="matAutocomplete"
       >
-        <mat-option
-          *ngFor="let city of citiesSelectList | keyvalue"
-          [value]="city.key"
-        >
-          {{ city.value }}
-        </mat-option>
+        <cdk-virtual-scroll-viewport itemSize="50" class="cities-list-viewport">
+          <mat-option
+            *cdkVirtualFor="let city of citiesSelectList | keyvalue"
+            [value]="city.key"
+          >
+            {{ city.value }}
+          </mat-option>
+        </cdk-virtual-scroll-viewport>
       </mat-autocomplete>
     </mat-form-field>
 

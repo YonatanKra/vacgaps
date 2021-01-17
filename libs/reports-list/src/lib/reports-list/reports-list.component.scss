@@ -8,6 +8,11 @@
   display: flex;
 }
 
+:host .mat-list-item {
+  height: auto;
+  margin: .25em 0;
+}
+
 .viewport {
   height: 100%;
   width: 100%;
