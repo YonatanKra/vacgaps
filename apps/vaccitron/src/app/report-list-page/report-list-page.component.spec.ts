@@ -144,7 +144,9 @@ describe('ReportListPageComponent', () => {
           address: 'שרה אמנו 39',
           "branchName": "wat",
           "reporter": 'ww',
-          "updateTime": 5
+          "updateTime": 5,
+          "minimalAge": 55,
+          "endTime": "2021-01-16T22:00:00"
         },
         {
           city: '110',

@@ -7,7 +7,7 @@ import { ReportsListItemComponent } from './reports-list-item/reports-list-item.
 import { MatCardModule } from '@angular/material/card';
 import { ReportModalComponent } from './report-modal/report-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   imports: [CommonModule, MatListModule, ScrollingModule, MatCardModule, MatDialogModule, MatFormFieldModule],

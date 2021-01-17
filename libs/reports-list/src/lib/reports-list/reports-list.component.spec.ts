@@ -13,6 +13,9 @@ import { CITIES_TYPE, HEALTH_CARE_SERVICES_TYPE } from '@vacgaps/constants';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatListModule } from '@angular/material/list';
 import { animationFrameScheduler } from 'rxjs';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { ReportModalComponent } from '../report-modal/report-modal.component';
 
 /** Finish initializing the virtual scroll component at the beginning of a test. */
 function finishInit(fixture: ComponentFixture<any>) {
@@ -69,9 +72,9 @@ describe('ReportsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatListModule, ScrollingModule],
-      declarations: [ReportsListComponent, TestComponent],
-      schemas: [NO_ERRORS_SCHEMA],
+      imports: [MatListModule, ScrollingModule, MatDialogModule, MatFormFieldModule],
+      declarations: [ReportsListComponent, TestComponent, ReportModalComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   });
 
