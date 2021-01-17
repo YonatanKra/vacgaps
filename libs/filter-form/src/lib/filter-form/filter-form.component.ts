@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NotificationsFilter } from '@vacgaps/interfaces';
-import { CITIES, HEALTH_CARE_SERVICES } from '@vacgaps/constants';
+import { CITIES, HEALTH_CARE_SERVICE } from '@vacgaps/constants';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
@@ -36,10 +36,10 @@ export class FilterFormComponent implements OnInit {
 
   #cities: Map<string, string>;
   citiesSelectList: Map<string, string>;
-  healthCareServices = new Map(Object.entries(HEALTH_CARE_SERVICES));
+  healthCareServices = new Map(Object.entries(HEALTH_CARE_SERVICE));
   citiesFilterTerm: string;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit(): void {
     if (!this.#cities) this.cityList = new Map(Object.entries(CITIES));

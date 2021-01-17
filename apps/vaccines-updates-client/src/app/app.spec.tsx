@@ -23,6 +23,6 @@ describe('App', () => {
       </BrowserRouter>
     );
 
-    expect(getByText('Welcome to vaccines-updates-client!')).toBeTruthy();
+    expect(getByText('Welcome to vaccines-reporter!')).toBeTruthy();
   });
 });
