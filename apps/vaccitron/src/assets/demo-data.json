@@ -8,7 +8,7 @@
     {
       "city": "10",
       "healthCareService": "2",
-      "address": "שרה אמנו 39"
+      "address": "רחוב שרה אמנו שנמצא מאחורי הפרגוד"
     },
     {
       "city": "10",
@@ -21,9 +21,29 @@
       "address": "שרה אמנו 39"
     },
     {
+      "city": "10",
+      "healthCareService": "2",
+      "address": "רחוב שרה אמנו שנמצא מאחורי הפרגוד"
+    },
+    {
+      "city": "10",
+      "healthCareService": "2",
+      "address": "רחוב שרה אמנו שנמצא מאחורי הפרגוד"
+    },
+    {
+      "city": "10",
+      "healthCareService": "2",
+      "address": "רחוב שרה אמנו שנמצא מאחורי הפרגוד"
+    },
+    {
       "city": "9700",
       "healthCareService": "1",
-      "address": "שרה אמנו 39"
+      "address": "שרה אמנו39"
+    },
+    {
+      "city": "10",
+      "healthCareService": "2",
+      "address": "רחוב שרה אמנו שנמצא מאחורי הפרגוד"
     }
   ]
 }
