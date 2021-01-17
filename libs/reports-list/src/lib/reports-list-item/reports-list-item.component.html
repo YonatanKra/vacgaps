@@ -2,6 +2,4 @@
   <div class="healthcare-col">{{ healthCareService }}</div>
   <div class="city-col">{{ city }}</div>
   <div class="address-col">{{ reportItem?.address }}</div>
-  <div class="min-age-col" *ngIf="reportItem?.minimalAge"><span>גיל מינימום: {{reportItem?.minimalAge}}</span></div>
-  <div class="end-time-col" *ngIf="reportItem?.endTime"><span>זמן סגירה: <span dir=ltr>{{reportItem?.endTime | date:'short':'IST':'il'}}</span></span></div>
 </div>
