@@ -35,17 +35,15 @@ export const FormDataProvider: FunctionComponent = props => {
     const [workingHours, setWorkingHours] = useState<WorkingHours>();
 
     const addTargetGroup = useCallback((group: TargetGroup) => {
-        const newTargetGroups = [...targetGroups];
-        newTargetGroups.push(group);
-        setTargetGroups(newTargetGroups);
+        setTargetGroups([...targetGroups, group]);
     }, [targetGroups]);
 
     const removeTargetGroup = useCallback((group: TargetGroup) => {
+        const indexToRemove = targetGroups.indexOf(group);
+        if (indexToRemove < 0) return;
+
         const newTargetGroups = [...targetGroups];
-        const index = newTargetGroups.indexOf(group);
-        if (index > -1) {
-            newTargetGroups.splice(index, 1);
-        }
+        newTargetGroups.splice(indexToRemove, 1);
         setTargetGroups(newTargetGroups);
     }, [targetGroups]);
 

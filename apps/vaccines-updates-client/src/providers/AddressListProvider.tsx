@@ -27,8 +27,8 @@ export const AddressListProvider: FunctionComponent = props => {
 
     const filterAddressList = useCallback((city: string, healthCareService: HEALTH_CARE_SERVICE, combinedAddressList: Address[]) => {
         const filteredList: Address[] = combinedAddressList.filter(_ => {
-            // if (!!city && _.city !== city) return false;
-            // if (!!healthCareService && _.healthCareService !== healthCareService) return false;
+            if (!!city && _.city !== city) return false;
+            if (!!healthCareService && _.healthCareService !== healthCareService) return false;
             return true;
         });
 
@@ -45,7 +45,7 @@ export const AddressListProvider: FunctionComponent = props => {
 
     const fetchAddressList = useCallback(async () => {
         setIsFetchingAddressList(true);
-        await new Promise(res => setTimeout(res, 3000));
+        await new Promise(res => setTimeout(res, 3000)); // TODO: replace with a real fetch from the API
         setIsFetchingAddressList(false);
         setAddressList([]);
     }, []);
@@ -55,7 +55,6 @@ export const AddressListProvider: FunctionComponent = props => {
     }, []);
 
     const addNewAddress = useCallback((addressName: string) => {
-        console.log("adding new address", addressName, newAddedAddress)
         setNewAddedAddress(newAddedAddress.concat({
             address: addressName,
             healthCareService,
@@ -67,7 +66,7 @@ export const AddressListProvider: FunctionComponent = props => {
         <AddressListContext.Provider value={{
             addressList: combinedAddressList,
             isFetchingAddressList,
-            addNewAddress
+            addNewAddress,
         }}>
             {props.children}
         </AddressListContext.Provider>

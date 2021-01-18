@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useCallback, useMemo } from 'react';
 import { FormItem } from '../../form-item';
 import { Dropdown, DropdownItemProps } from 'semantic-ui-react'
-import { useAddressList } from '../../../../providers/AddressesProvider';
+import { useAddressList } from '../../../../providers/AddressListProvider';
 import { useFormData } from '../../../../providers/FormDataProvider';
 
 type Props = {

@@ -1,11 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ThemeProvider } from '../providers/ThemeProvider';
-import { AddressListProvider } from '../providers/AddressesProvider';
+import { AddressListProvider } from '../providers/AddressListProvider';
 import { FormDataProvider } from '../providers/FormDataProvider';
 import { MainForm } from '../components/main-form';
 import { createGlobalStyle } from 'styled-components';
-import { AuthenticationProvider } from '../providers/AuthenticationProvider';
 
 const GlobalStyle = createGlobalStyle`
   html, body, #root {
@@ -33,17 +31,13 @@ export function App() {
   return (
     <>
       <GlobalStyle />
-      <ThemeProvider>
-        <AuthenticationProvider>
-          <FormDataProvider>
-            <AddressListProvider>
-              <MainContainer>
-                <StyledMainForm />
-              </MainContainer>
-            </AddressListProvider>
-          </FormDataProvider>
-        </AuthenticationProvider>
-      </ThemeProvider>
+      <FormDataProvider>
+        <AddressListProvider>
+          <MainContainer>
+            <StyledMainForm />
+          </MainContainer>
+        </AddressListProvider>
+      </FormDataProvider>
     </>
   );
 }
