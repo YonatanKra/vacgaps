@@ -2,19 +2,24 @@
 <div mat-dialog-content>
   <mat-grid-list cols="1" rowHeight="20px">
     <mat-grid-tile>
-      <mat-label>קופה: {{healthCareService}}</mat-label>
+      <mat-label>קופה:</mat-label>
+      <span>{{healthCareService}}</span>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-label>עיר: {{city}}</mat-label>
+      <mat-label>עיר:</mat-label>
+      <span>{{city}}</span>
     </mat-grid-tile>
     <mat-grid-tile rowspan="{{report.address.length > 25 ? 2 : 1}}">
-      <mat-label>כתובת: {{report.address}}</mat-label>
+      <mat-label>כתובת:</mat-label>
+      <span>{{report.address}}</span>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-label>גיל מינימלי: {{report.minimalAge}}</mat-label>
+      <mat-label>גיל מינימלי:</mat-label>
+      <span>{{report.minimalAge}}</span>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-label>זמן סגירה: {{report.endTime | date:'short':'IST':'il'}}</mat-label>
+      <mat-label>זמן סגירה:</mat-label>
+      <span>{{report.endTime | date:'short':'IST':'il'}}</span>
     </mat-grid-tile>
   </mat-grid-list>
 </div>

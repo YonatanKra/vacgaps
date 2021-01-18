@@ -7,3 +7,8 @@
 ::ng-deep .mat-grid-tile .mat-figure {
   justify-content: flex-start !important;
 }
+
+mat-label {
+  margin-left: 2%;
+  align-self: flex-start;
+}
