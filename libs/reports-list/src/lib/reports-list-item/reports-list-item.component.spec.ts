@@ -69,6 +69,6 @@ describe('ReportsListItemComponent', () => {
 
   it(`should get a string value for city`, function () {
     const report = (component.reportItem = new VaccineReportItem());
-    expect(component.city).toEqual(CITIES[report.city]);
+    expect(component.cityName).toEqual(CITIES[report.city]);
   });
 });

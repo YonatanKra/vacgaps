@@ -193,7 +193,7 @@ describe('FilterFormComponent', () => {
       healthCareService: "1"
     });
     spyOn(component.formUpdate, 'emit');
-    component.citiesUpdated([]]);
+    component.citiesUpdated([]);
     expect(component.formUpdate.emit).toHaveBeenCalledWith({
       availableVaccines: 13,
       cities: [],
