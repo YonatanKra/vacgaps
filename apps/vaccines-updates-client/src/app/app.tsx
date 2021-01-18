@@ -6,7 +6,6 @@ import { FormDataProvider } from '../providers/FormDataProvider';
 import { MainForm } from '../components/main-form';
 import { createGlobalStyle } from 'styled-components';
 import { AuthenticationProvider } from '../providers/AuthenticationProvider';
-// import 'facebook-js-sdk';
 
 const GlobalStyle = createGlobalStyle`
   html, body, #root {

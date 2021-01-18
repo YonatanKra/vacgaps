@@ -9,6 +9,7 @@ import VaccinesAvailability from './parts/vaccines-availability';
 import WorkingHours from './parts/working-hours';
 import { FormItem } from './form-item';
 import { Button } from 'semantic-ui-react';
+import { useAuthentication } from '../../providers/AuthenticationProvider';
 
 const logo = require('./resources/logo.jpeg').default;
 
@@ -62,11 +63,25 @@ const FormInputsWrapper = styled.div`
     }
 `;
 
+const TextButton = styled.button`
+    outline: none;
+    border: none;
+    background-color: transparent;
+    width: auto;
+    text-decoration: underline;
+    font-size: 14px;
+    color: gray;
+    padding: 4px 10px;
+    cursor: pointer;
+`;
+
 type Props = {
     className?: string;
 }
 
 export const MainForm: FunctionComponent<Props> = props => {
+    const { logout } = useAuthentication();
+
     return (
         <Container className={props.className}>
             <Logo src={logo}></Logo>
@@ -80,6 +95,7 @@ export const MainForm: FunctionComponent<Props> = props => {
                 <VaccinesAvailability />
                 <WorkingHours />
                 <FormItem><Button primary>שלח</Button></FormItem>
+                <FormItem><TextButton onClick={() => logout()}>התנתק</TextButton></FormItem>
             </FormInputsWrapper>
         </Container >
     );

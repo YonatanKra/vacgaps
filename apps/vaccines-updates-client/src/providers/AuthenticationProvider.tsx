@@ -1,9 +1,10 @@
-import React, { FunctionComponent, createContext, useContext, useState, useEffect } from 'react';
+import React, { FunctionComponent, createContext, useContext, useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 
 export type AuthenticationContextProps = {
     token?: string;
     isLoggedIn: boolean;
+    logout: VoidFunction;
 };
 
 const AuthenticationContext = createContext<AuthenticationContextProps>({} as any);
@@ -45,26 +46,38 @@ const LoginButton = () => {
         </LoginButtonContainer>);
 };
 
-
-// import 'facebook-js-sdk'; // try remove this comment
-
+// import 'facebook-js-sdk';
+// declare global { const FB: any }
 export const AuthenticationProvider: FunctionComponent = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [facebookAccessToken, setFacebookAccessToken] = useState<string | undefined>(undefined);
+
+    const onAuthChanged = useCallback((response: fb.StatusResponse) => {
+        const token = response.authResponse.accessToken;
+        if (response.status !== 'connected' || !token) {
+            setIsLoggedIn(false);
+            setFacebookAccessToken(undefined);
+            return;
+        }
+        setIsLoggedIn(true);
+        setFacebookAccessToken(token);
+    }, []);
+
+    const logout = useCallback(() => {
+        FB.logout(onAuthChanged);
+    }, [onAuthChanged]);
 
     useEffect(() => {
-        const callback: (response: fb.StatusResponse) => void = response => {
-            console.log("gil", response)
-        };
-
-        FB.Event.subscribe('auth.statusChange', callback);
-
-        return () => FB.Event.unsubscribe('auth.statusChange', callback)
-    }, []);
+        FB.getLoginStatus(onAuthChanged)
+        FB.Event.subscribe('auth.statusChange', onAuthChanged);
+        return () => FB.Event.unsubscribe('auth.statusChange', onAuthChanged)
+    }, [onAuthChanged]);
 
     return (
         <AuthenticationContext.Provider value={{
             isLoggedIn,
             token: undefined,
+            logout,
         }}>
             {isLoggedIn ?
                 children :
