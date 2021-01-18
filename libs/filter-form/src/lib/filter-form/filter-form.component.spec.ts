@@ -164,9 +164,9 @@ describe('FilterFormComponent', () => {
     });
 
     it(`should receive cities list from parent via the cityList`, function () {
-      expect(formComponent.cityList_.size).toEqual(CITIES_LIST.size);
+      expect(formComponent.cityList.size).toEqual(CITIES_LIST.size);
       for (const [key, value] of CITIES_LIST.entries()) {
-        expect(value).toEqual(formComponent.cityList_.get(key));
+        expect(value).toEqual(formComponent.cityList.get(key));
       }
     });
 
