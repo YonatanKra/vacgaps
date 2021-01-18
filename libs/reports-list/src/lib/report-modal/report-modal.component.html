@@ -9,7 +9,11 @@
       <mat-label>עיר:</mat-label>
       <span>{{city}}</span>
     </mat-grid-tile>
-    <mat-grid-tile rowspan="{{report.address.length > 25 ? 2 : 1}}">
+    <mat-grid-tile>
+      <mat-label>מחוז:</mat-label>
+      <span>{{district}}</span>
+    </mat-grid-tile>
+    <mat-grid-tile rowspan="{{report.address?.length > 25 ? 2 : 1}}">
       <mat-label>כתובת:</mat-label>
       <span>{{report.address}}</span>
     </mat-grid-tile>

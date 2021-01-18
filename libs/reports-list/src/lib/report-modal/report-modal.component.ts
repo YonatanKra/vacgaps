@@ -22,7 +22,12 @@ export class ReportModalComponent implements OnInit {
   }
 
   get city(): string {
-    return CITIES[this.report?.city];
+    const city = CITIES[this.report?.city]; 
+    return city ? city.name : "";
   }
 
+  get district(): string {
+    const city = CITIES[this.report?.city]; 
+    return city ? city.district : "";
+  }
 }
