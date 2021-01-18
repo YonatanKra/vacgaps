@@ -40,7 +40,7 @@ const Comp: FunctionComponent<Props> = props => {
             <h3>שעות פעילות</h3>
             <DropdownWrapper>
                 <Dropdown
-                    // onChange={(_, data) => setWorkingHours({en})}
+                    // onChange={(_, data) => setWorkingHours({en})} TODO: decide on the spec
                     placeholder='התחלה'
                     fluid
                     search
@@ -49,7 +49,7 @@ const Comp: FunctionComponent<Props> = props => {
                     options={timeOptions}
                 />
                 <Dropdown
-                    // onChange={(_, data) => setWorkingHours({en})}
+                    // onChange={(_, data) => setWorkingHours({en})} TODO: decide on the spec
                     placeholder='סיום'
                     fluid
                     search

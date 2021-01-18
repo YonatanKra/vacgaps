@@ -51,9 +51,7 @@ const Comp: FunctionComponent<Props> = props => {
         <FormItem className={props.className}>
             <h3>קבוצות יעד</h3>
             <TargetGroupsContainer>
-                {targetGroupsCheckboxes.map(Comp => {
-                    return Comp;
-                })}
+                {targetGroupsCheckboxes}
             </TargetGroupsContainer>
         </FormItem>
     );
