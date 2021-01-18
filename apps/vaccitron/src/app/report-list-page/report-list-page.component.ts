@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NotificationsFilter, VaccinesReport } from '@vacgaps/interfaces';
 import { VaccinesReportsService } from '@vacgaps/vaccines-reporter';
 import { interval, Subject } from 'rxjs';
+import { CITIES } from '@vacgaps/constants';
 import { environment } from '../../environments/environment';
 import { takeUntil } from 'rxjs/operators';
 
@@ -45,6 +46,7 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
     return this.reportsList?.filter(report => {
       return (!notificationsFilter.healthCareService || report.healthCareService === notificationsFilter.healthCareService)
       && (!notificationsFilter.cities?.length || notificationsFilter.cities.includes(report.city))
+      && (!notificationsFilter.districts?.length || notificationsFilter.districts.includes(CITIES[report.city].district))
       // TODO::add the time filter according to how it is supposed to be sent from the server (don't forget to update the interface)
     });
   }

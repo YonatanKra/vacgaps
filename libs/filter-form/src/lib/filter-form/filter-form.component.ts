@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NotificationsFilter } from '@vacgaps/interfaces';
-import { CITIES, HEALTH_CARE_SERVICES } from '@vacgaps/constants';
+import { DISTRICTS, CITIES, HEALTH_CARE_SERVICES } from '@vacgaps/constants';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -15,6 +15,7 @@ export class FilterFormComponent implements OnInit {
   filterFields = new FormGroup({
     availableVaccines: new FormControl('', []),
     cities: new FormControl([], []),
+    districts: new FormControl([], []),
     dueTimeInMs: new FormControl(NaN, []),
     healthCareService: new FormControl(NaN, []),
   });
@@ -25,33 +26,28 @@ export class FilterFormComponent implements OnInit {
   @Output()
   formUpdate = new EventEmitter<NotificationsFilter>();
 
-  selectedCities = new Set([]);
+  @Input() cityList: Map<string, string>;
 
-  @Input()
-  set cityList(citiesList: Map<string, string>) {
-    this.#cities = citiesList;
-    this.filterCities('');
-  }
-  get cityList() {
-    return this.#cities;
-  }
+  @Input() districtList: Map<string, string>
 
   @ViewChild('citiesInput') citiesInput: ElementRef<HTMLInputElement>;
 
-  #cities: Map<string, string>;
-  citiesSelectList: Map<string, string>;
+  @ViewChild('districtsInput') districtsInput: ElementRef<HTMLInputElement>;
+
   healthCareServices = new Map(Object.entries(HEALTH_CARE_SERVICES));
-  citiesFilterTerm: string;
-  citiesFilterChange = new Subject<string>();
   
   constructor() {}
 
   ngOnInit(): void {
-    if (!this.#cities) this.cityList = new Map(Object.entries(CITIES));
-
-    this.citiesFilterChange
-      .pipe(debounceTime(100))
-      .subscribe(term => this.filterCities(term));
+    if (!this.cityList) {
+      this.cityList = new Map(Object.entries(CITIES).map(
+        entry => [entry[0], entry[1].name]));
+    }
+  
+    if (!this.districtList) {
+      this.districtList = new Map(Array.from(DISTRICTS).map(
+        entry => [entry, entry]));
+    }
 
     this.filterFields.valueChanges.subscribe(() => {
       this.formUpdate.emit(this.filterFields.getRawValue());
@@ -62,24 +58,17 @@ export class FilterFormComponent implements OnInit {
     this.formSubmit.emit(this.filterFields.getRawValue());
   }
 
-  filterCities(term: string) {
-    this.citiesSelectList = new Map(this.#cities);
-    if (term === '') return;
-    for (const [key, value] of this.citiesSelectList.entries()) {
-      if (value.toLowerCase().indexOf(term.toLowerCase()) === -1)
-        this.citiesSelectList.delete(key);
-    }
+  citiesUpdated(selectedCities: any[]) {
+    this.filterFields.controls.cities.setValue(selectedCities);
+
+    // NOTE: Not sure it's required in case of added city (rather than removed)
+    this.formUpdate.emit(this.filterFields.getRawValue());
   }
 
-  addCity($event: MatAutocompleteSelectedEvent) {
-    this.selectedCities.add($event.option.value);
-    this.filterFields.controls.cities.setValue([...this.selectedCities]);
-    this.citiesInput.nativeElement.value = this.citiesFilterTerm = '';
-  }
+  districtsUpdated(selectedDistricts: any[]) {
+    this.filterFields.controls.districts.setValue(selectedDistricts);
 
-  removeCity(city: string) {
-    this.selectedCities.delete(city)
-    this.filterFields.controls.cities.setValue([...this.selectedCities]);
+    // NOTE: Not sure it's required in case of added city (rather than removed)
     this.formUpdate.emit(this.filterFields.getRawValue());
   }
 }
