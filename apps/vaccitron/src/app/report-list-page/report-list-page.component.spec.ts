@@ -107,6 +107,7 @@ describe('ReportListPageComponent', () => {
     it(`should update the filter when the filter fields change`, function() {
       const notificationsFilter: NotificationsFilter = {
         cities: ["100", "110"],
+        districts: [],
         healthCareService: "1",
         availableVaccines: 50,
         dueTimeInMs: 500,
@@ -127,6 +128,7 @@ describe('ReportListPageComponent', () => {
       component.reportsList = MOCK_REPORTS;
       const notificationsFilter: NotificationsFilter = {
         cities: ["100", "110"],
+        districts: [],
         healthCareService: "1"
       };
       component.updateFilter(notificationsFilter);
@@ -154,6 +156,7 @@ describe('ReportListPageComponent', () => {
       component.reportsList = MOCK_REPORTS.map(value => { value.healthCareService = "1"; return value; });
       const notificationsFilter: NotificationsFilter = {
         cities: [],
+        districts: [],
         healthCareService: "1"
       };
       component.updateFilter(notificationsFilter);
