@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FilterFormComponent } from './filter-form/filter-form.component';
+import { PlaceFilterComponent } from './place-filter/place-filter.component';
 import '@angular/localize/init';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,7 +26,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatIconModule,
     ScrollingModule
   ],
-  declarations: [FilterFormComponent],
+  declarations: [FilterFormComponent, PlaceFilterComponent],
   exports: [FilterFormComponent],
 })
 export class FilterFormModule {}
