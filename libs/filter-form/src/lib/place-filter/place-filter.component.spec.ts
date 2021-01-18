@@ -22,11 +22,9 @@ const CITIES_LIST = new Map(
 );
 @Component({
   selector: 'vacgaps-test-component',
-  template: `<vacgaps-filter-form
-    (formSubmit)="handleFormUpdate($event)"
-    (formUpdate)="handleFormValueUpdate($event)"
+  template: `<vacgaps-place-filter
     [placeList]="places"
-  ></vacgaps-filter-form>`,
+  ></vacgaps-place-filter>`,
 })
 class TestComponent {
   places = CITIES_LIST;
@@ -132,7 +130,7 @@ describe('PlaceFilterComponent', () => {
       parentFixture = TestBed.createComponent(TestComponent);
       parentComponent = parentFixture.componentInstance;
       formComponent = parentFixture.debugElement.query(
-        By.css('vacgaps-filter-form')
+        By.css('vacgaps-place-filter')
       ).componentInstance;
       parentFixture.detectChanges();
     });
@@ -146,11 +144,15 @@ describe('PlaceFilterComponent', () => {
 
     it(`should output the form data to parent component on form update`, function () {
       const data: any[] = ['100', '200'];
-      spyOn(component.placesUpdated, 'emit');
-      formComponent.addPlace(data[0]);
-      expect(component.placesUpdated.emit).toHaveBeenCalledWith([data[0]]);
-      formComponent.addPlace(data[1]);
-      expect(component.placesUpdated.emit).toHaveBeenCalledWith(data);
+      spyOn(formComponent.placesUpdated, 'emit');
+      formComponent.addPlace(({	
+        option: { value: data[0] }
+      } as unknown) as MatAutocompleteSelectedEvent);
+      expect(formComponent.placesUpdated.emit).toHaveBeenCalledWith([data[0]]);
+      formComponent.addPlace(({	
+        option: { value: data[1] }
+      } as unknown) as MatAutocompleteSelectedEvent);
+      expect(formComponent.placesUpdated.emit).toHaveBeenCalledWith(data);
     });
   });
 });

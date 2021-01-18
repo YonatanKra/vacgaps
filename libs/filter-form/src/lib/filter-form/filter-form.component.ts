@@ -26,23 +26,43 @@ export class FilterFormComponent implements OnInit {
   @Output()
   formUpdate = new EventEmitter<NotificationsFilter>();
 
-  cities = new Map(Object.entries(CITIES).map(
-    entry => [entry[0], entry[1].name]));
+  @Input()
+  set cityList(cityList_: Map<string, string>) {
+    this.cityList_ = cityList_;
+  }
+  get cityList() {
+    return this.cityList_;
+  }
 
-  districts = new Map(Array.from(DISTRICTS).map(
-    entry => [entry, entry]));
+  @Input()
+  set districtList(districtList_: Map<string, string>) {
+    this.districtList_ = districtList_;
+  }
+  get districtList() {
+    return this.districtList_;
+  }
 
   @ViewChild('citiesInput') citiesInput: ElementRef<HTMLInputElement>;
 
   @ViewChild('districtsInput') districtsInput: ElementRef<HTMLInputElement>;
 
-  #cities: Map<string, string>;
-  #districts: Map<string, string>;
+  cityList_: Map<string, string>;
+  districtList_: Map<string, string>;
   healthCareServices = new Map(Object.entries(HEALTH_CARE_SERVICES));
   
   constructor() {}
 
   ngOnInit(): void {
+    if (!this.cityList_) {
+      this.cityList = new Map(Object.entries(CITIES).map(
+        entry => [entry[0], entry[1].name]));
+    }
+  
+    if (!this.districtList_) {
+      this.districtList = new Map(Array.from(DISTRICTS).map(
+        entry => [entry, entry]));
+    }
+
     this.filterFields.valueChanges.subscribe(() => {
       this.formUpdate.emit(this.filterFields.getRawValue());
     });
