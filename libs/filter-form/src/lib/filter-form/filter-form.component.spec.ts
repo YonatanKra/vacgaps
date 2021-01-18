@@ -16,8 +16,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const CITIES_LIST = new Map(
   Object.entries({
-    0: '0',
-    1: '1',
+    0: {name: '0', district: 'd0'},
+    1: {name: '1', district: 'd1'},
   })
 );
 @Component({
