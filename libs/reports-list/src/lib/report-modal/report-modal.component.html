@@ -1,8 +1,20 @@
 <h1 mat-dialog-title>דיווח על חיסונים</h1>
 <div mat-dialog-content>
-  <mat-label>קופה: {{healthCareService}}</mat-label><br>
-  <mat-label>עיר: {{city}}</mat-label><br>
-  <mat-label>כתובת: {{report.address}}</mat-label><br>
-  <mat-label>גיל מינימלי: {{report.minimalAge}}</mat-label><br>
-  <mat-label>זמן סגירה: {{report.endTime | date:'short':'IST':'il'}}</mat-label>
+  <mat-grid-list cols="1" rowHeight="20px">
+    <mat-grid-tile>
+      <mat-label>קופה: {{healthCareService}}</mat-label>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-label>עיר: {{city}}</mat-label>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-label>כתובת: {{report.address}}</mat-label>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-label>גיל מינימלי: {{report.minimalAge}}</mat-label>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-label>זמן סגירה: {{report.endTime | date:'short':'IST':'il'}}</mat-label>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>

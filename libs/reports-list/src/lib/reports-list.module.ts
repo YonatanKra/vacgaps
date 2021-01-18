@@ -8,9 +8,10 @@ import { MatCardModule } from '@angular/material/card';
 import { ReportModalComponent } from './report-modal/report-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
-  imports: [CommonModule, MatListModule, ScrollingModule, MatCardModule, MatDialogModule, MatFormFieldModule],
+  imports: [CommonModule, MatListModule, ScrollingModule, MatCardModule, MatDialogModule, MatFormFieldModule, MatGridListModule],
   declarations: [ReportsListComponent, ReportsListItemComponent, ReportModalComponent],
   exports: [ReportsListComponent],
   bootstrap: [ReportsListComponent]

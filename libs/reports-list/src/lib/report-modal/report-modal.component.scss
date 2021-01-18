@@ -3,3 +3,7 @@
   font-size: medium;
   padding: 10%;
 }
+
+::ng-deep .mat-grid-tile .mat-figure {
+  justify-content: flex-start !important;
+}

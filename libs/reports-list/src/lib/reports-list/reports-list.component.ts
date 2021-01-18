@@ -22,7 +22,7 @@ export class ReportsListComponent implements OnInit {
   openDialog(report: VaccinesReport): void {
     const dialogRef = this.dialog.open(ReportModalComponent, {
       width: '350px',
-      height: '230px',
+      height: 'auto',
       data: report,
       direction: 'rtl'
     });
