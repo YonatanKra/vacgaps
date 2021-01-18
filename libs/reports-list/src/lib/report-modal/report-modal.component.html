@@ -7,7 +7,7 @@
     <mat-grid-tile>
       <mat-label>עיר: {{city}}</mat-label>
     </mat-grid-tile>
-    <mat-grid-tile>
+    <mat-grid-tile rowspan="{{report.address.length > 25 ? 2 : 1}}">
       <mat-label>כתובת: {{report.address}}</mat-label>
     </mat-grid-tile>
     <mat-grid-tile>
