@@ -13,6 +13,18 @@
   cursor: pointer;
 }
 
+.mat-expansion-panel-header {
+  width: 100%;
+}
+
+.mat-expansion-panel-header span {
+  justify-content: space-around;
+}
+
+.mat-content {
+  justify-content: space-around !important;
+}
+
 .report-item-wrapper > div {
   width: 100px;
 }

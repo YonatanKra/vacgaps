@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatGridListModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    MatExpansionModule
   ],
   declarations: [
     ReportsListComponent,

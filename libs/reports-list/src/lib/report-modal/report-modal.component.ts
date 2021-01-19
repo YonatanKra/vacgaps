@@ -1,5 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Component, Inject, Input, OnInit } from '@angular/core';
 import { CITIES, HEALTH_CARE_SERVICES } from '@vacgaps/constants';
 import { VaccinesReport } from '@vacgaps/interfaces';
 
@@ -10,9 +9,8 @@ import { VaccinesReport } from '@vacgaps/interfaces';
 })
 export class ReportModalComponent implements OnInit {
 
-  constructor(
-    public dialogRef: MatDialogRef<ReportModalComponent>,
-    @Inject(MAT_DIALOG_DATA) public report: VaccinesReport) {}
+  @Input() report: VaccinesReport;
+  constructor() {}
 
   ngOnInit(): void {
   }
@@ -22,12 +20,12 @@ export class ReportModalComponent implements OnInit {
   }
 
   get city(): string {
-    const city = CITIES[this.report?.city]; 
+    const city = CITIES[this.report?.city];
     return city ? city.name : "";
   }
 
   get district(): string {
-    const city = CITIES[this.report?.city]; 
+    const city = CITIES[this.report?.city];
     return city ? city.district : "";
   }
 }
