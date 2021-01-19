@@ -11,8 +11,8 @@ describe('ReportModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [{ provide: MatDialogRef, useValue: {} }, { provide: MAT_DIALOG_DATA, useValue: {} }],
-      imports: [MatDialogModule, MatGridListModule],
+      providers: [],
+      imports: [MatGridListModule],
       declarations: [ ReportModalComponent ],
       schemas: [NO_ERRORS_SCHEMA]
     })
