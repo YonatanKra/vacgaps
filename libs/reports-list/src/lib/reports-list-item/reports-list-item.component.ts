@@ -12,7 +12,7 @@ export class ReportsListItemComponent implements OnInit {
   reportItem: VaccinesReport;
 
   @Output()
-  comingReportEvent = new EventEmitter<VaccinesReport>();
+  comingFeedbackEvent = new EventEmitter<VaccinesReport>();
 
   constructor() {}
 
@@ -24,9 +24,9 @@ export class ReportsListItemComponent implements OnInit {
     return CITIES[this.reportItem?.city]?.name;
   }
 
-  comingReport($event) {
+  comingFeedback($event) {
     $event.stopPropagation();
-    this.comingReportEvent.emit(this.reportItem);
+    this.comingFeedbackEvent.emit(this.reportItem);
   }
 
   ngOnInit(): void {}

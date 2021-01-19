@@ -131,12 +131,12 @@ describe('ReportsListComponent', () => {
         updateTime: 0
       };
       const actionData = {
-        type: 'comingReport',
+        type: 'comingFeedback',
         payload: eventData
       };
 
       spyOn(component.listActionEvent, 'emit');
-      component.handleComingReport(eventData);
+      component.handleComingFeedback(eventData);
       expect(component.listActionEvent.emit).toHaveBeenCalledWith(actionData);
     });
   });

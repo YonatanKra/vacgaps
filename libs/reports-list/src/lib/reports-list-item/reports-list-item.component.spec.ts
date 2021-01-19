@@ -17,7 +17,7 @@ const REPORT_MOCK_ITEM = new VaccineReportItem();
   selector: 'vacgaps-test-component',
   template: `
     <vacgaps-reports-list-item
-      (comingReportEvent)="comingEventHandler($event)"
+      (comingFeedbackEvent)="comingEventHandler($event)"
       [reportItem]="item"
     ></vacgaps-reports-list-item>`
 })
@@ -71,21 +71,21 @@ describe('ReportsListItemComponent', () => {
 
     it(`should fire an I am coming event to parent`, function() {
       const spy = spyOn(parentComponent, 'comingEventHandler');
-      reportsListItemComponent.comingReport(event);
+      reportsListItemComponent.comingFeedback(event);
       expect(spy).toHaveBeenCalledWith(REPORT_MOCK_ITEM);
     });
   });
 
   describe(`I am coming report`, function() {
     it(`should stop propagation`, function() {
-      component.comingReport(event);
+      component.comingFeedback(event);
       expect(event.stopPropagation).toHaveBeenCalled();
     });
 
     it(`should emit an event`, function() {
-      spyOn(component.comingReportEvent, 'emit');
-      component.comingReport(event);
-      expect(component.comingReportEvent.emit).toHaveBeenCalledWith(component.reportItem);
+      spyOn(component.comingFeedbackEvent, 'emit');
+      component.comingFeedback(event);
+      expect(component.comingFeedbackEvent.emit).toHaveBeenCalledWith(component.reportItem);
     });
   });
 

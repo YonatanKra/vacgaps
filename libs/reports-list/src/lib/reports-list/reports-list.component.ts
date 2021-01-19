@@ -41,9 +41,9 @@ export class ReportsListComponent implements OnInit {
     });
   }
 
-  handleComingReport(eventData: VaccinesReport) {
+  handleComingFeedback(eventData: VaccinesReport) {
     this.listActionEvent.emit({
-      type: 'comingReport',
+      type: 'comingFeedback',
       payload: eventData
     })
   }
