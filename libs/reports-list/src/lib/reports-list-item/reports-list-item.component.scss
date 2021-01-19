@@ -17,6 +17,10 @@
   width: 100px;
 }
 
+.report-item-wrapper:hover {
+  text-decoration: underline;
+}
+
 @media screen and (max-width: 342px) {
   .report-item-wrapper > div {
     width: 75px;

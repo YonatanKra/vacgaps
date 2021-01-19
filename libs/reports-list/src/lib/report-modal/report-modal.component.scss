@@ -1,5 +1,6 @@
 ::ng-deep .mat-dialog-container {
-  background: rgba(255, 255, 255);
+  background: rgba(226, 226, 243);
+  color: rgba(56, 131, 135);
   font-size: medium;
   padding: 10%;
 }
@@ -11,4 +12,25 @@
 mat-label {
   margin-left: 2%;
   align-self: flex-start;
+}
+
+mat-label.field-name {
+  font-weight: bold;
+}
+
+button {
+  background: transparent;
+  border-style: none;
+  color: rgba(56, 131, 135);
+  cursor: pointer;
+  left: 24px;
+  line-height: 14px;
+  min-width: auto;
+  padding: 5px;
+  position: relative;
+  top: -24px;
+}
+
+button:focus {
+  outline: 0;
 }
