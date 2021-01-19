@@ -3,6 +3,7 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 import { MatGridListModule } from '@angular/material/grid-list';
 
 import { ReportModalComponent } from './report-modal.component';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('ReportModalComponent', () => {
   let component: ReportModalComponent;
@@ -12,7 +13,8 @@ describe('ReportModalComponent', () => {
     await TestBed.configureTestingModule({
       providers: [{ provide: MatDialogRef, useValue: {} }, { provide: MAT_DIALOG_DATA, useValue: {} }],
       imports: [MatDialogModule, MatGridListModule],
-      declarations: [ ReportModalComponent ]
+      declarations: [ ReportModalComponent ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   });

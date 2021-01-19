@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReportsListItemComponent } from './reports-list-item.component';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { VaccinesReport } from '@vacgaps/interfaces';
 import { VaccineReportItem } from '../reports-list/reports-list.component.spec';
 import { ReportsListComponent } from '../reports-list/reports-list.component';
@@ -15,20 +15,30 @@ const REPORT_MOCK_ITEM = new VaccineReportItem();
 
 @Component({
   selector: 'vacgaps-test-component',
-  template: ` <vacgaps-reports-list-item
-    [reportItem]="item"
-  ></vacgaps-reports-list-item>`,
+  template: `
+    <vacgaps-reports-list-item
+      (comingReportEvent)="comingEventHandler($event)"
+      [reportItem]="item"
+    ></vacgaps-reports-list-item>`
 })
 class TestComponent {
   item: VaccinesReport = REPORT_MOCK_ITEM;
+  comingEventHandler($event) {
+
+  }
 }
+
 describe('ReportsListItemComponent', () => {
   let component: ReportsListItemComponent;
   let fixture: ComponentFixture<ReportsListItemComponent>;
+  const event = {
+    stopPropagation: jasmine.createSpy()
+  } as unknown as Event;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ReportsListItemComponent, TestComponent],
+      schemas: [NO_ERRORS_SCHEMA]
     }).compileComponents();
   });
 
@@ -42,32 +52,51 @@ describe('ReportsListItemComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe(`integration`, function () {
+  describe(`integration`, function() {
     let parentFixture: ComponentFixture<TestComponent>,
       parentComponent: TestComponent,
-      reportsListComponent: ReportsListItemComponent;
+      reportsListItemComponent: ReportsListItemComponent;
 
-    beforeEach(function () {
+    beforeEach(function() {
       parentFixture = TestBed.createComponent(TestComponent);
       parentComponent = parentFixture.componentInstance;
-      reportsListComponent = parentFixture.debugElement.query(
+      reportsListItemComponent = parentFixture.debugElement.query(
         By.css('vacgaps-reports-list-item')
       ).componentInstance;
       parentFixture.detectChanges();
     });
-    it(`should accept an item from parent`, function () {
-      expect(reportsListComponent.reportItem).toEqual(REPORT_MOCK_ITEM);
+    it(`should accept an item from parent`, function() {
+      expect(reportsListItemComponent.reportItem).toEqual(REPORT_MOCK_ITEM);
+    });
+
+    it(`should fire an I am coming event to parent`, function() {
+      const spy = spyOn(parentComponent, 'comingEventHandler');
+      reportsListItemComponent.comingReport(event);
+      expect(spy).toHaveBeenCalledWith(REPORT_MOCK_ITEM);
     });
   });
 
-  it(`should get a string value for healthServiceProvider`, function () {
+  describe(`I am coming report`, function() {
+    it(`should stop propagation`, function() {
+      component.comingReport(event);
+      expect(event.stopPropagation).toHaveBeenCalled();
+    });
+
+    it(`should emit an event`, function() {
+      spyOn(component.comingReportEvent, 'emit');
+      component.comingReport(event);
+      expect(component.comingReportEvent.emit).toHaveBeenCalledWith(component.reportItem);
+    });
+  });
+
+  it(`should get a string value for healthServiceProvider`, function() {
     const report = (component.reportItem = new VaccineReportItem());
     expect(component.healthCareService).toEqual(
       HEALTH_CARE_SERVICES[report.healthCareService]
     );
   });
 
-  it(`should get a string value for city`, function () {
+  it(`should get a string value for city`, function() {
     const report = (component.reportItem = new VaccineReportItem());
     expect(component.cityName).toEqual(CITIES[report.city]);
   });
