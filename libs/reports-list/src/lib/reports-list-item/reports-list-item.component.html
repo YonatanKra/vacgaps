@@ -1,7 +1,7 @@
 <div class="report-item-wrapper">
   <div>{{ healthCareService }}</div>
   <div>{{ cityName }}</div>
-  <div>
+  <div *ngIf="false" class="hidden-till-coming-report-is-complete">
     <button (click)=comingReport($event) mat-button mat-raised color="primary">
       <mat-icon aria-hidden="בדרך" aria-label="בדרך לקבל חיסון">directions_car</mat-icon>
       בדרך
