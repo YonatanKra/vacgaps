@@ -37,6 +37,14 @@ describe('PlaceFilterComponent', () => {
   let component: PlaceFilterComponent;
   let fixture: ComponentFixture<PlaceFilterComponent>;
 
+  const map = new Map(
+    Object.entries({
+      0: 'test',
+      1: 'zest',
+      2: 'completelyDifferent',
+      3: 'TEST',
+    })
+  );
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -63,14 +71,7 @@ describe('PlaceFilterComponent', () => {
   });
 
   it(`should filter constants Map by string in the places list`, function () {
-    const map = new Map(
-      Object.entries({
-        0: 'test',
-        1: 'zest',
-        2: 'completelyDifferent',
-        3: 'TEST',
-      })
-    );
+
     component.placeList = map;
     fixture.detectChanges();
     const elementsBeforeFilter = component.placesSelectList.size;
@@ -96,12 +97,15 @@ describe('PlaceFilterComponent', () => {
       expect(placeExistsAfterAddition).toEqual(true);
     });
 
-    it(`should clear the autocomplete input`, function () {
+    fit(`should clear the autocomplete input`, function () {
       component.placesFilterTerm = 'some string';
+      component.placeList = map;
+      component.filterPlaces('2');
       component.addPlace(({
-        option: { value: '999' },
+        option: { value: '2' },
       } as unknown) as MatAutocompleteSelectedEvent);
       expect(component.placesFilterTerm).toEqual('');
+      expect(component.placesSelectList).toEqual(component.placeList);
     });
 
     it(`should add the selected places list to the form control`, function () {
@@ -145,11 +149,11 @@ describe('PlaceFilterComponent', () => {
     it(`should output the form data to parent component on form update`, function () {
       const data: any[] = ['100', '200'];
       spyOn(formComponent.placesUpdated, 'emit');
-      formComponent.addPlace(({	
+      formComponent.addPlace(({
         option: { value: data[0] }
       } as unknown) as MatAutocompleteSelectedEvent);
       expect(formComponent.placesUpdated.emit).toHaveBeenCalledWith([data[0]]);
-      formComponent.addPlace(({	
+      formComponent.addPlace(({
         option: { value: data[1] }
       } as unknown) as MatAutocompleteSelectedEvent);
       expect(formComponent.placesUpdated.emit).toHaveBeenCalledWith(data);

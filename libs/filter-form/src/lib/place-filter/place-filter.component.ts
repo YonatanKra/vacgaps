@@ -35,7 +35,7 @@ export class PlaceFilterComponent implements OnInit {
   placesSelectList: Map<string, string>;
   placesFilterTerm: string;
   placesFilterChange = new Subject<string>();
-  
+
   constructor() {}
 
   ngOnInit(): void {
@@ -58,6 +58,7 @@ export class PlaceFilterComponent implements OnInit {
   }
 
   addPlace($event: MatAutocompleteSelectedEvent) {
+    this.filterPlaces('');
     this.selectedPlaces.add($event.option.value);
     this.placesUpdated.emit([...this.selectedPlaces]);
     this.placesInput.nativeElement.value = this.placesFilterTerm = '';

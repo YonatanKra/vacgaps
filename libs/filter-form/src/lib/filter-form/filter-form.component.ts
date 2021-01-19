@@ -35,7 +35,7 @@ export class FilterFormComponent implements OnInit {
   @ViewChild('districtsInput') districtsInput: ElementRef<HTMLInputElement>;
 
   healthCareServices = new Map(Object.entries(HEALTH_CARE_SERVICES));
-  
+
   constructor() {}
 
   ngOnInit(): void {
@@ -43,7 +43,7 @@ export class FilterFormComponent implements OnInit {
       this.cityList = new Map(Object.entries(CITIES).map(
         entry => [entry[0], entry[1].name]));
     }
-  
+
     if (!this.districtList) {
       this.districtList = new Map(Array.from(DISTRICTS).map(
         entry => [entry, entry]));
@@ -60,15 +60,11 @@ export class FilterFormComponent implements OnInit {
 
   citiesUpdated(selectedCities: any[]) {
     this.filterFields.controls.cities.setValue(selectedCities);
-
-    // NOTE: Not sure it's required in case of added city (rather than removed)
     this.formUpdate.emit(this.filterFields.getRawValue());
   }
 
   districtsUpdated(selectedDistricts: any[]) {
     this.filterFields.controls.districts.setValue(selectedDistricts);
-
-    // NOTE: Not sure it's required in case of added city (rather than removed)
     this.formUpdate.emit(this.filterFields.getRawValue());
   }
 }
