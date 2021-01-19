@@ -15,18 +15,17 @@
 .mat-expansion-panel-header {
   width: 100%;
 }
+
 .content-wrapper {
   display: flex;
   justify-content: space-around;
   flex: 1;
 }
 
-.mat-expansion-panel-title{
+::ng-deep .mat-expansion-panel-content {
+  flex: .75;
+}
 
-}
-.mat-expansion-panel-content {
-  flex: .5;
-}
 
 .report-item-wrapper button {
   width: 100px;
