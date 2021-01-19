@@ -1,10 +1,8 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { VaccinesReport } from '@vacgaps/interfaces';
 import { registerLocaleData } from '@angular/common';
 import localeIL from '@angular/common/locales/en-IL';
-import { ReportModalComponent } from '../report-modal/report-modal.component';
-import { EventEmitter } from '@angular/core';
+
 registerLocaleData(localeIL, 'il');
 
 export interface ReportsListAction {
@@ -24,27 +22,18 @@ export class ReportsListComponent implements OnInit {
   @Output()
   listActionEvent = new EventEmitter<ReportsListAction>();
 
-  constructor(public dialog: MatDialog) {}
+  constructor() {}
 
   ngOnInit(): void {}
-
-  openDialog(report: VaccinesReport): void {
-    const dialogRef = this.dialog.open(ReportModalComponent, {
-      width: '350px',
-      height: 'auto',
-      data: report,
-      direction: 'rtl'
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
-  }
 
   handleComingFeedback(eventData: VaccinesReport) {
     this.listActionEvent.emit({
       type: 'comingFeedback',
       payload: eventData
     })
+  }
+
+  trackByFn(report) {
+    return report.address;
   }
 }

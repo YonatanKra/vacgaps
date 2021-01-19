@@ -5,9 +5,9 @@
     maxBufferPx="400"
     class="viewport"
   >
-    <mat-list-item *cdkVirtualFor="let report of reportsList">
+    <mat-list-item *cdkVirtualFor="let report of reportsList; trackBy:trackByFn">
       <vacgaps-reports-list-item
-        [reportItem]="report" (click)="openDialog(report)"
+        [reportItem]="report"
       ></vacgaps-reports-list-item>
     </mat-list-item>
   </cdk-virtual-scroll-viewport>

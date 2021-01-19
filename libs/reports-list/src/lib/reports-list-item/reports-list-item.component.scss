@@ -17,13 +17,16 @@
   width: 100%;
 }
 
-.mat-expansion-panel-header span {
+.content-wrapper {
+  display: flex;
   justify-content: space-around;
+  flex: 1;
 }
 
-.mat-content {
-  justify-content: space-around !important;
+.mat-expansion-panel-content {
+  flex: .5;
 }
+
 
 .report-item-wrapper > div {
   width: 100px;

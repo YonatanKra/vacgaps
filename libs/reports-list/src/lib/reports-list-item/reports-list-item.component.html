@@ -1,12 +1,14 @@
 <mat-expansion-panel class="report-item-wrapper">
   <mat-expansion-panel-header>
-    <button mat-button class="data">{{ healthCareService }}</button>
-    <button mat-button class="data">{{ cityName }}</button>
-    <div *ngIf="true" class="hidden-till-coming-report-is-complete">
-      <button (click)=comingFeedback($event) mat-button mat-raised-button color="primary">
-        <mat-icon aria-hidden="בדרך" aria-label="בדרך לקבל חיסון">directions_car</mat-icon>
-        אני בדרך
-      </button>
+    <div class="content-wrapper">
+      <button mat-button class="data">{{ healthCareService }}</button>
+      <button mat-button class="data">{{ cityName }}</button>
+      <div *ngIf="true" class="hidden-till-coming-report-is-complete">
+        <button (click)=comingFeedback($event) mat-button mat-raised-button color="primary">
+          <mat-icon aria-hidden="בדרך" aria-label="בדרך לקבל חיסון">directions_car</mat-icon>
+          אני בדרך
+        </button>
+      </div>
     </div>
   </mat-expansion-panel-header>
   <vacgaps-report-modal [report]="reportItem"></vacgaps-report-modal>
