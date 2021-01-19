@@ -7,7 +7,7 @@
   >
     <mat-list-item *cdkVirtualFor="let report of reportsList">
       <vacgaps-reports-list-item
-        [reportItem]="report"
+        [reportItem]="report" (click)="openDialog(report)"
       ></vacgaps-reports-list-item>
     </mat-list-item>
   </cdk-virtual-scroll-viewport>

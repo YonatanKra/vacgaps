@@ -1,0 +1,14 @@
+::ng-deep .mat-dialog-container {
+  background: rgba(255, 255, 255);
+  font-size: medium;
+  padding: 10%;
+}
+
+::ng-deep .mat-grid-tile .mat-figure {
+  justify-content: flex-start !important;
+}
+
+mat-label {
+  margin-left: 2%;
+  align-self: flex-start;
+}

@@ -16,6 +16,8 @@ This project was generated using [Nx](https://nx.dev).
 
 Enjoy!
 
+**Tip** - Run `yarn nx serve --host <YOUR LOCAL IP ADDRESS>` to serve the website on your local network so you can access it from your phone.
+
 ## Generate an application
 
 Run `yarn nx g @nrwl/angular:app my-app` to generate an application.
