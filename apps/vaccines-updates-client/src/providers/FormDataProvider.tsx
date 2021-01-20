@@ -1,5 +1,5 @@
 import React, { createContext, FunctionComponent, useState, useContext, useCallback } from 'react';
-import { HEALTH_CARE_SERVICES_TYPE, TargetGroup } from '@vacgaps/constants';
+import { TargetGroup } from '@vacgaps/constants';
 
 export type FormDataContextProps = {
     healthCareService: string;
