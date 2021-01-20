@@ -35,15 +35,15 @@ export class FilterFormComponent implements OnInit {
   @ViewChild('districtsInput') districtsInput: ElementRef<HTMLInputElement>;
 
   healthCareServices = new Map(Object.entries(HEALTH_CARE_SERVICES));
-
-  constructor() { }
+  
+  constructor() {}
 
   ngOnInit(): void {
     if (!this.cityList) {
       this.cityList = new Map(Object.entries(CITIES).map(
         entry => [entry[0], entry[1].name]));
     }
-
+  
     if (!this.districtList) {
       this.districtList = new Map(Array.from(DISTRICTS).map(
         entry => [entry, entry]));
