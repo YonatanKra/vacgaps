@@ -38,9 +38,10 @@ const REPORTS_LIST_MOCK: VaccinesReport[] = [
     city: '100',
     healthCareService: '1',
     address: 'Marom 12, Modiin',
+    "branchName": "wat",
     "reporter": 'ww',
     "updateTime": 5
-  } as any,
+  },
 ];
 
 export class VaccineReportItem implements VaccinesReport {
@@ -51,7 +52,7 @@ export class VaccineReportItem implements VaccinesReport {
     public branchName = "wat",
     public reporter = "ww",
     public updateTime = 5
-  ) { }
+  ) {}
 }
 
 

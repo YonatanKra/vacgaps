@@ -9,7 +9,7 @@ import { By } from '@angular/platform-browser';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatLineModule } from '@angular/material/core';
-import { CITIES, HEALTH_CARE_SERVICE } from '@vacgaps/constants';
+import { CITIES, HEALTH_CARE_SERVICES } from '@vacgaps/constants';
 
 const REPORT_MOCK_ITEM = new VaccineReportItem();
 
@@ -63,7 +63,7 @@ describe('ReportsListItemComponent', () => {
   it(`should get a string value for healthServiceProvider`, function () {
     const report = (component.reportItem = new VaccineReportItem());
     expect(component.healthCareService).toEqual(
-      HEALTH_CARE_SERVICE[report.healthCareService]
+      HEALTH_CARE_SERVICES[report.healthCareService]
     );
   });
 
