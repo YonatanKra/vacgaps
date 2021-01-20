@@ -2,7 +2,6 @@ import React, { createContext, FunctionComponent, useState, useContext, useCallb
 import { Time } from '@vacgaps/interfaces';
 import { HEALTH_CARE_SERVICE, TargetGroup } from '@vacgaps/constants';
 
-export type WorkingHours = { start: Time, end: Time };
 export type FormDataContextProps = {
     healthCareService: HEALTH_CARE_SERVICE;
     city: string;
@@ -10,7 +9,7 @@ export type FormDataContextProps = {
     minimumAge: number;
     targetGroups: TargetGroup[];
     availableVaccines: number;
-    workingHours: WorkingHours;
+    endingTime: number;
 
     setHealthCareService: (newValue: HEALTH_CARE_SERVICE) => void;
     setCity: (newValue: string) => void;
@@ -19,7 +18,7 @@ export type FormDataContextProps = {
     addTargetGroup: (value: TargetGroup) => void;
     removeTargetGroup: (value: TargetGroup) => void;
     setAvailableVaccines: (newValue: number) => void;
-    setWorkingHours: (newValue: WorkingHours) => void;
+    setEndingTime: (newValue: number) => void;
 };
 
 const FormDataContext = createContext<FormDataContextProps>({} as any);
@@ -32,7 +31,7 @@ export const FormDataProvider: FunctionComponent = props => {
     const [minimumAge, setMinimumAge] = useState<number>();
     const [targetGroups, setTargetGroups] = useState<TargetGroup[]>([]);
     const [availableVaccines, setAvailableVaccines] = useState<number>();
-    const [workingHours, setWorkingHours] = useState<WorkingHours>();
+    const [endingTime, setEndingTime] = useState<number>();
 
     const addTargetGroup = useCallback((group: TargetGroup) => {
         setTargetGroups([...targetGroups, group]);
@@ -62,8 +61,8 @@ export const FormDataProvider: FunctionComponent = props => {
             removeTargetGroup,
             availableVaccines,
             setAvailableVaccines,
-            workingHours,
-            setWorkingHours,
+            endingTime,
+            setEndingTime,
         }}>
             {props.children}
         </FormDataContext.Provider>

@@ -1,62 +1,73 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useCallback, useMemo, useState } from 'react';
 import { FormItem } from '../../form-item';
 import { Dropdown, DropdownItemProps } from 'semantic-ui-react'
 import { useFormData } from '../../../../providers/FormDataProvider';
 import styled from 'styled-components';
+import dateFormat from 'dateformat';
 
-type Props = {
-    className?: string;
+type HourAndMinute = {
+    hour: number;
+    minute: number;
 };
 
 const timeOptions: DropdownItemProps[] = [];
+const now = new Date();
 
-for (let i = 0; i <= 23; i++) {
-    const hour: string = i < 10 ? `0${i}` : `${i}`;
-    for (let j = 0; j < 4; j++) {
-        const minute: number = j * 15;
+for (let hour = 0; hour <= 23; hour++) {
+    const formatHour: string = hour < 10 ? `0${hour}` : `${hour}`;
+    for (let minuteBucket = 0; minuteBucket < 4; minuteBucket++) {
+        const minute: number = minuteBucket * 15;
         const formatMinute: string = minute === 0 ? `00` : `${minute}`;
 
-        const item = `${hour}:${formatMinute}`;
-        timeOptions.push({ value: item, text: item, hour, minute });
+        const text = `${formatHour}:${formatMinute}`;
+        now.setHours(hour);
+        now.setMinutes(minute);
+        console.log("gil", now.getTime(), now.toLocaleString())
+        timeOptions.push({
+            text,
+            value: now.getTime(),
+        });
     }
 }
 
 const DropdownWrapper = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: center;
+    align-items: center;
 
     >*:first-child {
         margin-left: 10px;
     }
 `;
 
-const Comp: FunctionComponent<Props> = props => {
-    const { setWorkingHours } = useFormData();
+const Comp: FunctionComponent<{ className?: string; }> = props => {
+    const { setEndingTime, endingTime } = useFormData();
 
-    const [startTime, setStartTime] = useState<number>();
+    const onTimeSelected = useCallback((data: DropdownItemProps) => {
+        console.log("gil", data.value)
+
+        setEndingTime(data.value as number);
+    }, []);
+
+    const partialEndingTime: string = useMemo(() => {
+        return dateFormat(endingTime || Date.now(), 'dd/mm/yyyy');
+    }, [endingTime]);
 
     return (
         <FormItem className={props.className}>
-            <h3>שעות פעילות</h3>
+            <h3>זמן סיום פעילות</h3>
             <DropdownWrapper>
                 <Dropdown
-                    // onChange={(_, data) => setWorkingHours({en})} TODO: decide on the spec
-                    placeholder='התחלה'
+                    onChange={(_, data) => onTimeSelected(data as any)}
+                    placeholder='שעת סיום'
                     fluid
                     search
                     clearable
                     selection
                     options={timeOptions}
                 />
-                <Dropdown
-                    // onChange={(_, data) => setWorkingHours({en})} TODO: decide on the spec
-                    placeholder='סיום'
-                    fluid
-                    search
-                    clearable
-                    selection
-                    options={timeOptions}
-                />
+                {partialEndingTime}
             </DropdownWrapper>
         </FormItem>
     );
