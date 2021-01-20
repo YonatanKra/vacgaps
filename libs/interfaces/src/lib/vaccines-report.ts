@@ -1,4 +1,4 @@
-import { CITIES_TYPE, HEALTH_CARE_SERVICE, TargetGroup } from '@vacgaps/constants';
+import { CITIES_TYPE, HEALTH_CARE_SERVICES_TYPE, TargetGroup } from '@vacgaps/constants';
 
 export interface VaccinesReport {
   city: CITIES_TYPE[number];

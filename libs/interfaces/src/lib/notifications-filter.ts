@@ -1,4 +1,4 @@
-import { CITIES_TYPE, HEALTH_CARE_SERVICE } from '@vacgaps/constants';
+import { CITIES_TYPE, HEALTH_CARE_SERVICES_TYPE } from '@vacgaps/constants';
 
 export interface NotificationsFilter {
   cities?: CITIES_TYPE[number][];

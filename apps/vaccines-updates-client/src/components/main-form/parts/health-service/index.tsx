@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { FormItem } from '../../form-item';
 import { Dropdown } from 'semantic-ui-react'
-import { HEALTH_CARE_SERVICE } from '@vacgaps/constants';
+import { HEALTH_CARE_SERVICES_TYPE } from '@vacgaps/constants';
 import { useFormData } from '../../../../providers/FormDataProvider';
 
 type Props = {

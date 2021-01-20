@@ -9,7 +9,7 @@ import { ReportsListComponent } from './reports-list.component';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { VaccinesReport } from '@vacgaps/interfaces';
 import { By } from '@angular/platform-browser';
-import { CITIES_TYPE, HEALTH_CARE_SERVICE } from '@vacgaps/constants';
+import { CITIES_TYPE, HEALTH_CARE_SERVICES_TYPE } from '@vacgaps/constants';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatListModule } from '@angular/material/list';
 import { animationFrameScheduler } from 'rxjs';
@@ -36,19 +36,18 @@ function finishInit(fixture: ComponentFixture<any>) {
 const REPORTS_LIST_MOCK: VaccinesReport[] = [
   {
     city: '100',
-    healthCareService: HEALTH_CARE_SERVICE.Mehuhedet,
+    healthCareService: '1',
     address: 'Marom 12, Modiin',
-    "branchName": "wat",
     "reporter": 'ww',
     "updateTime": 5
-  },
+  } as any,
 ];
 
 export class VaccineReportItem implements VaccinesReport {
   constructor(
     public address: string = 'some default address',
     public city: CITIES_TYPE[number] = '100',
-    public healthCareService: HEALTH_CARE_SERVICE = HEALTH_CARE_SERVICE.Macabi,
+    public healthCareService: HEALTH_CARE_SERVICES_TYPE[number] = '2',
     public branchName = "wat",
     public reporter = "ww",
     public updateTime = 5
