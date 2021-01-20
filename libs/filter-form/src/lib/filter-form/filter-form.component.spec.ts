@@ -20,16 +20,25 @@ const CITIES_LIST = new Map(
     1: '1',
   })
 );
+
+const DISTRICTS_LIST = new Map(
+  Object.entries({
+    2: '2',
+    3: '3',
+  })
+);
 @Component({
   selector: 'vacgaps-test-component',
   template: `<vacgaps-filter-form
     (formSubmit)="handleFormUpdate($event)"
     (formUpdate)="handleFormValueUpdate($event)"
     [cityList]="cities"
+    [districtList]="districts"
   ></vacgaps-filter-form>`,
 })
 class TestComponent {
   cities = CITIES_LIST;
+  districts = DISTRICTS_LIST;
 
   handleFormUpdate(data) {}
 
@@ -67,6 +76,7 @@ describe('FilterFormComponent', () => {
   it(`should have a reactive form object`, function () {
     const formFieldNames = [
       'cities',
+      'districts',
       'healthCareService',
       'availableVaccines',
       'dueTimeInMs',
@@ -80,6 +90,7 @@ describe('FilterFormComponent', () => {
     const data: NotificationsFilter = {
       availableVaccines: Math.round(Math.random() * 100),
       cities: ['100', '200'],
+      districts: ['300', '400'],
       dueTimeInMs: 0,
       healthCareService: '1',
     };
@@ -91,57 +102,11 @@ describe('FilterFormComponent', () => {
     expect(component.formSubmit.emit).toHaveBeenCalledWith(data);
   });
 
-  it(`should filter constants Map by string in the cities list`, function () {
-    const map = new Map(
-      Object.entries({
-        0: 'test',
-        1: 'zest',
-        2: 'completelyDifferent',
-        3: 'TEST',
-      })
-    );
-    component.cityList = map;
-    fixture.detectChanges();
-    const elementsBeforeFilter = component.citiesSelectList.size;
-
-    component.filterCities('te');
-    fixture.detectChanges();
-    const elementsAfterFilter = component.citiesSelectList.size;
-
-    expect(elementsBeforeFilter).toEqual(4);
-    expect(elementsAfterFilter).toEqual(3);
-  });
-
   describe(`addCity`, function () {
-    it(`should add city to selectedCities list`, function () {
-      const cityDoesntExistBeforeAddition = !component.selectedCities.has(
-        '999'
-      );
-      component.addCity(({
-        option: { value: '999' },
-      } as unknown) as MatAutocompleteSelectedEvent);
-      const cityExistsAfterAddition = component.selectedCities.has('999');
-      expect(cityDoesntExistBeforeAddition).toEqual(true);
-      expect(cityExistsAfterAddition).toEqual(true);
-    });
-
-    it(`should clear the autocomplete input`, function () {
-      component.citiesFilterTerm = 'some string';
-      component.addCity(({
-        option: { value: '999' },
-      } as unknown) as MatAutocompleteSelectedEvent);
-      expect(component.citiesFilterTerm).toEqual('');
-    });
-
     it(`should add the selected cities list to the form control`, function () {
       const citiesListInFormBeforeAddition =
         component.filterFields.controls.cities.value;
-      component.addCity(({
-        option: { value: '999' },
-      } as unknown) as MatAutocompleteSelectedEvent);
-      component.addCity(({
-        option: { value: '0' },
-      } as unknown) as MatAutocompleteSelectedEvent);
+      component.citiesUpdated(['999', '0']);
       const citiesListInFormAfterAddition =
         component.filterFields.controls.cities.value;
       expect(citiesListInFormBeforeAddition).toEqual(
@@ -157,6 +122,7 @@ describe('FilterFormComponent', () => {
     spyOn(component.formUpdate, 'emit');
     const formFieldsNames = [
       'cities',
+      'districts',
       'healthCareService',
       'availableVaccines',
       'dueTimeInMs',
@@ -186,6 +152,7 @@ describe('FilterFormComponent', () => {
       const data: NotificationsFilter = {
         availableVaccines: Math.round(Math.random() * 100),
         cities: ['100', '200'],
+        districts: ['300', '400'],
         dueTimeInMs: 0,
         healthCareService: '1',
       };
@@ -197,9 +164,9 @@ describe('FilterFormComponent', () => {
     });
 
     it(`should receive cities list from parent via the cityList`, function () {
-      expect(formComponent.citiesSelectList.size).toEqual(CITIES_LIST.size);
+      expect(formComponent.cityList.size).toEqual(CITIES_LIST.size);
       for (const [key, value] of CITIES_LIST.entries()) {
-        expect(value).toEqual(formComponent.citiesSelectList.get(key));
+        expect(value).toEqual(formComponent.cityList.get(key));
       }
     });
 
@@ -207,6 +174,7 @@ describe('FilterFormComponent', () => {
       const data: NotificationsFilter = {
         availableVaccines: Math.round(Math.random() * 100),
         cities: ['100', '200'],
+        districts: ['300', '400'],
         dueTimeInMs: 0,
         healthCareService: '1',
       };
@@ -220,14 +188,16 @@ describe('FilterFormComponent', () => {
     component.filterFields.setValue({
       availableVaccines: 13,
       cities: ["999"],
+      districts: ["888"],
       dueTimeInMs: 50,
       healthCareService: "1"
     });
     spyOn(component.formUpdate, 'emit');
-    component.removeCity('999');
+    component.citiesUpdated([]);
     expect(component.formUpdate.emit).toHaveBeenCalledWith({
       availableVaccines: 13,
       cities: [],
+      districts: ["888"],
       dueTimeInMs: 50,
       healthCareService: "1"
     });

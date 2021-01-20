@@ -18,7 +18,9 @@ const MOCK_REPORTS = [
     "address": "שרה אמנו 39",
     "branchName": "wat",
     "reporter": 'ww',
-    "updateTime": 5
+    "updateTime": 5,
+    "minimalAge": 55,
+    "endTime": "2021-01-16T22:00:00"
   },
   {
     "city": "1001",
@@ -26,7 +28,8 @@ const MOCK_REPORTS = [
     "address": "שרה אמנו 39",
     "branchName": "wat",
     "reporter": 'ww',
-    "updateTime": 5
+    "updateTime": 5,
+    "region": "3"
   },
   {
     "city": "530",
@@ -34,7 +37,10 @@ const MOCK_REPORTS = [
     "address": "שרה אמנו 39",
     "branchName": "wat",
     "reporter": 'ww',
-    "updateTime": 5
+    "updateTime": 5,
+    "minimalAge": 40,
+    "region": "3",
+    "endTime": "2021-01-18T21:00:00"
   },
   {
     "city": "2379",
@@ -42,7 +48,8 @@ const MOCK_REPORTS = [
     "address": "שרה אמנו 39",
     "branchName": "wat",
     "reporter": 'ww',
-    "updateTime": 5
+    "updateTime": 5,
+    "endTime": "2021-01-19T17:30:00"
   },
   {
     "city": "110",
@@ -107,6 +114,7 @@ describe('ReportListPageComponent', () => {
     it(`should update the filter when the filter fields change`, function() {
       const notificationsFilter: NotificationsFilter = {
         cities: ["100", "110"],
+        districts: [],
         healthCareService: "1",
         availableVaccines: 50,
         dueTimeInMs: 500,
@@ -127,6 +135,7 @@ describe('ReportListPageComponent', () => {
       component.reportsList = MOCK_REPORTS;
       const notificationsFilter: NotificationsFilter = {
         cities: ["100", "110"],
+        districts: [],
         healthCareService: "1"
       };
       component.updateFilter(notificationsFilter);
@@ -137,7 +146,9 @@ describe('ReportListPageComponent', () => {
           address: 'שרה אמנו 39',
           "branchName": "wat",
           "reporter": 'ww',
-          "updateTime": 5
+          "updateTime": 5,
+          "minimalAge": 55,
+          "endTime": "2021-01-16T22:00:00"
         },
         {
           city: '110',
@@ -154,6 +165,7 @@ describe('ReportListPageComponent', () => {
       component.reportsList = MOCK_REPORTS.map(value => { value.healthCareService = "1"; return value; });
       const notificationsFilter: NotificationsFilter = {
         cities: [],
+        districts: [],
         healthCareService: "1"
       };
       component.updateFilter(notificationsFilter);
