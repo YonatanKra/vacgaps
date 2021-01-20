@@ -22,7 +22,6 @@ for (let hour = 0; hour <= 23; hour++) {
         const text = `${formatHour}:${formatMinute}`;
         now.setHours(hour);
         now.setMinutes(minute);
-        console.log("gil", now.getTime(), now.toLocaleString())
         timeOptions.push({
             text,
             value: now.getTime(),
@@ -44,12 +43,6 @@ const DropdownWrapper = styled.div`
 const Comp: FunctionComponent<{ className?: string; }> = props => {
     const { setEndingTime, endingTime } = useFormData();
 
-    const onTimeSelected = useCallback((data: DropdownItemProps) => {
-        console.log("gil", data.value)
-
-        setEndingTime(data.value as number);
-    }, []);
-
     const partialEndingTime: string = useMemo(() => {
         return dateFormat(endingTime || Date.now(), 'dd/mm/yyyy');
     }, [endingTime]);
@@ -59,7 +52,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
             <h3>זמן סיום פעילות</h3>
             <DropdownWrapper>
                 <Dropdown
-                    onChange={(_, data) => onTimeSelected(data as any)}
+                    onChange={(_, data) => setEndingTime(data.value as any)}
                     placeholder='שעת סיום'
                     fluid
                     search

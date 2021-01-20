@@ -1,27 +1,22 @@
 import React, { FunctionComponent } from 'react';
 import { FormItem } from '../../form-item';
 import { Dropdown } from 'semantic-ui-react'
-import { HEALTH_CARE_SERVICES_TYPE } from '@vacgaps/constants';
+import { HEALTH_CARE_SERVICES, HEALTH_CARE_SERVICES_TYPE } from '@vacgaps/constants';
 import { useFormData } from '../../../../providers/FormDataProvider';
 
-type Props = {
-    className?: string;
-};
-
-const dropDownOptions = Object.entries(HEALTH_CARE_SERVICE).map(_ => ({
-    value: _[0],
-    text: _[1],
+const dropDownOptions = Object.keys(HEALTH_CARE_SERVICES).map(_ => ({
+    value: _,
+    text: HEALTH_CARE_SERVICES[_],
 }));
 
-// TODO: css the dropdown list to rtl
-const Comp: FunctionComponent<Props> = props => {
+const Comp: FunctionComponent<{ className?: string; }> = props => {
     const { setHealthCareService } = useFormData();
 
     return (
         <FormItem className={props.className}>
             <h3>קופה</h3>
             <Dropdown
-                onChange={(_, data) => setHealthCareService(data.value as HEALTH_CARE_SERVICE)}
+                onChange={(_, data) => setHealthCareService(data.value as string)}
                 placeholder='בחר קופת חולים'
                 fluid
                 search

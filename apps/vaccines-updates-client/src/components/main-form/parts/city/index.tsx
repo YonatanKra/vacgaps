@@ -8,9 +8,9 @@ type Props = {
     className?: string;
 };
 
-const dropDownOptions = Object.entries(CITIES).map(_ => ({
-    value: _[0],
-    text: _[1],
+const dropDownOptions = Object.keys(CITIES).map(_ => ({
+    value: _,
+    text: CITIES[_].name,
 }));
 
 const Comp: FunctionComponent<Props> = props => {

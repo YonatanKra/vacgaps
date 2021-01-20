@@ -1,9 +1,8 @@
 import React, { createContext, FunctionComponent, useState, useContext, useCallback } from 'react';
-import { Time } from '@vacgaps/interfaces';
-import { HEALTH_CARE_SERVICE, TargetGroup } from '@vacgaps/constants';
+import { HEALTH_CARE_SERVICES_TYPE, TargetGroup } from '@vacgaps/constants';
 
 export type FormDataContextProps = {
-    healthCareService: HEALTH_CARE_SERVICE;
+    healthCareService: string;
     city: string;
     address: string;
     minimumAge: number;
@@ -11,7 +10,7 @@ export type FormDataContextProps = {
     availableVaccines: number;
     endingTime: number;
 
-    setHealthCareService: (newValue: HEALTH_CARE_SERVICE) => void;
+    setHealthCareService: (newValue: string) => void;
     setCity: (newValue: string) => void;
     setAddress: (newValue: string) => void;
     setMinimumAge: (newValue: number) => void;
@@ -25,7 +24,7 @@ const FormDataContext = createContext<FormDataContextProps>({} as any);
 export const useFormData = (): FormDataContextProps => useContext(FormDataContext);
 
 export const FormDataProvider: FunctionComponent = props => {
-    const [healthCareService, setHealthCareService] = useState<HEALTH_CARE_SERVICE>();
+    const [healthCareService, setHealthCareService] = useState<string>();
     const [city, setCity] = useState<string>();
     const [address, setAddress] = useState<string>();
     const [minimumAge, setMinimumAge] = useState<number>();

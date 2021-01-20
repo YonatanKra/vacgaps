@@ -1,7 +1,6 @@
 import React, { createContext, FunctionComponent, useState, useEffect, useContext, useCallback } from 'react';
 import { VaccinesReport } from '@vacgaps/interfaces';
 import { useFormData } from './FormDataProvider';
-import { HEALTH_CARE_SERVICE } from '@vacgaps/constants';
 import areEqual from 'lodash.isequal';
 
 export type Address = Pick<VaccinesReport, 'address' | 'city' | 'healthCareService'>;
@@ -19,13 +18,13 @@ const AddressListContext = createContext<AddressListContextProps>({
 export const useAddressList = (): AddressListContextProps => useContext(AddressListContext);
 
 export const AddressListProvider: FunctionComponent = props => {
-    const [isFetchingAddressList, setIsFetchingAddressList] = useState<boolean>(true);
+    const [isFetchingAddressList, setIsFetchingAddressList] = useState<boolean>(false);
     const [addressList, setAddressList] = useState<Address[]>([]);
     const [newAddedAddress, setNewAddedAddress] = useState<Address[]>([]);
     const [combinedAddressList, setCombinedAddressList] = useState<Address[]>([]);
     const { city, healthCareService } = useFormData();
 
-    const filterAddressList = useCallback((city: string, healthCareService: HEALTH_CARE_SERVICE, combinedAddressList: Address[]) => {
+    useEffect(() => {
         const filteredList: Address[] = combinedAddressList.filter(_ => {
             if (!!city && _.city !== city) return false;
             if (!!healthCareService && _.healthCareService !== healthCareService) return false;
@@ -33,10 +32,6 @@ export const AddressListProvider: FunctionComponent = props => {
         });
 
         if (!areEqual(filteredList, combinedAddressList)) setAddressList(filteredList);
-    }, []);
-
-    useEffect(() => {
-        filterAddressList(city, healthCareService, combinedAddressList);
     }, [combinedAddressList, city, healthCareService]);
 
     useEffect(() => {
@@ -44,6 +39,7 @@ export const AddressListProvider: FunctionComponent = props => {
     }, [addressList, newAddedAddress]);
 
     const fetchAddressList = useCallback(async () => {
+        console.log("fetching address list");
         setIsFetchingAddressList(true);
         await new Promise(res => setTimeout(res, 3000)); // TODO: replace with a real fetch from the API
         setIsFetchingAddressList(false);
@@ -52,7 +48,7 @@ export const AddressListProvider: FunctionComponent = props => {
 
     useEffect(() => {
         fetchAddressList();
-    }, []);
+    }, [fetchAddressList]);
 
     const addNewAddress = useCallback((addressName: string) => {
         setNewAddedAddress(newAddedAddress.concat({
