@@ -8,7 +8,7 @@ const httpTrigger = async function (
 
   context.res = {
     status: 200,
-    body: 'Hello vacgaps 1',
+    body: 'Hello vacgaps',
   };
 };
 
