@@ -1,13 +1,13 @@
 import * as FacebookAuth from '../Auth/facebook-auth';
 import { ICollection } from '../Services/ICollection';
 import { CollectionProvider } from '../Services/CollectionProvider';
-import { NoAuthenticationResult } from '../Auth/facebook-auth';
 import { getComingFeedbackCollection, SingleComingFeedback } from '../ComingFeedback/coming-feedback-collection';
-import { VaccinesReport } from '@vacgaps/interfaces';
 import { Context, HttpRequest } from 'azure-functions-ts-essentials';
 import * as Axios from 'axios';
 import { AggregationCursor } from 'mongodb';
 import { report } from 'process';
+
+type VaccinesReport = any;
 
 const httpTrigger = async function (
     context: Context,
@@ -27,8 +27,8 @@ const httpTrigger = async function (
     const authResult: FacebookAuth.AuthenticationResult = await FacebookAuth.authenticate(
         req, context, /*allowNoCredentials=*/true);
     
-    if (authResult === NoAuthenticationResult.NoCredentials) {
-        let filteredReports: Partial<VaccinesReports>[] = new Partial<VaccinesReport>[reportsResponse.data.reports.length];
+    if (authResult === FacebookAuth.NoAuthenticationResult.NoCredentials) {
+        let filteredReports: Partial<VaccinesReport>[];
         for (var i = 0; i < reportsResponse.data.reports.length; ++i) {
             filteredReports[i] = reportsResponse.data.reports.map(report => {
                 report.city,
@@ -45,21 +45,27 @@ const httpTrigger = async function (
         return;
     }
 
-    if (!(authResult instanceof FacebookAuth.PassedAuthenticationResult) {
+    if (!(authResult instanceof FacebookAuth.PassedAuthenticationResult)) {
         return;
     }
+
+    let minTime = new Date(Date.now());
+    minTime.setHours(minTime.getHours() - 1);
 
     const reportIds = reportsResponse.data.reports.map(report => report.id);
     let collection: ICollection<SingleComingFeedback> = await getComingFeedbackCollection();
     let aggregated: AggregationCursor<{reportId: string, count: number}> = await collection.aggregateDocuments<{reportId: string, count: number}>([
-        { "$match": { "$in": ["$reportId", reportIds ]} },
+        { "$addFields": { "feedbackTime": { "$toDate": "$_id" }}},
+        { "$match": { "$and": [
+            { "feedbackTime": { "$gt": minTime }},
+            { "reportId": { "$in": reportIds }}]}},
         { "$group": {
             "_id": { "reportId": "$reportId"},
             "count": { "$sum": 1 }
         }}]);
     
-    let enrichedReports = reportsResponse.data.reports.map(report => {
-        let countRecord = await aggregated.filter({reportId: report._id}).toArray();
+    let enrichedReports = await Promise.all(reportsResponse.data.reports.map(async report => {
+        let countRecord = await aggregated.filter({reportId: report.id}).toArray();
         if (countRecord.length !== 1) {
             return report;
         }
@@ -68,7 +74,7 @@ const httpTrigger = async function (
             ...report,
             comingFeedbackCount: countRecord[0]
         };
-    });
+    }));
 
     context.res = {
         status: 200,
