@@ -5,7 +5,7 @@ import { Context, HttpRequest } from 'azure-functions-ts-essentials';
 import { CollectionProvider } from '../Services/CollectionProvider';
 
 const httpTrigger = async function (context: Context, req: HttpRequest): Promise<void> {
-    const reportId: string = req.params.reportId;
+    const reportId: string = req.query.reportId;
     if (!reportId || reportId.length === 0) {
         context.res = {
             status: 400,
