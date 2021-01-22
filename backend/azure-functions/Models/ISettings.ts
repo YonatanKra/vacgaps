@@ -1,7 +1,6 @@
 
 export type Settings = {
-  exampleCollection: string;
-  vacGapsDatabase: string;
+  getVacciDatabase: string;
   mongoConnectionString: string;
   allowSelfSignedMongoCert: boolean;
 }

@@ -1,19 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { CollectionInsertOneOptions, 
+import { 
+  AggregationCursor, 
+  Collection,
+  CollectionAggregationOptions,
+  CollectionInsertOneOptions, 
   InsertOneWriteOpResult, 
   FilterQuery, 
   FindOneOptions, 
   UpdateQuery, 
   UpdateOneOptions, 
-  UpdateWriteOpResult, 
-  Collection} from "mongodb";
-import { BaseEntity } from "../Models/BaseEntity";
+  UpdateWriteOpResult} from "mongodb";
+import { BaseEntity, Entity } from "../Models/BaseEntity";
 
-export interface ICollection<T extends BaseEntity> {
-  insertOne(docs: T, options?: CollectionInsertOneOptions): Promise<InsertOneWriteOpResult<T>>;
-  findOne(filter: FilterQuery<Partial<T>>, options?: FindOneOptions<any>): Promise<T>;
-  findMany(query: FilterQuery<Partial<T>>, options?: FindOneOptions<any>): Promise<any[]>;
-  updateOne(filter: FilterQuery<Partial<T>>, update: UpdateQuery<Partial<T>> | Partial<T>, options?: UpdateOneOptions): Promise<UpdateWriteOpResult>;
+type PartialEntity<T> = Partial<Entity<T>>;
+
+export interface ICollection<T> {
+  aggregateDocuments<TAggregated>(pipeline?: object[], options?: CollectionAggregationOptions): Promise<AggregationCursor<TAggregated>>;
+  insertOne(docs: T & Partial<BaseEntity>, options?: CollectionInsertOneOptions): Promise<InsertOneWriteOpResult<Entity<T>>>;
+  findOne(filter: FilterQuery<PartialEntity<T>>, options?: FindOneOptions<any>): Promise<Entity<T>>;
+  findMany(query: FilterQuery<PartialEntity<T>>, options?: FindOneOptions<any>): Promise<any[]>;
+  updateOne(filter: FilterQuery<PartialEntity<T>>, update: UpdateQuery<Partial<T & BaseEntity>> | Partial<T & BaseEntity>, options?: UpdateOneOptions): Promise<UpdateWriteOpResult>;
 }
 
 export function patchMongoCollection<T extends BaseEntity>(mongoCollection: Collection<any>): ICollection<T> {
@@ -21,5 +27,20 @@ export function patchMongoCollection<T extends BaseEntity>(mongoCollection: Coll
   patchedCollection.findMany = function (query: FilterQuery<Partial<T>>, options?: FindOneOptions<T> | undefined): Promise<T[]> {
     return this.find(query, options).toArray();
   };
+  // error: MongoError, result: T
+  patchedCollection.aggregateDocuments = function<TAggregated> (pipeline?: object[], options?: CollectionAggregationOptions): Promise<AggregationCursor<TAggregated>> {
+    let that: Collection<any> = this;
+    return new Promise<AggregationCursor<TAggregated>>((resolve, reject) =>
+    {
+      that.aggregate<TAggregated>(pipeline, options, (err, cursor) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(cursor);
+        }
+      });
+    });
+  };
+
   return patchedCollection;
 }
