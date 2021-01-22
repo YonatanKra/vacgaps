@@ -1,5 +1,6 @@
 class TokenCacheNode {
     token: string;
+    userId: string;
     expiration: number;
     prev: TokenCacheNode;
     next: TokenCacheNode;
@@ -26,9 +27,9 @@ export class TokenCache {
         this.tail.prev = this.head;
     }
 
-    public isCachedValidToken(token: string): boolean {
+    public getUserIdFromValidToken(token: string): string | null {
         if (!this.keyed.has(token)) {
-            return false;
+            return null;
         }
 
         let node: TokenCacheNode = this.keyed.get(token);
@@ -38,15 +39,15 @@ export class TokenCache {
         if (IsExpired(node.expiration)) {
             this.keyed.delete(token);
             --this.count;
-            return false;
+            return null;
         }
 
         this.addNodeToList(node);
         
-        return true;
+        return node.userId;
     }
 
-    public addToken(token: string, expiration: number) {
+    public addToken(token: string, expiration: number, userId: string) {
         if (this.count < 1000) {
             ++this.count;
         } else {
@@ -58,6 +59,7 @@ export class TokenCache {
         let node: TokenCacheNode = new TokenCacheNode();
         node.token = token;
         node.expiration = expiration;
+        node.userId = userId;
         
         this.keyed.set(token, node);
         this.addNodeToList(node);
