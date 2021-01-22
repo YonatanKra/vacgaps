@@ -12,7 +12,6 @@
         "direction": "out",
         "name": "res"
       }
-    ],
-    "scriptFile": "../dist/Reports/index.js"
+    ]
   }
   

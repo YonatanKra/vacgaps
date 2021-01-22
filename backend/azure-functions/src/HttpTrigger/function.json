@@ -1,20 +1,19 @@
 {
   "bindings": [
     {
-      "authLevel": "function",
+      "authLevel": "anonymous",
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
       "methods": [
-        "get"
-      ],
-      "route": "example"
+        "get",
+        "post"
+      ]
     },
     {
       "type": "http",
       "direction": "out",
       "name": "res"
     }
-  ],
-  "scriptFile": "../dist/CollectionProviderExample/index.js"
+  ]
 }
