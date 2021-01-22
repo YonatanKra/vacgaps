@@ -70,19 +70,12 @@ const httpTrigger = async function (
         };
     });
 
-<<<<<<< Updated upstream:backend/azure-functions/Reports/index.ts
-  context.res = {
-    status: 200,
-    body: authResult.toString(),
-  };
-=======
     context.res = {
         status: 200,
         body: {reports:enrichedReports}.toString(),
     };
 
     context.done();
->>>>>>> Stashed changes:backend/azure-functions/src/Reports/index.ts
 };
 
 export default httpTrigger;
