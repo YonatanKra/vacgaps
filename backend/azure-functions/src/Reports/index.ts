@@ -1,4 +1,4 @@
-import * as FacebookAuth from './facebook-auth';
+import * as FacebookAuth from '../Auth/facebook-auth';
 import { Context, HttpRequest } from 'azure-functions-ts-essentials';
 
 const httpTrigger = async function (
@@ -7,10 +7,13 @@ const httpTrigger = async function (
 ): Promise<void> {
   const authResult: FacebookAuth.AuthenticationResult = await FacebookAuth.authenticate(req, context);
 
-  context.res = {
-    status: 200,
-    body: authResult.toString(),
-  };
+  if (authResult instanceof FacebookAuth.PassedAuthenticationResult) {
+    context.res = {
+      status: 200,
+      body: authResult.toString(),
+    };
+    context.done();
+  }
 };
 
 export default httpTrigger;
