@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { FormItem } from '../../form-item';
-import { Dropdown } from 'semantic-ui-react'
-import { HEALTH_CARE_SERVICES, HEALTH_CARE_SERVICES_TYPE } from '@vacgaps/constants';
+import { HEALTH_CARE_SERVICES } from '@vacgaps/constants';
 import { useFormData } from '../../../../providers/FormDataProvider';
+import { Autocomplete, TextField } from '@material-ui/core/';
 
 const dropDownOptions = Object.keys(HEALTH_CARE_SERVICES).map(_ => ({
     value: _,
@@ -14,15 +14,12 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
 
     return (
         <FormItem className={props.className}>
-            <h3>קופה</h3>
-            <Dropdown
-                onChange={(_, data) => setHealthCareService(data.value as string)}
-                placeholder='בחר קופת חולים'
-                fluid
-                search
-                clearable
-                selection
+            <h3>קופת חולים</h3>
+            <Autocomplete
                 options={dropDownOptions}
+                getOptionLabel={(option) => option.text}
+                renderInput={(params) => <TextField {...params} />}
+                onChange={(_, value) => setHealthCareService(value as string)}
             />
         </FormItem>
     );

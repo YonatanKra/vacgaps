@@ -1,12 +1,13 @@
 import React, { FunctionComponent, useCallback, useState } from 'react';
 import { FormItem } from '../form-item';
-import { Input } from 'semantic-ui-react'
 import styled from 'styled-components';
+import { Input } from '@material-ui/core';
 
 type Props = {
     className?: string;
     onChange: (value: number) => void;
     title: string;
+    maxValue?: number;
 };
 
 function isNumeric(value: string): boolean {
@@ -26,8 +27,19 @@ const Comp: FunctionComponent<Props> = props => {
     const [error, setError] = useState<string | undefined>();
 
     const onValueChange = useCallback((newValue) => {
+        if (!newValue) {
+            setError(undefined);
+            props.onChange(undefined);
+            return;
+        }
+
         if (!isNumeric(newValue)) {
             setError('הכנס מספר בלבד');
+            return;
+        }
+
+        if (!!props.maxValue && props.maxValue < newValue) {
+            setError(`הכנס ערך הקטן מ-${props.maxValue}`);
             return;
         }
 
@@ -42,7 +54,7 @@ const Comp: FunctionComponent<Props> = props => {
                 <Input
                     className="form-input"
                     placeholder={`הכנס ${props.title}`}
-                    onChange={(_, data) => onValueChange(data.value)}
+                    onChange={args => onValueChange(args.target.value)}
                     error={!!error} />
                 <ErrorMessage>{error}</ErrorMessage>
             </InputWrapper>

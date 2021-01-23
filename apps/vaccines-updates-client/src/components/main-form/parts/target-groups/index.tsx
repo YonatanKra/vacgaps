@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useMemo } from 'react';
 import { FormItem } from '../../form-item';
-import { Checkbox } from 'semantic-ui-react'
 import styled from 'styled-components';
 import { TargetGroup } from '@vacgaps/constants'
 import { useFormData } from '../../../../providers/FormDataProvider';
+import { Checkbox } from '@material-ui/core';
 
 type Props = {
     className?: string;
@@ -36,10 +36,13 @@ const Comp: FunctionComponent<Props> = props => {
             .entries(TargetGroup)
             .map((_, index) =>
                 <TargetGroupWrapper key={index}>
-                    <Checkbox id={`targetGroup${index}`} onChange={(_event, data) => {
-                        if (data.checked) addTargetGroup(_[1]);
-                        else removeTargetGroup(_[1]);
-                    }} />
+                    <Checkbox
+                        color="primary"
+                        id={`targetGroup${index}`}
+                        onChange={(_event, isChecked) => {
+                            if (isChecked) addTargetGroup(_[1]);
+                            else removeTargetGroup(_[1]);
+                        }} />
                     <label htmlFor={`targetGroup${index}`}>{_[1]}</label>
                 </TargetGroupWrapper>
             );

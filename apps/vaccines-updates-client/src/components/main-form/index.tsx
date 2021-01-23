@@ -8,7 +8,7 @@ import TargetGroups from './parts/target-groups';
 import VaccinesAvailability from './parts/vaccines-availability';
 import WorkingHours from './parts/working-hours';
 import { FormItem } from './form-item';
-import { Button } from 'semantic-ui-react';
+import { Button } from '@material-ui/core';
 
 import * as logo from './resources/logo.jpeg';
 
@@ -91,7 +91,7 @@ export const MainForm: FunctionComponent<Props> = props => {
                 <TargetGroups />
                 <VaccinesAvailability />
                 <WorkingHours />
-                <FormItem><Button primary>שלח</Button></FormItem>
+                <FormItem><Button variant="contained" color="primary">שלח</Button></FormItem>
             </FormInputsWrapper>
         </Container >
     );

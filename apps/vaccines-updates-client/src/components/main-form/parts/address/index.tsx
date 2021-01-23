@@ -1,9 +1,9 @@
 import React, { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { FormItem } from '../../form-item';
-import { Dropdown, DropdownItemProps } from 'semantic-ui-react'
 import { useAddressList, Address } from '../../../../providers/AddressListProvider';
 import { useFormData } from '../../../../providers/FormDataProvider';
 import styled from 'styled-components';
+import { Autocomplete, TextField } from '@material-ui/core';
 
 const DropdownWrapper = styled.div`
     display: flex;
@@ -35,19 +35,20 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
         return !!city && !!healthCareService;
     }, [city, healthCareService]);
 
-    const addressListDropdownOptions: DropdownItemProps[] = useMemo(() => {
-        const options = filteredAddressList.map(_ => ({
-            value: _.address,
-            text: _.address,
-        }));
+    const addressListDropdownOptions: { value: string, text: string }[] =
+        useMemo(() => {
+            const options = filteredAddressList.map(_ => ({
+                value: _.address,
+                text: _.address,
+            }));
 
-        if (newAddedAddress) options.push({
-            value: newAddedAddress.address,
-            text: newAddedAddress.address,
-        });
+            if (newAddedAddress) options.push({
+                value: newAddedAddress.address,
+                text: newAddedAddress.address,
+            });
 
-        return options;
-    }, [filteredAddressList, newAddedAddress]);
+            return options;
+        }, [filteredAddressList, newAddedAddress]);
 
     useEffect(() => {
         if (!isEnabled) {
@@ -60,28 +61,15 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
         <FormItem className={props.className}>
             <h3>כתובת</h3>
             <DropdownWrapper>
-                <Dropdown
-                    disabled={!isEnabled}
+                <Autocomplete
                     value={address}
-                    onChange={(_, data) => {
-                        setAddress(data.value as string);
-                    }}
-                    placeholder={'בחר כתובת'}
-                    allowAdditions={true}
-                    onAddItem={(_, data) => {
-                        setNewAddedAddress({
-                            address: data.value as unknown as string,
-                            city,
-                            healthCareService,
-                        });
-                    }}
-                    additionLabel="הוסף כתובת "
-                    fluid
+                    disabled={!isEnabled}
                     loading={isFetchingAddressList}
-                    search
-                    selection
-                    clearable
                     options={addressListDropdownOptions}
+                    getOptionLabel={(option) => option.text}
+                    renderInput={(params) => <TextField {...params} />}
+                    onChange={(_, value) => setAddress(value as string)}
+                    freeSolo
                 />
                 {!isEnabled && <label>בחר תחילה קופת חולים ועיר</label>}
             </DropdownWrapper>

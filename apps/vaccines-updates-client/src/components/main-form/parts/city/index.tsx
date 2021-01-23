@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react';
 import { FormItem } from '../../form-item';
-import { CITIES, CITIES_TYPE } from '@vacgaps/constants';
-import { Dropdown } from 'semantic-ui-react'
+import { CITIES } from '@vacgaps/constants';
 import { useFormData } from '../../../../providers/FormDataProvider';
+import { TextField, Autocomplete } from '@material-ui/core';
 
 type Props = {
     className?: string;
@@ -19,14 +19,11 @@ const Comp: FunctionComponent<Props> = props => {
     return (
         <FormItem className={props.className}>
             <h3>עיר</h3>
-            <Dropdown
-                onChange={(_, data) => setCity(data.value as string)}
-                placeholder='בחר עיר'
-                fluid
-                search
-                selection
-                clearable
+            <Autocomplete
                 options={dropDownOptions}
+                getOptionLabel={(option) => option.text}
+                renderInput={(params) => <TextField {...params} />}
+                onChange={(_, value) => setCity(value as string)}
             />
         </FormItem>
     );

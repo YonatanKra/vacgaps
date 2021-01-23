@@ -1,16 +1,17 @@
 import React, { FunctionComponent, useMemo } from 'react';
 import { FormItem } from '../../form-item';
-import { Dropdown, DropdownItemProps } from 'semantic-ui-react'
 import { useFormData } from '../../../../providers/FormDataProvider';
 import styled from 'styled-components';
 import dateFormat from 'dateformat';
+import Autocomplete from '@material-ui/core/Autocomplete';
+import TextField from '@material-ui/core/TextField';
 
 type HourAndMinute = {
     hour: number;
     minute: number;
 };
 
-const timeOptions: DropdownItemProps[] = [];
+const timeOptions: { text: string, value: string }[] = [];
 const now = new Date();
 
 for (let hour = 0; hour <= 23; hour++) {
@@ -24,7 +25,7 @@ for (let hour = 0; hour <= 23; hour++) {
         now.setMinutes(minute);
         timeOptions.push({
             text,
-            value: now.getTime(),
+            value: now.toJSON(),
         });
     }
 }
@@ -35,6 +36,10 @@ const DropdownWrapper = styled.div`
     justify-content: center;
     align-items: center;
 
+    >*{
+        width: 100%;
+    }
+    
     >*:first-child {
         margin-left: 10px;
     }
@@ -44,22 +49,18 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
     const { endTime, setEndTime } = useFormData();
 
     const partialEndingTime: string = useMemo(() => {
-        return dateFormat(endTime || Date.now(), 'dd/mm/yyyy');
+        return dateFormat(Date.now(), 'dd/mm/yyyy');
     }, [endTime]);
 
     return (
         <FormItem className={props.className}>
             <h3>זמן סיום פעילות</h3>
             <DropdownWrapper>
-                <Dropdown
-                    onChange={(_, data) => setEndTime(data.value as unknown as any)}
-                    placeholder='שעת סיום'
-                    fluid
-                    search
-                    clearable
-                    selection
+                <Autocomplete
                     options={timeOptions}
-                />
+                    getOptionLabel={(option) => option.text}
+                    renderInput={(params) => <TextField {...params} />}
+                    onChange={(_, value) => setEndTime(value as string)} />
                 {partialEndingTime}
             </DropdownWrapper>
         </FormItem>
