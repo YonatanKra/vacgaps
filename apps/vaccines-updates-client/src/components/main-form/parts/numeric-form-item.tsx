@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useCallback, useState } from 'react';
 import { FormItem } from '../form-item';
 import styled from 'styled-components';
-import { Input } from '@material-ui/core';
+import { TextField } from '@material-ui/core';
 
 type Props = {
     className?: string;
@@ -13,15 +13,6 @@ type Props = {
 function isNumeric(value: string): boolean {
     return /^\d+$/.test(value);
 }
-
-const ErrorMessage = styled.label`
-    color: orange;
-`;
-
-const InputWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
 
 const Comp: FunctionComponent<Props> = props => {
     const [error, setError] = useState<string | undefined>();
@@ -50,14 +41,12 @@ const Comp: FunctionComponent<Props> = props => {
     return (
         <FormItem className={props.className}>
             <h3>{props.title}</h3>
-            <InputWrapper>
-                <Input
-                    className="form-input"
-                    placeholder={`הכנס ${props.title}`}
-                    onChange={args => onValueChange(args.target.value)}
-                    error={!!error} />
-                <ErrorMessage>{error}</ErrorMessage>
-            </InputWrapper>
+            <TextField
+                className="form-input"
+                placeholder={`הכנס ${props.title}`}
+                onChange={args => onValueChange(args.target.value)}
+                helperText={error}
+                error={!!error} />
         </FormItem>
     );
 };
