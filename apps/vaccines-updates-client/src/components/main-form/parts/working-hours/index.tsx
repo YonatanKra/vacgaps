@@ -41,18 +41,18 @@ const DropdownWrapper = styled.div`
 `;
 
 const Comp: FunctionComponent<{ className?: string; }> = props => {
-    const { setEndingTime, endingTime } = useFormData();
+    const { endTime, setEndTime } = useFormData();
 
     const partialEndingTime: string = useMemo(() => {
-        return dateFormat(endingTime || Date.now(), 'dd/mm/yyyy');
-    }, [endingTime]);
+        return dateFormat(endTime || Date.now(), 'dd/mm/yyyy');
+    }, [endTime]);
 
     return (
         <FormItem className={props.className}>
             <h3>זמן סיום פעילות</h3>
             <DropdownWrapper>
                 <Dropdown
-                    onChange={(_, data) => setEndingTime(data.value as unknown)}
+                    onChange={(_, data) => setEndTime(data.value as unknown as any)}
                     placeholder='שעת סיום'
                     fluid
                     search

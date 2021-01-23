@@ -51,7 +51,7 @@ export class VaccineReportItem implements VaccinesReport {
     public healthCareService: HEALTH_CARE_SERVICES_TYPE[number] = '2',
     public branchName = "wat",
     public updateTime = 5,
-    public targetGroup: TargetGroup[] = [],
+    public targetGroups: TargetGroup[] = [],
     public endTime: string = new Date().toUTCString(),
     public minimalAge: number = 16,
     public availableVaccines: number = 1,

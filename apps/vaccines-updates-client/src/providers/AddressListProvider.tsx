@@ -7,7 +7,7 @@ export type AddressListContextProps = {
     isFetchingAddressList: boolean;
 };
 
-const AddressListContext = createContext<AddressListContextProps>({} as unknown);
+const AddressListContext = createContext<AddressListContextProps>({} as unknown as any);
 
 export const useAddressList = (): AddressListContextProps => useContext(AddressListContext);
 

@@ -3,8 +3,8 @@ import { useFormData } from '../../../../providers/FormDataProvider';
 import NumericFormItem from '../numeric-form-item';
 
 const Comp: FunctionComponent<{ className?: string }> = props => {
-    const { setMinimumAge } = useFormData();
-    return <NumericFormItem className={props.className} onChange={setMinimumAge} title="גיל" />
+    const { setMinimalAge } = useFormData();
+    return <NumericFormItem className={props.className} onChange={setMinimalAge} title="גיל" />
 };
 
 export default Comp;
