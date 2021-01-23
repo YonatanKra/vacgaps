@@ -10,7 +10,7 @@ const httpTrigger = async function (
   if (authResult instanceof FacebookAuth.PassedAuthenticationResult) {
     context.res = {
       status: 200,
-      body: authResult.toString(),
+      body: authResult.userId,
     };
     context.done();
   }
