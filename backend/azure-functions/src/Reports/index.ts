@@ -1,4 +1,4 @@
-import * as FacebookAuth from './facebook-auth';
+import * as FacebookAuth from '../Auth/facebook-auth';
 import { Context, HttpRequest } from 'azure-functions-ts-essentials';
 
 const httpTrigger = async function (
