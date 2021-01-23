@@ -7,10 +7,13 @@ const httpTrigger = async function (
 ): Promise<void> {
   const authResult: FacebookAuth.AuthenticationResult = await FacebookAuth.authenticate(req, context);
 
-  context.res = {
-    status: 200,
-    body: authResult.toString(),
-  };
+  if (authResult instanceof FacebookAuth.PassedAuthenticationResult) {
+    context.res = {
+      status: 200,
+      body: authResult.toString(),
+    };
+    context.done();
+  }
 };
 
 export default httpTrigger;
