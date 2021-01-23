@@ -7,7 +7,7 @@ export interface VaccinesReport {
   healthCareService: HEALTH_CARE_SERVICES_TYPE[number];
   startTime?: string;
   endTime?: string;
-  targetGroup?: number;
+  targetGroup: TargetGroup[];
   minimalAge?: number;
   updateTime: number;
   reporter: string;

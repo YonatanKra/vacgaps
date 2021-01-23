@@ -33,7 +33,7 @@ const Comp: FunctionComponent<Props> = props => {
 
         props.onChange(parseInt(newValue));
         setError(undefined);
-    }, []);
+    }, [props]);
 
     return (
         <FormItem className={props.className}>

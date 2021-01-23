@@ -54,7 +54,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
             setNewAddedAddress(undefined);
             setAddress(undefined);
         }
-    }, [isEnabled]);
+    }, [isEnabled, setAddress]);
 
     return (
         <FormItem className={props.className}>
@@ -70,7 +70,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
                     allowAdditions={true}
                     onAddItem={(_, data) => {
                         setNewAddedAddress({
-                            address: data.value as any,
+                            address: data.value as unknown as string,
                             city,
                             healthCareService,
                         });

@@ -10,7 +10,7 @@ import WorkingHours from './parts/working-hours';
 import { FormItem } from './form-item';
 import { Button } from 'semantic-ui-react';
 
-const logo = require('./resources/logo.jpeg').default;
+import * as logo from './resources/logo.jpeg';
 
 const Container = styled.div`   
     display: flex;
@@ -81,7 +81,7 @@ type Props = {
 export const MainForm: FunctionComponent<Props> = props => {
     return (
         <Container className={props.className}>
-            <Logo src={logo}></Logo>
+            <Logo src={logo.default}></Logo>
             <h1>הכנסת פרטי חיסונים זמינים</h1>
             <FormInputsWrapper>
                 <HealthService />

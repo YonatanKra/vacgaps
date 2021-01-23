@@ -20,7 +20,7 @@ export type FormDataContextProps = {
     setEndingTime: (newValue: number) => void;
 };
 
-const FormDataContext = createContext<FormDataContextProps>({} as any);
+const FormDataContext = createContext<FormDataContextProps>({} as unknown);
 export const useFormData = (): FormDataContextProps => useContext(FormDataContext);
 
 export const FormDataProvider: FunctionComponent = props => {

@@ -52,7 +52,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
             <h3>זמן סיום פעילות</h3>
             <DropdownWrapper>
                 <Dropdown
-                    onChange={(_, data) => setEndingTime(data.value as any)}
+                    onChange={(_, data) => setEndingTime(data.value as unknown)}
                     placeholder='שעת סיום'
                     fluid
                     search
