@@ -1,6 +1,6 @@
 import { Db, MongoClient } from "mongodb";
 import { BaseEntity } from "../Models/BaseEntity";
-import { EnvironmentSettings } from "../Models/EnvironmentSettings";
+import { EnvironmentSettings } from "../Settings/EnvironmentSettings";
 import { ICollection, patchMongoCollection } from "./ICollection";
 
 export class CollectionProvider {
