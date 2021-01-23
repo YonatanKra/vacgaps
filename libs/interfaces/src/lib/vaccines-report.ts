@@ -5,12 +5,11 @@ export interface VaccinesReport {
   city: CITIES_TYPE[number];
   address: string;
   healthCareService: HEALTH_CARE_SERVICES_TYPE[number];
-  startTime?: string;
   endTime?: string;
-  targetGroup: TargetGroup[];
+  targetGroup?: TargetGroup[];
   minimalAge?: number;
   updateTime: number;
-  reporter: string;
-  availableVaccines: number;
-  id: string;
+  reporter?: string;
+  availableVaccines?: number;
+  id?: string;
 }

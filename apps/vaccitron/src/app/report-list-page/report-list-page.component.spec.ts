@@ -11,7 +11,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-const MOCK_REPORTS = [
+const MOCK_REPORTS: VaccinesReport[] = [
   {
     "city": "100",
     "healthCareService": "1",
@@ -20,7 +20,8 @@ const MOCK_REPORTS = [
     "reporter": 'ww',
     "updateTime": 5,
     "minimalAge": 55,
-    "endTime": "2021-01-16T22:00:00"
+    "endTime": "2021-01-16T22:00:00",
+
   },
   {
     "city": "1001",
@@ -29,7 +30,6 @@ const MOCK_REPORTS = [
     "branchName": "wat",
     "reporter": 'ww',
     "updateTime": 5,
-    "region": "3"
   },
   {
     "city": "530",
@@ -39,7 +39,6 @@ const MOCK_REPORTS = [
     "reporter": 'ww',
     "updateTime": 5,
     "minimalAge": 40,
-    "region": "3",
     "endTime": "2021-01-18T21:00:00"
   },
   {
@@ -69,8 +68,8 @@ const MOCK_REPORTS = [
 })
 class TestComponent {
   reportsList: VaccinesReport[] = MOCK_REPORTS;
-
 }
+
 describe('ReportListPageComponent', () => {
   let component: ReportListPageComponent;
   let fixture: ComponentFixture<ReportListPageComponent>;
@@ -93,7 +92,7 @@ describe('ReportListPageComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe(`integrations`, function() {
+  describe(`integrations`, function () {
     let parentFixture: ComponentFixture<TestComponent>,
       parentComponent: TestComponent,
       reportListComponent: ReportListPageComponent;
@@ -107,11 +106,11 @@ describe('ReportListPageComponent', () => {
       parentFixture.detectChanges();
     });
 
-    it(`should get a list of reports from parent`, function() {
+    it(`should get a list of reports from parent`, function () {
       expect(reportListComponent.reportsList).toEqual(parentComponent.reportsList);
     });
 
-    it(`should update the filter when the filter fields change`, function() {
+    it(`should update the filter when the filter fields change`, function () {
       const notificationsFilter: NotificationsFilter = {
         cities: ["100", "110"],
         districts: [],
@@ -126,12 +125,12 @@ describe('ReportListPageComponent', () => {
     });
   });
 
-  describe(`sync tests`, function() {
-    beforeEach(function() {
+  describe(`sync tests`, function () {
+    beforeEach(function () {
       fixture.detectChanges();
     });
 
-    it(`should return the data according to incoming filter`, function() {
+    it(`should return the data according to incoming filter`, function () {
       component.reportsList = MOCK_REPORTS;
       const notificationsFilter: NotificationsFilter = {
         cities: ["100", "110"],
@@ -161,7 +160,7 @@ describe('ReportListPageComponent', () => {
       ])
     });
 
-    it(`should return data with all cities if got an empty cities filter`, function() {
+    it(`should return data with all cities if got an empty cities filter`, function () {
       component.reportsList = MOCK_REPORTS.map(value => { value.healthCareService = "1"; return value; });
       const notificationsFilter: NotificationsFilter = {
         cities: [],
@@ -172,8 +171,8 @@ describe('ReportListPageComponent', () => {
       expect(component.filteredReportsList).toEqual(MOCK_REPORTS.map(value => { value.healthCareService = "1"; return value; }));
     });
 
-    it(`should query the server according to environment for reports on load`, function() {
-      const fakeReportList = [{test: 'data'}] as unknown as VaccinesReport[];
+    it(`should query the server according to environment for reports on load`, function () {
+      const fakeReportList = [{ test: 'data' }] as unknown as VaccinesReport[];
       const vaccinesReportsService = TestBed.inject(VaccinesReportsService);
       spyOn(vaccinesReportsService, 'getVaccinesReports').and.returnValue(of(fakeReportList));
 
@@ -183,12 +182,12 @@ describe('ReportListPageComponent', () => {
     });
   });
 
-  it(`should query the server every ${environment.reportsQueryIntervalInMs} ms`, fakeAsync(function() {
+  it(`should query the server every ${environment.reportsQueryIntervalInMs} ms`, fakeAsync(function () {
     fixture.detectChanges();
     const fakeReportLists = [
-      [{list1: 'data'}] as unknown as VaccinesReport[],
-      [{list2: 'data'}] as unknown as VaccinesReport[],
-      [{list3: 'data'}] as unknown as VaccinesReport[],
+      [{ list1: 'data' }] as unknown as VaccinesReport[],
+      [{ list2: 'data' }] as unknown as VaccinesReport[],
+      [{ list3: 'data' }] as unknown as VaccinesReport[],
     ];
 
     const vaccinesReportsService = TestBed.inject(VaccinesReportsService);
@@ -203,7 +202,7 @@ describe('ReportListPageComponent', () => {
     discardPeriodicTasks();
   }));
 
-  it(`should stop querying when destroying the component`, fakeAsync(function() {
+  it(`should stop querying when destroying the component`, fakeAsync(function () {
     fixture.detectChanges();
     component.ngOnDestroy();
     const getUpdateSpy = spyOn(component, 'getUpdate');
