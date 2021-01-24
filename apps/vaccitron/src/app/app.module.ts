@@ -20,28 +20,25 @@ import { FilterFormModule } from '@vacgaps/filter-form';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { MatCardModule } from '@angular/material/card';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './http-interceptors/token-interceptor.service';
+import { AccountService } from './account/account.service';
 
+const routes = [
+  {
+    path: '',
+    loadChildren: () =>
+      import('./report-list-page/report-list-page.module').then(
+        (m) => m.ReportListPageModule
+      )
+  }
+];
 @NgModule({
   declarations: [AppComponent, AppHeaderComponent],
   imports: [
     BrowserModule,
     RouterModule.forRoot(
-      [
-        {
-          path: '',
-          loadChildren: () =>
-            import('./report-list-page/report-list-page.module').then(
-              (m) => m.ReportListPageModule
-            )
-        },
-        {
-          path: 'login-page',
-          loadChildren: () =>
-            import('./login-page/login-page.module').then(
-              (m) => m.LoginPageModule
-            )
-        }
-      ],
+      routes,
       { initialNavigation: 'enabled' }
     ),
     BrowserAnimationsModule,
@@ -60,7 +57,7 @@ import { MatCardModule } from '@angular/material/card';
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     MatCardModule
   ],
-  providers: [],
+  providers: [AccountService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
