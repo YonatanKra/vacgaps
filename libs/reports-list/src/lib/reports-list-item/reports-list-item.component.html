@@ -1,4 +1,6 @@
-<mat-expansion-panel class="report-item-wrapper">
+<mat-expansion-panel class="report-item-wrapper"
+                     #expansionPanel
+                     (click)="!expandable ? expansionPanel.close() : ''">
   <mat-expansion-panel-header>
     <div class="content-wrapper">
       <button mat-button class="data">

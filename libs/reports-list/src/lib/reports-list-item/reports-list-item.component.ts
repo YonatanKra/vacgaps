@@ -11,6 +11,9 @@ export class ReportsListItemComponent implements OnInit {
   @Input()
   reportItem: VaccinesReport;
 
+  @Input()
+  expandable: boolean;
+
   @Output()
   comingFeedbackEvent = new EventEmitter<VaccinesReport>();
 

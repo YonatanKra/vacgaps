@@ -5,6 +5,7 @@ import { interval, Subject } from 'rxjs';
 import { CITIES } from '@vacgaps/constants';
 import { environment } from '../../environments/environment';
 import { takeUntil } from 'rxjs/operators';
+import { AccountService } from '../account/account.service';
 
 @Component({
   selector: 'vacgaps-report-list-page',
@@ -16,6 +17,10 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
   reportsList: VaccinesReport[] = [];
   #onDestroy$ = new Subject<void>();
 
+  get isLoggedIn(): boolean {
+    return this.accountService?.loggedIn;
+  }
+
   get filteredReportsList(): VaccinesReport[] {
     return this.filterList(this.#currentFilter);
   }
@@ -26,7 +31,7 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
     this.#currentFilter = newFilter;
   }
 
-  constructor(private vaccinesReportsService: VaccinesReportsService) {}
+  constructor(private vaccinesReportsService: VaccinesReportsService, private accountService?: AccountService) {}
 
   ngOnInit(): void {
     this.getUpdate();
