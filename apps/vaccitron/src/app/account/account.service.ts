@@ -11,6 +11,10 @@ const fbLogin = new FbLogin({fbAppId: environment.facebookAppId})
 export class AccountService {
   userDetails: UserDetails;
 
+  get loggedIn() {
+    return !!this.userDetails;
+  }
+
   constructor() { }
 
   async login() {
