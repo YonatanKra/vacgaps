@@ -3,7 +3,7 @@
   <router-outlet></router-outlet>
 </main>
 <footer dir="rtl">
-  <mat-expansion-panel hideToggle>
+  <mat-expansion-panel hideToggle (click)="disclaimerOpen = !disclaimerOpen" [expanded]="disclaimerOpen">
     <mat-expansion-panel-header>
       <mat-panel-title>
         תנאי שימוש באפליקציה
