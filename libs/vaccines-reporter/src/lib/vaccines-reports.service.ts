@@ -18,10 +18,10 @@ export class VaccinesReportsService {
   constructor(private httpClient: HttpClient) { }
 
   getVaccinesReports(url: string): Observable<VaccinesReport[]> {
-    return this.vaccinesReports[url] || (this.vaccinesReports[url] = this.request(url));
+    return this.vaccinesReports[url] || (this.vaccinesReports[url] = this.get(url));
   }
 
-  request(url): Observable<VaccinesReport[]> {
+  get(url): Observable<VaccinesReport[]> {
     return this.httpClient.get<VaccinesReportResponse>(url).pipe(map((reportsObject: VaccinesReportResponse) => reportsObject.reports));
   }
 }
