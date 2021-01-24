@@ -23,6 +23,7 @@ import { MatCardModule } from '@angular/material/card';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptorService } from './http-interceptors/token-interceptor.service';
 import { AccountService } from './account/account.service';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 const routes = [
   {
@@ -55,7 +56,8 @@ const routes = [
     MatAutocompleteModule,
     FilterFormModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    MatCardModule
+    MatCardModule,
+    MatExpansionModule
   ],
   providers: [AccountService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },],
   bootstrap: [AppComponent],
