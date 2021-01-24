@@ -59,4 +59,8 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.#onDestroy$.next();
   }
+
+  reportsListActionEvent(event) {
+    this.accountService.login();
+  }
 }

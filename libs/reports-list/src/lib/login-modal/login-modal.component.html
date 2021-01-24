@@ -1,0 +1,16 @@
+<button class="button-close" mat-button [mat-dialog-close]="true">X</button>
+<div mat-dialog-content>
+    <mat-grid-list cols="1" rowHeight="40px">
+        <mat-grid-tile>
+            <mat-label>לביצוע פעולה זו אנא התחבר:</mat-label>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <button color="primary" class="button-login" mat-button mat-raised-button (click)="loginButtonClicked()">
+                <mat-icon>
+                    facebook
+                </mat-icon>
+                התחברות עם פייסבוק
+            </button>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

@@ -9,6 +9,8 @@
       <vacgaps-reports-list-item
         [reportItem]="report"
         [expandable]="expandableList"
+        (click)="openLoginDialog()"
+        (comingFeedbackEvent)="handleComingFeedback($event)"
       ></vacgaps-reports-list-item>
     </mat-list-item>
   </cdk-virtual-scroll-viewport>

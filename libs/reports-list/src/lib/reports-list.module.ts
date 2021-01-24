@@ -12,6 +12,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { LoginModalComponent } from './login-modal/login-modal.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatExpansionModule
   ],
   declarations: [
+    LoginModalComponent,
     ReportsListComponent,
     ReportsListItemComponent,
     ReportModalComponent,
