@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { VaccinesReport } from '@vacgaps/interfaces';
-import { interval, Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { interval, Observable, Subject, throwError } from 'rxjs';
+import { catchError, map, retry } from 'rxjs/operators';
 
 interface VaccinesReportResponse {
   reports: VaccinesReport[]
@@ -21,7 +21,12 @@ export class VaccinesReportsService {
     return this.vaccinesReports[url] || (this.vaccinesReports[url] = this.get(url));
   }
 
+  updateImComing(url, reportId) {
+    return this.httpClient.put(url, {reportId});
+  }
+
   get(url): Observable<VaccinesReport[]> {
-    return this.httpClient.get<VaccinesReportResponse>(url).pipe(map((reportsObject: VaccinesReportResponse) => reportsObject.reports));
+    return this.httpClient.get<VaccinesReportResponse>(url).pipe(map(
+      (reportsObject: VaccinesReportResponse) => reportsObject.reports));
   }
 }
