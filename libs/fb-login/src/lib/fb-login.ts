@@ -10,7 +10,7 @@ export interface UserDetails {
   id: string;
   facebookId: string;
   name: string;
-  extraInfo: string;
+  extraInfo?: string;
   token?: string;
   expiresIn?: number;
 }
