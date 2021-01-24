@@ -1,6 +1,9 @@
 type Settings = {
     secrets: Secrets;
-    exampleCollection: string;
+    getVacciDatabase: string;
+    cosmosEndpoint: string;
+    cosmosRejectUnauthorized: boolean, // allows self-signed certificate, required for local emulator
+
     vacGapsDatabase: string;
     mongoConnectionString: string;
     allowSelfSignedMongoCert: boolean;
@@ -20,7 +23,10 @@ class Secrets {
 
 const devSettings: Settings = {
     secrets: new Secrets('dev'),
-    exampleCollection: "examples",
+    cosmosEndpoint: 'https://localhost:8081',
+    getVacciDatabase: 'getvacci-dev',
+    cosmosRejectUnauthorized: false,
+
     vacGapsDatabase: process.env.vacgaps_database || "",
     mongoConnectionString: process.env.mongo_connection_string || "",
     allowSelfSignedMongoCert: JSON.parse(process.env.allow_self_signed_mongo_cert || "false"),

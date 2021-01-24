@@ -1,5 +1,7 @@
 ## prerequisites to run locally:
 
+Cosmos DB emulator: https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator
+
 #### MAC
 
 ```
@@ -17,6 +19,17 @@ brew install azure-functions-core-tools
 
 ## run:
 
+### Run Cosmos DB emulator
+- Installation link in prerequisites section
+- Use default endpoint https://localhost:8081
+
+### Prepare secrets
+
+- Facebook app secret from: https://developers.facebook.com/apps/1279648522401260/settings/basic/?business_id=229352928771577
+- Cosmos DB secret from the emulator UI: https://localhost:8081/_explorer/index.html
+- Set environment variables with the extracted values: FacebookClientSecret, devCosmosSecret
+
+### Actual run
 - make sure to run it under the backend\azure-functions folder
 
 ```
