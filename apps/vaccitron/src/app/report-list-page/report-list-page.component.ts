@@ -98,7 +98,7 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
         });
         this.vaccinesReportsService
           .updateImComing(
-            environment.apiUrl + '/ComingFeedback',
+            environment.apiUrl + environment.comingFeedback,
             {reportId: $event.payload.reportId}
             )
           .pipe(

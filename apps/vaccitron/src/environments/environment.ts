@@ -7,5 +7,6 @@ export const environment = {
   vaccinesDataUrl: '../../assets/demo-data.json',
   reportsQueryIntervalInMs: 5000,
   facebookAppId: '1279648522401260',
-  apiUrl: '../../assets/demo-data.json',
+  apiUrl: '../../assets',
+  comingFeedback: '/ComingFeedback.json'
 };
