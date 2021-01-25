@@ -1,5 +1,6 @@
 <vacgaps-filter-form (formUpdate)="updateFilter($event)"></vacgaps-filter-form>
 <vacgaps-reports-list
+  (click)="!isLoggedIn ? openLoginDialog() : ''"
   [expandableList]="isLoggedIn"
   [reportsList]="filteredReportsList"
   (listActionEvent)="reportsListActionEvent($event)"

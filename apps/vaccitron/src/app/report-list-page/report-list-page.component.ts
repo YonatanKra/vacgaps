@@ -6,6 +6,8 @@ import { CITIES } from '@vacgaps/constants';
 import { environment } from '../../environments/environment';
 import { takeUntil } from 'rxjs/operators';
 import { AccountService } from '../account/account.service';
+import { LoginModalComponent } from '../../../../../libs/login-modal/src/lib/login-modal/login-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'vacgaps-report-list-page',
@@ -33,7 +35,8 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private vaccinesReportsService: VaccinesReportsService,
-    private accountService?: AccountService
+    private dialog?: MatDialog,
+    private accountService?: AccountService,
   ) {}
 
   ngOnInit(): void {
@@ -71,5 +74,19 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
 
   reportsListActionEvent(event) {
     this.accountService.login();
+  }
+
+  openLoginDialog() {
+    const dialogRef = this.dialog.open(LoginModalComponent, {
+      width: '350px',
+      height: '200px',
+      direction: 'rtl'
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result === true) {
+        await this.accountService.login();
+      }
+    });
   }
 }
