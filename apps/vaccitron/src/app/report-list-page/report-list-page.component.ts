@@ -36,7 +36,7 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
   #onDestroy$ = new Subject<void>();
 
   get isLoggedIn(): boolean {
-    return this.accountService?.loggedIn || true;
+    return this.accountService?.loggedIn;
   }
 
   get filteredReportsList(): VaccinesReport[] {
@@ -96,6 +96,7 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
           direction: 'rtl',
           autoFocus: false,
         });
+
         this.vaccinesReportsService
           .updateImComing(
             environment.apiUrl + environment.comingFeedback,
@@ -114,9 +115,7 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
           }))
           .subscribe(response => {
             dialogRef.close();
-          })
-
-        ;
+          });
         break;
       default:
         break;
