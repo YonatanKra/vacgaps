@@ -32,6 +32,12 @@
     "vaccines-updates-client-e2e": {
       "tags": [],
       "implicitDependencies": ["vaccines-updates-client"]
+    },
+    "fb-login": {
+      "tags": []
+    },
+    "login-modal": {
+      "tags": []
     }
   }
 }

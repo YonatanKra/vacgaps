@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AccountService } from '../account/account.service';
 
 @Component({
   selector: 'vacgaps-app-header',
@@ -7,11 +8,17 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class AppHeaderComponent implements OnInit {
   @Input()
-  title: string;
+  title = '';
 
-  constructor() {
-    this.title = 'Test';
+  get loggedIn(): boolean {
+    return this.accountService.loggedIn;
   }
 
+  constructor(private accountService: AccountService) {}
+
   ngOnInit(): void {}
+
+  async login() {
+    await this.accountService.login();
+  }
 }

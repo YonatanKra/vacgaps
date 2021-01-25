@@ -274,6 +274,62 @@
         }
       }
     },
+    "fb-login": {
+      "root": "libs/fb-login",
+      "sourceRoot": "libs/fb-login/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/fb-login/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/fb-login"
+          ],
+          "options": {
+            "jestConfig": "libs/fb-login/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "login-modal": {
+      "projectType": "library",
+      "root": "libs/login-modal",
+      "sourceRoot": "libs/login-modal/src",
+      "prefix": "vacgaps",
+      "targets": {
+        "lint": {
+          "executor": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/login-modal/tsconfig.lib.json",
+              "libs/login-modal/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/login-modal/**/*"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/login-modal"
+          ],
+          "options": {
+            "jestConfig": "libs/login-modal/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "vaccines-updates-client": {
       "root": "apps/vaccines-updates-client",
       "sourceRoot": "apps/vaccines-updates-client/src",
