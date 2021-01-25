@@ -1,4 +1,12 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -35,7 +43,7 @@ export class PlaceFilterComponent implements OnInit {
   placesSelectList: Map<string, string>;
   placesFilterTerm: string;
   placesFilterChange = new Subject<string>();
-  
+
   constructor() {}
 
   ngOnInit(): void {
@@ -45,7 +53,7 @@ export class PlaceFilterComponent implements OnInit {
 
     this.placesFilterChange
       .pipe(debounceTime(100))
-      .subscribe(term => this.filterPlaces(term));
+      .subscribe((term) => this.filterPlaces(term));
   }
 
   filterPlaces(term: string) {
@@ -64,7 +72,7 @@ export class PlaceFilterComponent implements OnInit {
   }
 
   removePlace(place: string) {
-    this.selectedPlaces.delete(place)
+    this.selectedPlaces.delete(place);
     this.placesUpdated.emit([...this.selectedPlaces]);
   }
 }

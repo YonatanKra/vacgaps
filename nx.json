@@ -47,6 +47,12 @@
     },
     "vaccines-reporter": {
       "tags": []
+    },
+    "fb-login": {
+      "tags": []
+    },
+    "login-modal": {
+      "tags": []
     }
   }
 }

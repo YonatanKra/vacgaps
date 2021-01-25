@@ -17,34 +17,28 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { FilterFormModule } from '@vacgaps/filter-form';
-import { ReportListPageModule } from './report-list-page/report-list-page.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { MatCardModule } from '@angular/material/card';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptorService } from './http-interceptors/token-interceptor.service';
+import { AccountService } from './account/account.service';
+import { MatExpansionModule } from '@angular/material/expansion';
 
+const routes = [
+  {
+    path: '',
+    loadChildren: () =>
+      import('./report-list-page/report-list-page.module').then(
+        (m) => m.ReportListPageModule
+      ),
+  },
+];
 @NgModule({
   declarations: [AppComponent, AppHeaderComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(
-      [
-        {
-          path: '',
-          loadChildren: () =>
-            import('./report-list-page/report-list-page.module').then(
-              (m) => m.ReportListPageModule
-            )
-        },
-        {
-          path: 'login-page',
-          loadChildren: () =>
-            import('./login-page/login-page.module').then(
-              (m) => m.LoginPageModule
-            )
-        }
-      ],
-      { initialNavigation: 'enabled' }
-    ),
+    RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
@@ -58,10 +52,20 @@ import { MatCardModule } from '@angular/material/card';
     MatCheckboxModule,
     MatAutocompleteModule,
     FilterFormModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    MatCardModule
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
+    MatCardModule,
+    MatExpansionModule,
   ],
-  providers: [],
+  providers: [
+    AccountService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -6,6 +6,7 @@ import { FilterFormModule } from '@vacgaps/filter-form';
 import { ReportsListModule } from '@vacgaps/reports-list';
 import { VaccinesReportsService } from '@vacgaps/vaccines-reporter';
 import { HttpClientModule } from '@angular/common/http';
+import { LoginModalModule } from '@vacgaps/login-modal';
 
 const routes: Routes = [{ path: '', component: ReportListPageComponent }];
 
@@ -18,6 +19,7 @@ const routes: Routes = [{ path: '', component: ReportListPageComponent }];
     RouterModule.forChild(routes),
     FilterFormModule,
     ReportsListModule,
+    LoginModalModule,
   ],
 })
 export class ReportListPageModule {}

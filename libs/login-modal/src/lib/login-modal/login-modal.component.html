@@ -1,0 +1,27 @@
+<button
+  class="button-close"
+  aria-label="סגירת חלון התחברות עם פייסבוק"
+  mat-icon-button
+  [mat-dialog-close]="false"
+>
+  <mat-icon>close</mat-icon>
+</button>
+<div mat-dialog-content>
+  <mat-grid-list cols="1" rowHeight="40px">
+    <mat-grid-tile>
+      <mat-label>לביצוע פעולה זו אנא התחבר:</mat-label>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button
+        color="primary"
+        class="button-login"
+        mat-button
+        mat-raised-button
+        [mat-dialog-close]="true"
+      >
+        <mat-icon> facebook </mat-icon>
+        התחברות עם פייסבוק
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

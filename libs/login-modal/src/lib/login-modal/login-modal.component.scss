@@ -1,0 +1,39 @@
+button.button-login {
+  margin: 0 0.1em;
+}
+
+::ng-deep .mat-dialog-container {
+  background: rgba(226, 226, 243);
+  color: rgba(56, 131, 135);
+  font-size: medium;
+  padding: 10%;
+}
+
+::ng-deep .mat-grid-tile .mat-figure {
+  justify-content: center !important;
+}
+
+mat-label {
+  font-weight: bold;
+  margin-left: 2%;
+  align-self: flex-start;
+  text-align: center;
+  width: 100%;
+}
+
+button.button-close {
+  background: transparent;
+  border-style: none;
+  color: rgba(56, 131, 135);
+  cursor: pointer;
+  left: 24px;
+  line-height: 14px;
+  min-width: auto;
+  padding: 5px;
+  position: relative;
+  top: -24px;
+}
+
+button.button-close:focus {
+  outline: 0;
+}

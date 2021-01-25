@@ -24,7 +24,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
     MatSelectModule,
     MatChipsModule,
     MatIconModule,
-    ScrollingModule
+    ScrollingModule,
   ],
   declarations: [FilterFormComponent, PlaceFilterComponent],
   exports: [FilterFormComponent],
