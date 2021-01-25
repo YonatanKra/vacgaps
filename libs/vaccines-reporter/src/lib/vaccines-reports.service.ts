@@ -23,8 +23,7 @@ export class VaccinesReportsService {
   }
 
   updateImComing(url, reportId) {
-    return this.httpClient
-      .put(url, { reportId });
+    return this.httpClient.put(url, { reportId });
   }
 
   get(url): Observable<VaccinesReport[]> {

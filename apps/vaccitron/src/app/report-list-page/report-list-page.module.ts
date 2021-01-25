@@ -29,7 +29,7 @@ const routes: Routes = [{ path: '', component: ReportListPageComponent }];
     FilterFormModule,
     ReportsListModule,
     LoginModalModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
   ],
 })
 export class ReportListPageModule {}

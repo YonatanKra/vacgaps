@@ -8,5 +8,5 @@ export const environment = {
   reportsQueryIntervalInMs: 5000,
   facebookAppId: '1279648522401260',
   apiUrl: '../../assets',
-  comingFeedback: '/ComingFeedback.json'
+  comingFeedback: '/ComingFeedback.json',
 };

@@ -14,9 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'error-dialog',
-  template: `
-    {{data}}
-  `,
+  template: ` {{ data }} `,
 })
 export class ErrorDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: string) {}
@@ -98,22 +96,22 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
         });
 
         this.vaccinesReportsService
-          .updateImComing(
-            environment.apiUrl + environment.comingFeedback,
-            {reportId: $event.payload.reportId}
-            )
+          .updateImComing(environment.apiUrl + environment.comingFeedback, {
+            reportId: $event.payload.reportId,
+          })
           .pipe(
             retry(3),
             catchError((error: HttpErrorResponse) => {
-            dialogRef.close();
-            this.dialog.open(ErrorDialog, {
-              direction: 'rtl',
-              autoFocus: false,
-              data: 'תקלה באישור הבקשה. נא לנסות שנית.'
-            });
-            return throwError(error);
-          }))
-          .subscribe(response => {
+              dialogRef.close();
+              this.dialog.open(ErrorDialog, {
+                direction: 'rtl',
+                autoFocus: false,
+                data: 'תקלה באישור הבקשה. נא לנסות שנית.',
+              });
+              return throwError(error);
+            })
+          )
+          .subscribe((response) => {
             dialogRef.close();
           });
         break;

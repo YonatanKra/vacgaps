@@ -4,5 +4,5 @@ export const environment = {
   reportsQueryIntervalInMs: 5 * 60 * 1000,
   facebookAppId: '1279648522401260',
   apiUrl: '/api',
-  comingFeedback: 'ComingFeedback'
+  comingFeedback: 'ComingFeedback',
 };
