@@ -22,8 +22,8 @@
   flex: 1;
 }
 
-::ng-deep .mat-expansion-panel-content {
-  flex: 0.75;
+:host ::ng-deep .mat-expansion-panel-content {
+  flex: 1;
 }
 
 .report-item-wrapper button {
