@@ -54,4 +54,10 @@
   .report-item-wrapper button {
     width: 85px;
   }
+
+  :host ::ng-deep span.mat-button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
