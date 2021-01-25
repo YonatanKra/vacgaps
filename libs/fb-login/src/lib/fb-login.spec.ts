@@ -18,7 +18,7 @@ const EXPECTED_USER_DETAILS: UserDetails = {
 
 jest.mock('./fb-init/fb-initializer', () => ({
   fbInitializer: jest.fn(
-    (id) => new Promise((res) => setTimeout(() => res(MOCK_FB_AUTH_DETAILS), 0))
+    () => new Promise((res) => setTimeout(() => res(MOCK_FB_AUTH_DETAILS), 0))
   ),
 }));
 
@@ -31,11 +31,11 @@ describe('fbLogin', () => {
   let fbLogin: FbLogin;
   beforeEach(function () {
     fbLogin = new FbLogin(config);
-    window['FB'] = {
+    (window as unknown)['FB'] = {
       login: jest.fn(function (fn) {
         fn({ authResponse: MOCK_FB_AUTH_DETAILS });
       }),
-    } as any;
+    };
   });
 
   it('should work', () => {
@@ -49,11 +49,11 @@ describe('fbLogin', () => {
     });
 
     it(`should return a promise that resolves after FB login with null if login failed`, async function () {
-      window['FB'] = {
+      (window as unknown)['FB'] = {
         login: jest.fn(function (fn) {
           fn({ authResponse: null });
         }),
-      } as any;
+      };
       const loginPromise = fbLogin.login();
       expect(await loginPromise).toEqual(null);
     });

@@ -8,7 +8,7 @@ import { AccountService } from '../account/account.service';
 })
 export class AppHeaderComponent implements OnInit {
   @Input()
-  title: string = '';
+  title = '';
 
   get loggedIn(): boolean {
     return this.accountService.loggedIn;

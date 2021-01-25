@@ -26,10 +26,10 @@ describe('FbAppInitializer', () => {
 
   describe(`fbAsyncInit`, function () {
     beforeEach(function () {
-      window['FB'] = {
+      (window as unknown)['FB'] = {
         init: jasmine.createSpy(),
         getLoginStatus: jasmine.createSpy(),
-      } as any;
+      };
       fbAppInitializerPromise = fbInitializer(facebookAppId);
     });
     it(`should set the fbAsyncInit function on the window`, function () {
@@ -45,7 +45,7 @@ describe('FbAppInitializer', () => {
       };
       fbInitializer(facebookAppId);
       window['fbAsyncInit']();
-      expect(window['FB'].init).toHaveBeenCalledWith(expectedCallObject as any);
+      expect(window['FB'].init).toHaveBeenCalledWith(expectedCallObject as unknown);
     });
 
     it(`should get login status and resolve the initializer with the auth status`, async function () {
@@ -59,7 +59,7 @@ describe('FbAppInitializer', () => {
       fbAppInitializerPromise.then(spy);
       await window['fbAsyncInit']();
       expect(FB.getLoginStatus).toHaveBeenCalled();
-      expect(spy).toHaveBeenCalledWith(authResponse as any);
+      expect(spy).toHaveBeenCalledWith(authResponse as unknown);
     });
   });
 

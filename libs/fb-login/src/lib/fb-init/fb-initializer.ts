@@ -1,11 +1,11 @@
 export function fbInitializer(facebookAppId) {
-  return new Promise((res, rej) => {
-    window['fbAsyncInit'] = function () {
+  return new Promise((res) => {
+    window['fbAsyncInit'] = function() {
       FB.init({
         appId: facebookAppId,
         cookie: true,
         xfbml: true,
-        version: 'v8.0',
+        version: 'v8.0'
       });
 
       FB.getLoginStatus(({ authResponse }) => {
@@ -13,13 +13,12 @@ export function fbInitializer(facebookAppId) {
       });
     };
 
-    (function (d, s, id) {
-      var js,
-        fjs = d.getElementsByTagName(s)[0];
+    (function(d, s, id) {
+      const fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {
         return;
       }
-      js = d.createElement(s);
+      const js = d.createElement(s) as HTMLScriptElement;
       js.id = id;
       js.src = `https://connect.facebook.net/${navigator.language.replace(
         '-',
