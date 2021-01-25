@@ -1,6 +1,11 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { CITIES, HEALTH_CARE_SERVICES } from '@vacgaps/constants';
 import { VaccinesReport } from '@vacgaps/interfaces';
+import {
+  BreakpointObserver,
+  Breakpoints,
+  MediaMatcher,
+} from '@angular/cdk/layout';
 
 @Component({
   selector: 'vacgaps-report-modal',
@@ -9,7 +14,20 @@ import { VaccinesReport } from '@vacgaps/interfaces';
 })
 export class ReportModalComponent implements OnInit {
   @Input() report: VaccinesReport;
-  constructor() {}
+
+  public rowHeight = '40';
+
+  constructor(breakpointObserver: BreakpointObserver) {
+    breakpointObserver
+      .observe([Breakpoints.HandsetLandscape, Breakpoints.HandsetPortrait])
+      .subscribe((result) => {
+        if (result.matches) {
+          this.rowHeight = '20';
+        } else {
+          this.rowHeight = '40';
+        }
+      });
+  }
 
   ngOnInit(): void {}
 
