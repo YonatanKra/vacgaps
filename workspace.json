@@ -103,9 +103,7 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
             ],
             "scripts": [],
-            "assets": [
-              "apps/vaccitron/src/manifest.webmanifest"
-            ]
+            "assets": ["apps/vaccitron/src/manifest.webmanifest"]
           }
         }
       }
@@ -223,64 +221,6 @@
         }
       }
     },
-    "filter-form": {
-      "projectType": "library",
-      "root": "libs/filter-form",
-      "sourceRoot": "libs/filter-form/src",
-      "prefix": "vacgaps",
-      "targets": {
-        "lint": {
-          "executor": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/filter-form/tsconfig.lib.json",
-              "libs/filter-form/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/filter-form/**/*"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "libs/filter-form/src/test.ts",
-            "tsConfig": "libs/filter-form/tsconfig.spec.json",
-            "karmaConfig": "libs/filter-form/karma.conf.js"
-          }
-        }
-      }
-    },
-    "reports-list": {
-      "projectType": "library",
-      "root": "libs/reports-list",
-      "sourceRoot": "libs/reports-list/src",
-      "prefix": "vacgaps",
-      "targets": {
-        "lint": {
-          "executor": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "libs/reports-list/tsconfig.lib.json",
-              "libs/reports-list/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/reports-list/**/*"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "libs/reports-list/src/test.ts",
-            "tsConfig": "libs/reports-list/tsconfig.spec.json",
-            "karmaConfig": "libs/reports-list/karma.conf.js"
-          }
-        }
-      }
-    },
     "vaccines-reporter": {
       "projectType": "library",
       "root": "libs/vaccines-reporter",
@@ -294,19 +234,61 @@
               "libs/vaccines-reporter/tsconfig.lib.json",
               "libs/vaccines-reporter/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/vaccines-reporter/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/vaccines-reporter/**/*"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/vaccines-reporter"
-          ],
+          "outputs": ["coverage/libs/vaccines-reporter"],
           "options": {
             "jestConfig": "libs/vaccines-reporter/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "fb-login": {
+      "root": "libs/fb-login",
+      "sourceRoot": "libs/fb-login/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/fb-login/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/fb-login"],
+          "options": {
+            "jestConfig": "libs/fb-login/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "login-modal": {
+      "projectType": "library",
+      "root": "libs/login-modal",
+      "sourceRoot": "libs/login-modal/src",
+      "prefix": "vacgaps",
+      "targets": {
+        "lint": {
+          "executor": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/login-modal/tsconfig.lib.json",
+              "libs/login-modal/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/login-modal/**/*"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/login-modal"],
+          "options": {
+            "jestConfig": "libs/login-modal/jest.config.js",
             "passWithNoTests": true
           }
         }

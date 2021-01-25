@@ -1,4 +1,12 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NotificationsFilter } from '@vacgaps/interfaces';
 import { DISTRICTS, CITIES, HEALTH_CARE_SERVICES } from '@vacgaps/constants';
@@ -28,25 +36,27 @@ export class FilterFormComponent implements OnInit {
 
   @Input() cityList: Map<string, string>;
 
-  @Input() districtList: Map<string, string>
+  @Input() districtList: Map<string, string>;
 
   @ViewChild('citiesInput') citiesInput: ElementRef<HTMLInputElement>;
 
   @ViewChild('districtsInput') districtsInput: ElementRef<HTMLInputElement>;
 
   healthCareServices = new Map(Object.entries(HEALTH_CARE_SERVICES));
-  
+
   constructor() {}
 
   ngOnInit(): void {
     if (!this.cityList) {
-      this.cityList = new Map(Object.entries(CITIES).map(
-        entry => [entry[0], entry[1].name]));
+      this.cityList = new Map(
+        Object.entries(CITIES).map((entry) => [entry[0], entry[1].name])
+      );
     }
-  
+
     if (!this.districtList) {
-      this.districtList = new Map(Array.from(DISTRICTS).map(
-        entry => [entry, entry]));
+      this.districtList = new Map(
+        Array.from(DISTRICTS).map((entry) => [entry, entry])
+      );
     }
 
     this.filterFields.valueChanges.subscribe(() => {

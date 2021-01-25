@@ -1,30 +1,33 @@
-<button mat-button [mat-dialog-close]="true">X</button>
-<h1 mat-dialog-title>דיווח על חיסונים</h1>
 <div mat-dialog-content>
-  <mat-grid-list cols="1" rowHeight="40px">
+  <mat-grid-list cols="2" [rowHeight]="rowHeight">
     <mat-grid-tile>
       <mat-label class="field-name">קופה:</mat-label>
-      <mat-label class="field-value">{{healthCareService}}</mat-label>
+      <mat-label class="field-value">{{ healthCareService }}</mat-label>
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-label class="field-name">עיר:</mat-label>
-      <mat-label class="field-value">{{city}}</mat-label>
+      <mat-label class="field-value">{{ city }}</mat-label>
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-label class="field-name">מחוז:</mat-label>
-      <mat-label class="field-value">{{district}}</mat-label>
+      <mat-label class="field-value">{{ district }}</mat-label>
     </mat-grid-tile>
-    <mat-grid-tile rowspan="{{report.address?.length > 25 ? 2 : 1}}">
-      <mat-label class="field-name">כתובת:</mat-label>
-      <mat-label class="field-value">{{report.address}}</mat-label>
-    </mat-grid-tile>
+
     <mat-grid-tile>
       <mat-label class="field-name">גיל מינימלי:</mat-label>
-      <mat-label class="field-value">{{report.minimalAge}}</mat-label>
+      <mat-label class="field-value">{{ report?.minimalAge }}</mat-label>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <mat-grid-list cols="1" [rowHeight]="rowHeight">
+    <mat-grid-tile>
+      <mat-label class="field-name">כתובת:</mat-label>
+      <mat-label class="field-value">{{ report?.address }}</mat-label>
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-label class="field-name">זמן סגירה:</mat-label>
-      <mat-label class="field-value">{{report.endTime | date:'short':'IST':'il'}}</mat-label>
+      <mat-label class="field-value">{{
+        report?.endTime | date: 'short':'IST':'il'
+      }}</mat-label>
     </mat-grid-tile>
   </mat-grid-list>
 </div>

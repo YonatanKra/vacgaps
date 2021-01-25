@@ -1,10 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { VaccinesReport } from '@vacgaps/interfaces';
 import { registerLocaleData } from '@angular/common';
 import localeIL from '@angular/common/locales/en-IL';
-import { ReportModalComponent } from '../report-modal/report-modal.component';
+
 registerLocaleData(localeIL, 'il');
+
+export interface ReportsListAction {
+  type: string;
+  payload?: any;
+}
 
 @Component({
   selector: 'vacgaps-reports-list',
@@ -15,20 +20,24 @@ export class ReportsListComponent implements OnInit {
   @Input()
   reportsList: VaccinesReport[];
 
-  constructor(public dialog: MatDialog) {}
+  @Input()
+  expandableList: boolean;
+
+  @Output()
+  listActionEvent = new EventEmitter<ReportsListAction>();
+
+  constructor() {}
 
   ngOnInit(): void {}
 
-  openDialog(report: VaccinesReport): void {
-    const dialogRef = this.dialog.open(ReportModalComponent, {
-      width: '350px',
-      height: 'auto',
-      data: report,
-      direction: 'rtl'
+  handleComingFeedback(eventData: VaccinesReport) {
+    this.listActionEvent.emit({
+      type: 'comingFeedback',
+      payload: eventData,
     });
+  }
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+  trackByFn(report) {
+    return report.address;
   }
 }

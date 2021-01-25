@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReportsListItemComponent } from './reports-list-item.component';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, NO_ERRORS_SCHEMA } from '@angular/core';
 import { VaccinesReport } from '@vacgaps/interfaces';
 import { VaccineReportItem } from '../reports-list/reports-list.component.spec';
 import { ReportsListComponent } from '../reports-list/reports-list.component';
@@ -16,19 +16,26 @@ const REPORT_MOCK_ITEM = new VaccineReportItem();
 @Component({
   selector: 'vacgaps-test-component',
   template: ` <vacgaps-reports-list-item
+    (comingFeedbackEvent)="comingEventHandler($event)"
     [reportItem]="item"
   ></vacgaps-reports-list-item>`,
 })
 class TestComponent {
   item: VaccinesReport = REPORT_MOCK_ITEM;
+  comingEventHandler($event) {}
 }
+
 describe('ReportsListItemComponent', () => {
   let component: ReportsListItemComponent;
   let fixture: ComponentFixture<ReportsListItemComponent>;
+  const event = ({
+    stopPropagation: jasmine.createSpy(),
+  } as unknown) as Event;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ReportsListItemComponent, TestComponent],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 
@@ -45,18 +52,39 @@ describe('ReportsListItemComponent', () => {
   describe(`integration`, function () {
     let parentFixture: ComponentFixture<TestComponent>,
       parentComponent: TestComponent,
-      reportsListComponent: ReportsListItemComponent;
+      reportsListItemComponent: ReportsListItemComponent;
 
     beforeEach(function () {
       parentFixture = TestBed.createComponent(TestComponent);
       parentComponent = parentFixture.componentInstance;
-      reportsListComponent = parentFixture.debugElement.query(
+      reportsListItemComponent = parentFixture.debugElement.query(
         By.css('vacgaps-reports-list-item')
       ).componentInstance;
       parentFixture.detectChanges();
     });
     it(`should accept an item from parent`, function () {
-      expect(reportsListComponent.reportItem).toEqual(REPORT_MOCK_ITEM);
+      expect(reportsListItemComponent.reportItem).toEqual(REPORT_MOCK_ITEM);
+    });
+
+    it(`should fire an I am coming event to parent`, function () {
+      const spy = spyOn(parentComponent, 'comingEventHandler');
+      reportsListItemComponent.comingFeedback(event);
+      expect(spy).toHaveBeenCalledWith(REPORT_MOCK_ITEM);
+    });
+  });
+
+  describe(`I am coming report`, function () {
+    it(`should stop propagation`, function () {
+      component.comingFeedback(event);
+      expect(event.stopPropagation).toHaveBeenCalled();
+    });
+
+    it(`should emit an event`, function () {
+      spyOn(component.comingFeedbackEvent, 'emit');
+      component.comingFeedback(event);
+      expect(component.comingFeedbackEvent.emit).toHaveBeenCalledWith(
+        component.reportItem
+      );
     });
   });
 
