@@ -72,8 +72,8 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
     this.#onDestroy$.next();
   }
 
-  reportsListActionEvent(event) {
-    this.accountService.login();
+  reportsListActionEvent($event) {
+    if (!this.isLoggedIn) return this.openLoginDialog();
   }
 
   openLoginDialog() {

@@ -89,7 +89,7 @@ describe('ReportListPageComponent', () => {
         NoopAnimationsModule,
         HttpClientTestingModule,
         NoopAnimationsModule,
-        MatDialogModule
+        MatDialogModule,
       ],
       declarations: [ReportListPageComponent, TestComponent],
       schemas: [NO_ERRORS_SCHEMA],
