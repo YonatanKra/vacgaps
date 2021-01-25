@@ -81,6 +81,7 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
       width: '350px',
       height: '200px',
       direction: 'rtl',
+      autoFocus: false
     });
 
     dialogRef.afterClosed().subscribe(async (result) => {
