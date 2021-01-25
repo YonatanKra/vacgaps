@@ -16,6 +16,7 @@ import { VaccinesReportsService } from '@vacgaps/vaccines-reporter';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { of } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const MOCK_REPORTS = [
   {
@@ -88,6 +89,7 @@ describe('ReportListPageComponent', () => {
         NoopAnimationsModule,
         HttpClientTestingModule,
         NoopAnimationsModule,
+        MatDialogModule
       ],
       declarations: [ReportListPageComponent, TestComponent],
       schemas: [NO_ERRORS_SCHEMA],

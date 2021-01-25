@@ -6,7 +6,7 @@ import { CITIES } from '@vacgaps/constants';
 import { environment } from '../../environments/environment';
 import { takeUntil } from 'rxjs/operators';
 import { AccountService } from '../account/account.service';
-import { LoginModalComponent } from '../../../../../libs/login-modal/src/lib/login-modal/login-modal.component';
+import { LoginModalComponent } from '@vacgaps/login-modal';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
