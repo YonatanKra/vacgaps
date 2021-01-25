@@ -7,6 +7,7 @@ import { ReportsListModule } from '@vacgaps/reports-list';
 import { VaccinesReportsService } from '@vacgaps/vaccines-reporter';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginModalModule } from '@vacgaps/login-modal';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const routes: Routes = [{ path: '', component: ReportListPageComponent }];
 
@@ -20,6 +21,7 @@ const routes: Routes = [{ path: '', component: ReportListPageComponent }];
     FilterFormModule,
     ReportsListModule,
     LoginModalModule,
+    MatProgressSpinnerModule
   ],
 })
 export class ReportListPageModule {}

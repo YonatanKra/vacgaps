@@ -1,13 +1,26 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { NotificationsFilter, VaccinesReport } from '@vacgaps/interfaces';
 import { VaccinesReportsService } from '@vacgaps/vaccines-reporter';
-import { interval, Subject } from 'rxjs';
+import { interval, Observable, Subject, throwError } from 'rxjs';
 import { CITIES } from '@vacgaps/constants';
 import { environment } from '../../environments/environment';
-import { takeUntil } from 'rxjs/operators';
+import { catchError, retry, takeUntil } from 'rxjs/operators';
 import { AccountService } from '../account/account.service';
 import { LoginModalComponent } from '@vacgaps/login-modal';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { ReportsListAction } from '../../../../../libs/reports-list/src/lib/reports-list/reports-list.component';
+import { MatSpinner } from '@angular/material/progress-spinner';
+import { HttpErrorResponse } from '@angular/common/http';
+
+@Component({
+  selector: 'error-dialog',
+  template: `
+    {{data}}
+  `,
+})
+export class ErrorDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: string) {}
+}
 
 @Component({
   selector: 'vacgaps-report-list-page',
@@ -17,10 +30,13 @@ import { MatDialog } from '@angular/material/dialog';
 export class ReportListPageComponent implements OnInit, OnDestroy {
   @Input()
   reportsList: VaccinesReport[] = [];
+
+  public sendingImComingRequest = false;
+
   #onDestroy$ = new Subject<void>();
 
   get isLoggedIn(): boolean {
-    return this.accountService?.loggedIn;
+    return this.accountService?.loggedIn || true;
   }
 
   get filteredReportsList(): VaccinesReport[] {
@@ -72,8 +88,39 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
     this.#onDestroy$.next();
   }
 
-  reportsListActionEvent($event) {
+  reportsListActionEvent($event: ReportsListAction) {
     if (!this.isLoggedIn) return this.openLoginDialog();
+    switch ($event.type) {
+      case 'comingFeedback':
+        const dialogRef = this.dialog.open(MatSpinner, {
+          direction: 'rtl',
+          autoFocus: false,
+        });
+        this.vaccinesReportsService
+          .updateImComing(
+            environment.apiUrl + '/ComingFeedback',
+            {reportId: $event.payload.reportId}
+            )
+          .pipe(
+            retry(3),
+            catchError((error: HttpErrorResponse) => {
+            dialogRef.close();
+            this.dialog.open(ErrorDialog, {
+              direction: 'rtl',
+              autoFocus: false,
+              data: 'תקלה באישור הבקשה. נא לנסות שנית.'
+            });
+            return throwError(error);
+          }))
+          .subscribe(response => {
+            dialogRef.close();
+          })
+
+        ;
+        break;
+      default:
+        break;
+    }
   }
 
   openLoginDialog() {
