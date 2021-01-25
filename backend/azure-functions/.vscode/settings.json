@@ -9,5 +9,5 @@
   "eslint.lintTask.options": ". --ext .ts",
   "typescript.validate.enable": true,
   "editor.tabSize": 2,
-  "editor.detectIndentation": false,
+  "editor.detectIndentation": false
 }
