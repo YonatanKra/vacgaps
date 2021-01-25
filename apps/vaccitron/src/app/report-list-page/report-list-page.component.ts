@@ -31,7 +31,10 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
     this.#currentFilter = newFilter;
   }
 
-  constructor(private vaccinesReportsService: VaccinesReportsService, private accountService?: AccountService) {}
+  constructor(
+    private vaccinesReportsService: VaccinesReportsService,
+    private accountService?: AccountService
+  ) {}
 
   ngOnInit(): void {
     this.getUpdate();
@@ -41,17 +44,23 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
   }
 
   getUpdate() {
-    this.vaccinesReportsService.getVaccinesReports(environment.vaccinesDataUrl)
-      .subscribe(data => {
+    this.vaccinesReportsService
+      .getVaccinesReports(environment.vaccinesDataUrl)
+      .subscribe((data) => {
         this.reportsList = data;
       });
   }
 
   filterList(notificationsFilter: NotificationsFilter): VaccinesReport[] {
-    return this.reportsList?.filter(report => {
-      return (!notificationsFilter.healthCareService || report.healthCareService === notificationsFilter.healthCareService)
-      && (!notificationsFilter.cities?.length || notificationsFilter.cities.includes(report.city))
-      && (!notificationsFilter.districts?.length || notificationsFilter.districts.includes(CITIES[report.city].district))
+    return this.reportsList?.filter((report) => {
+      return (
+        (!notificationsFilter.healthCareService ||
+          report.healthCareService === notificationsFilter.healthCareService) &&
+        (!notificationsFilter.cities?.length ||
+          notificationsFilter.cities.includes(report.city)) &&
+        (!notificationsFilter.districts?.length ||
+          notificationsFilter.districts.includes(CITIES[report.city].district))
+      );
       // TODO::add the time filter according to how it is supposed to be sent from the server (don't forget to update the interface)
     });
   }

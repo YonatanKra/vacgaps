@@ -1,38 +1,41 @@
 <mat-form-field appearance="fill">
-    <mat-label>{{label}}</mat-label>
-    <mat-chip-list dense #placesChipList aria-label="בחירת מקומות">
-        <mat-chip
-        *ngFor="let place of selectedPlaces"
-        [selectable]="false"
-        [removable]="true"
-        (removed)="removePlace(place)"
-        >
-        {{ placeList.get(place) }}
-        <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-        <input
-        #placesInput
-        type="text"
-        [(ngModel)]="placesFilterTerm"
-        [ngModelOptions]="{ standalone: true }"
-        (keyup)="placesFilterChange.next($event.target.value)"
-        matInput
-        [matAutocomplete]="placesAutoComplete"
-        [matChipInputFor]="placesChipList"
-        />
-    </mat-chip-list>
-    <mat-autocomplete
-        dense
-        (optionSelected)="addPlace($event)"
-        #placesAutoComplete="matAutocomplete"
+  <mat-label>{{ label }}</mat-label>
+  <mat-chip-list dense #placesChipList aria-label="בחירת מקומות">
+    <mat-chip
+      *ngFor="let place of selectedPlaces"
+      [selectable]="false"
+      [removable]="true"
+      (removed)="removePlace(place)"
     >
-        <cdk-virtual-scroll-viewport itemSize="50" class="autocomplete-list-viewport">
-        <mat-option
-            *cdkVirtualFor="let place of placesSelectList | keyvalue"
-            [value]="place.key"
-        >
-            {{ place.value }}
-        </mat-option>
-        </cdk-virtual-scroll-viewport>
-    </mat-autocomplete>
+      {{ placeList.get(place) }}
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input
+      #placesInput
+      type="text"
+      [(ngModel)]="placesFilterTerm"
+      [ngModelOptions]="{ standalone: true }"
+      (keyup)="placesFilterChange.next($event.target.value)"
+      matInput
+      [matAutocomplete]="placesAutoComplete"
+      [matChipInputFor]="placesChipList"
+    />
+  </mat-chip-list>
+  <mat-autocomplete
+    dense
+    (optionSelected)="addPlace($event)"
+    #placesAutoComplete="matAutocomplete"
+  >
+    <cdk-virtual-scroll-viewport
+      itemSize="50"
+      class="autocomplete-list-viewport"
+    >
+      <mat-option
+        *cdkVirtualFor="let place of placesSelectList | keyvalue"
+        [value]="place.key"
+      >
+        {{ place.value }}
+      </mat-option>
+    </cdk-virtual-scroll-viewport>
+  </mat-autocomplete>
 </mat-form-field>

@@ -10,9 +10,9 @@ export class AppHeaderComponent implements OnInit {
   @Input()
   title: string = '';
 
- get loggedIn(): boolean {
-   return this.accountService.loggedIn;
- }
+  get loggedIn(): boolean {
+    return this.accountService.loggedIn;
+  }
 
   constructor(private accountService: AccountService) {}
 

@@ -25,7 +25,7 @@ import { LoginModalComponent } from './login-modal/login-modal.component';
     MatGridListModule,
     MatIconModule,
     MatButtonModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
   declarations: [
     LoginModalComponent,

@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { FbLogin, UserDetails } from '@vacgaps/fb-login';
 import { environment } from '../../environments/environment';
 
-const fbLogin = new FbLogin({fbAppId: environment.facebookAppId})
+const fbLogin = new FbLogin({ fbAppId: environment.facebookAppId });
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AccountService {
   userDetails: UserDetails;
@@ -15,9 +15,9 @@ export class AccountService {
     return !!this.userDetails;
   }
 
-  constructor() { }
+  constructor() {}
 
   async login() {
-    return this.userDetails = await fbLogin.login();
+    return (this.userDetails = await fbLogin.login());
   }
 }

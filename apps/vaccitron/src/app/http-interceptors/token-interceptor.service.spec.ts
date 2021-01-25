@@ -10,12 +10,15 @@ describe('TokenInterceptorService', () => {
   let service: TokenInterceptorService;
   const accountServiceMock = {
     userDetails: {
-      token: 'fake-fb-token'
-    }
+      token: 'fake-fb-token',
+    },
   };
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{provide: AccountService, useValue: accountServiceMock}, HttpHandler]
+      providers: [
+        { provide: AccountService, useValue: accountServiceMock },
+        HttpHandler,
+      ],
     });
     service = TestBed.inject(TokenInterceptorService);
   });
@@ -24,20 +27,22 @@ describe('TokenInterceptorService', () => {
     expect(service).toBeTruthy();
   });
 
-  it(`should add the access_token to the request body`, function() {
+  it(`should add the access_token to the request body`, function () {
     let resultReq;
     const reportId = '123';
-    const request = new HttpRequest("PUT", environment.apiUrl, {reportId});
-    const next = {
-      handle: () => {}
-    } as unknown as HttpHandler;
+    const request = new HttpRequest('PUT', environment.apiUrl, { reportId });
+    const next = ({
+      handle: () => {},
+    } as unknown) as HttpHandler;
 
     spyOn(next, 'handle').and.callFake((req) => {
       resultReq = req;
-      return {} as unknown as Observable<HttpEvent<any>>
+      return ({} as unknown) as Observable<HttpEvent<any>>;
     });
 
     service.intercept(request, next);
-    expect(resultReq.headers.get('Authorization')).toEqual('Facebook ' + accountServiceMock.userDetails.token);
+    expect(resultReq.headers.get('Authorization')).toEqual(
+      'Facebook ' + accountServiceMock.userDetails.token
+    );
   });
 });

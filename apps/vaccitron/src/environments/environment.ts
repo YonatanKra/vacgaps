@@ -6,6 +6,6 @@ export const environment = {
   production: false,
   vaccinesDataUrl: '../../assets/demo-data.json',
   reportsQueryIntervalInMs: 5000,
-  facebookAppId: "1279648522401260",
-  apiUrl: '../../assets/demo-data.json'
+  facebookAppId: '1279648522401260',
+  apiUrl: '../../assets/demo-data.json',
 };

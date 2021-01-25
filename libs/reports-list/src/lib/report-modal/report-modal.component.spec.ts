@@ -1,5 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 import { ReportModalComponent } from './report-modal.component';
@@ -13,10 +17,9 @@ describe('ReportModalComponent', () => {
     await TestBed.configureTestingModule({
       providers: [],
       imports: [MatGridListModule],
-      declarations: [ ReportModalComponent ],
-      schemas: [NO_ERRORS_SCHEMA]
-    })
-    .compileComponents();
+      declarations: [ReportModalComponent],
+      schemas: [NO_ERRORS_SCHEMA],
+    }).compileComponents();
   });
 
   beforeEach(() => {

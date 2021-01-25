@@ -31,17 +31,14 @@ const routes = [
     loadChildren: () =>
       import('./report-list-page/report-list-page.module').then(
         (m) => m.ReportListPageModule
-      )
-  }
+      ),
+  },
 ];
 @NgModule({
   declarations: [AppComponent, AppHeaderComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(
-      routes,
-      { initialNavigation: 'enabled' }
-    ),
+    RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
     BrowserAnimationsModule,
     MatToolbarModule,
     MatIconModule,
@@ -55,11 +52,20 @@ const routes = [
     MatCheckboxModule,
     MatAutocompleteModule,
     FilterFormModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
     MatCardModule,
-    MatExpansionModule
+    MatExpansionModule,
   ],
-  providers: [AccountService, { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true },],
+  providers: [
+    AccountService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -184,22 +184,22 @@ describe('FilterFormComponent', () => {
     });
   });
 
-  it(`should emit a form update on city removal from the list`, function() {
+  it(`should emit a form update on city removal from the list`, function () {
     component.filterFields.setValue({
       availableVaccines: 13,
-      cities: ["999"],
-      districts: ["888"],
+      cities: ['999'],
+      districts: ['888'],
       dueTimeInMs: 50,
-      healthCareService: "1"
+      healthCareService: '1',
     });
     spyOn(component.formUpdate, 'emit');
     component.citiesUpdated([]);
     expect(component.formUpdate.emit).toHaveBeenCalledWith({
       availableVaccines: 13,
       cities: [],
-      districts: ["888"],
+      districts: ['888'],
       dueTimeInMs: 50,
-      healthCareService: "1"
+      healthCareService: '1',
     });
   });
 });

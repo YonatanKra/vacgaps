@@ -1,17 +1,20 @@
-import { Component, EventEmitter, Injectable, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Injectable,
+  OnInit,
+  Output,
+} from '@angular/core';
 
 @Component({
   selector: 'vacgaps-report-modal',
   templateUrl: './login-modal.component.html',
-  styleUrls: ['./login-modal.component.scss']
+  styleUrls: ['./login-modal.component.scss'],
 })
-
 export class LoginModalComponent implements OnInit {
-
   constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   loginButtonClicked(): void {
     loginButtonClickedEmitter.login();
@@ -20,12 +23,12 @@ export class LoginModalComponent implements OnInit {
 
 @Injectable()
 class LoginButtonClickedEmitter {
-    @Output()
-    loginButtonClickedEvent = new EventEmitter<{}>();
-  
-    login(): void {
-        this.loginButtonClickedEvent.emit({});
-    }
+  @Output()
+  loginButtonClickedEvent = new EventEmitter<{}>();
+
+  login(): void {
+    this.loginButtonClickedEvent.emit({});
+  }
 }
 
 export const loginButtonClickedEmitter = new LoginButtonClickedEmitter();

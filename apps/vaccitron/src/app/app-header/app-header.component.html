@@ -4,15 +4,19 @@
     class="example-icon"
     aria-label="Example icon-button with menu icon"
   >
-    <img height="40" src="../../assets/logo.png">
+    <img height="40" src="../../assets/logo.png" />
   </button>
 
   <h1 i18n="site header|App Title">{{ title }}</h1>
 
-  <button *ngIf="!loggedIn" color="primary" mat-button mat-raised-button (click)="login()">
-    <mat-icon>
-      facebook
-    </mat-icon>
+  <button
+    *ngIf="!loggedIn"
+    color="primary"
+    mat-button
+    mat-raised-button
+    (click)="login()"
+  >
+    <mat-icon> facebook </mat-icon>
     התחברות עם פייסבוק
   </button>
 </mat-toolbar>

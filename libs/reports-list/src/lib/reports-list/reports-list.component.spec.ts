@@ -2,7 +2,7 @@ import {
   ComponentFixture,
   fakeAsync,
   flush,
-  TestBed
+  TestBed,
 } from '@angular/core/testing';
 
 import { ReportsListComponent } from './reports-list.component';
@@ -38,10 +38,10 @@ const REPORTS_LIST_MOCK: VaccinesReport[] = [
     city: '100',
     healthCareService: '1',
     address: 'Marom 12, Modiin',
-    'branchName': 'wat',
-    'reporter': 'ww',
-    'updateTime': 5
-  }
+    branchName: 'wat',
+    reporter: 'ww',
+    updateTime: 5,
+  },
 ];
 
 export class VaccineReportItem implements VaccinesReport {
@@ -52,24 +52,20 @@ export class VaccineReportItem implements VaccinesReport {
     public branchName = 'wat',
     public reporter = 'ww',
     public updateTime = 5
-  ) {
-  }
+  ) {}
 }
-
 
 @Component({
   selector: 'vacgaps-test-component',
   template: ` <vacgaps-reports-list
     (listActionEvent)="handleListAction($event)"
     [reportsList]="list"
-  ></vacgaps-reports-list>`
+  ></vacgaps-reports-list>`,
 })
 class TestComponent {
   list: VaccinesReport[] = REPORTS_LIST_MOCK;
 
-  handleListAction($event: any) {
-
-  }
+  handleListAction($event: any) {}
 }
 
 describe('ReportsListComponent', () => {
@@ -78,9 +74,14 @@ describe('ReportsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatListModule, ScrollingModule, MatDialogModule, MatFormFieldModule],
+      imports: [
+        MatListModule,
+        ScrollingModule,
+        MatDialogModule,
+        MatFormFieldModule,
+      ],
       declarations: [ReportsListComponent, TestComponent, ReportModalComponent],
-      schemas: [NO_ERRORS_SCHEMA]
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 
@@ -93,11 +94,11 @@ describe('ReportsListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe(`integration`, function() {
+  describe(`integration`, function () {
     let parentFixture: ComponentFixture<TestComponent>,
       parentComponent: TestComponent,
       reportsListComponent: ReportsListComponent;
-    beforeEach(function() {
+    beforeEach(function () {
       parentFixture = TestBed.createComponent(TestComponent);
       parentComponent = parentFixture.componentInstance;
       reportsListComponent = parentFixture.debugElement.query(
@@ -105,14 +106,14 @@ describe('ReportsListComponent', () => {
       ).componentInstance;
       parentFixture.detectChanges();
     });
-    it(`should get a list of vaccineReports from parent`, function() {
+    it(`should get a list of vaccineReports from parent`, function () {
       expect(reportsListComponent.reportsList).toEqual(REPORTS_LIST_MOCK);
     });
 
-    it(`should fire an event to parent`, function() {
+    it(`should fire an event to parent`, function () {
       const data = {
         type: 'report',
-        payload: {}
+        payload: {},
       };
       const spy = spyOn(parentComponent, 'handleListAction');
       reportsListComponent.listActionEvent.emit(data);
@@ -120,19 +121,19 @@ describe('ReportsListComponent', () => {
     });
   });
 
-  describe(`handleComingReport`, function() {
-    it(`should emit a coming report action`, function() {
+  describe(`handleComingReport`, function () {
+    it(`should emit a coming report action`, function () {
       const eventData: VaccinesReport = {
         address: '',
         branchName: '',
         city: '',
         healthCareService: '',
         reporter: '',
-        updateTime: 0
+        updateTime: 0,
       };
       const actionData = {
         type: 'comingFeedback',
-        payload: eventData
+        payload: eventData,
       };
 
       spyOn(component.listActionEvent, 'emit');
@@ -140,13 +141,13 @@ describe('ReportsListComponent', () => {
       expect(component.listActionEvent.emit).toHaveBeenCalledWith(actionData);
     });
   });
-  describe(`list view`, function() {
+  describe(`list view`, function () {
     it(`should show listItems according to list size`, fakeAsync(() => {
       component.reportsList = [
         new VaccineReportItem(),
         new VaccineReportItem(),
         new VaccineReportItem(),
-        new VaccineReportItem()
+        new VaccineReportItem(),
       ];
       finishInit(fixture);
       fixture.detectChanges();

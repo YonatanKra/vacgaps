@@ -23,24 +23,42 @@ export class FbLogin {
   }
 
   constructor(private config: FbLoginConfig) {
-    this.initState = fbInitializer(config.fbAppId)
-      .then((authResponse: AuthResponse) => {
-        if (!this.userDetails) this.userDetails = { extraInfo: '', facebookId: '', id: '', name: '' };
+    this.initState = fbInitializer(config.fbAppId).then(
+      (authResponse: AuthResponse) => {
+        if (!this.userDetails)
+          this.userDetails = {
+            extraInfo: '',
+            facebookId: '',
+            id: '',
+            name: '',
+          };
         this.userDetails.token = authResponse ? authResponse.accessToken : null;
         return true;
-      });
+      }
+    );
   }
 
   login(): Promise<UserDetails> {
     return new Promise((resolve) => {
       FB.login((response: StatusResponse) => {
-        this.userDetails =  response.authResponse ? statusResponseToUserDetails(response) : null;
+        this.userDetails = response.authResponse
+          ? statusResponseToUserDetails(response)
+          : null;
         resolve(this.userDetails);
       });
     });
   }
 }
 
-function statusResponseToUserDetails({authResponse}: StatusResponse): UserDetails {
-  return {token: authResponse.accessToken, extraInfo: '', facebookId: authResponse.userID, id: '', name: '', expiresIn: authResponse.expiresIn }
+function statusResponseToUserDetails({
+  authResponse,
+}: StatusResponse): UserDetails {
+  return {
+    token: authResponse.accessToken,
+    extraInfo: '',
+    facebookId: authResponse.userID,
+    id: '',
+    name: '',
+    expiresIn: authResponse.expiresIn,
+  };
 }

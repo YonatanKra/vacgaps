@@ -5,15 +5,13 @@ import { VaccinesReport } from '@vacgaps/interfaces';
 @Component({
   selector: 'vacgaps-report-modal',
   templateUrl: './report-modal.component.html',
-  styleUrls: ['./report-modal.component.scss']
+  styleUrls: ['./report-modal.component.scss'],
 })
 export class ReportModalComponent implements OnInit {
-
   @Input() report: VaccinesReport;
   constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   get healthCareService(): string {
     return HEALTH_CARE_SERVICES[this.report?.healthCareService];
@@ -21,11 +19,11 @@ export class ReportModalComponent implements OnInit {
 
   get city(): string {
     const city = CITIES[this.report?.city];
-    return city ? city.name : "";
+    return city ? city.name : '';
   }
 
   get district(): string {
     const city = CITIES[this.report?.city];
-    return city ? city.district : "";
+    return city ? city.district : '';
   }
 }
