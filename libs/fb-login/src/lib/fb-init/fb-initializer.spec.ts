@@ -45,7 +45,9 @@ describe('FbAppInitializer', () => {
       };
       fbInitializer(facebookAppId);
       window['fbAsyncInit']();
-      expect(window['FB'].init).toHaveBeenCalledWith(expectedCallObject as unknown);
+      expect(window['FB'].init).toHaveBeenCalledWith(
+        expectedCallObject as unknown
+      );
     });
 
     it(`should get login status and resolve the initializer with the auth status`, async function () {

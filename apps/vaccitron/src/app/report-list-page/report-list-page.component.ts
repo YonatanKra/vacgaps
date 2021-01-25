@@ -36,7 +36,7 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
   constructor(
     private vaccinesReportsService: VaccinesReportsService,
     private dialog?: MatDialog,
-    private accountService?: AccountService,
+    private accountService?: AccountService
   ) {}
 
   ngOnInit(): void {
@@ -80,7 +80,7 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
     const dialogRef = this.dialog.open(LoginModalComponent, {
       width: '350px',
       height: '200px',
-      direction: 'rtl'
+      direction: 'rtl',
     });
 
     dialogRef.afterClosed().subscribe(async (result) => {

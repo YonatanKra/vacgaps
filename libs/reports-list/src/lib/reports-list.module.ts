@@ -22,7 +22,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatIconModule,
     MatButtonModule,
     MatExpansionModule,
-    MatFormFieldModule
+    MatFormFieldModule,
   ],
   declarations: [
     ReportsListComponent,

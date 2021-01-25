@@ -8,8 +8,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  imports: [CommonModule, MatGridListModule, MatFormFieldModule, MatIconModule, MatDialogModule, MatButtonModule],
+  imports: [
+    CommonModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatDialogModule,
+    MatButtonModule,
+  ],
   declarations: [LoginModalComponent],
-  exports: [LoginModalComponent]
+  exports: [LoginModalComponent],
 })
 export class LoginModalModule {}

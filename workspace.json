@@ -89,10 +89,7 @@
               "apps/vaccitron/tsconfig.spec.json",
               "apps/vaccitron/tsconfig.editor.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/vaccitron/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!apps/vaccitron/**/*"]
           }
         },
         "test": {
@@ -106,9 +103,7 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css"
             ],
             "scripts": [],
-            "assets": [
-              "apps/vaccitron/src/manifest.webmanifest"
-            ]
+            "assets": ["apps/vaccitron/src/manifest.webmanifest"]
           }
         }
       }
@@ -134,13 +129,8 @@
         "lint": {
           "executor": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/vaccitron-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**",
-              "!apps/vaccitron-e2e/**/*"
-            ]
+            "tsConfig": ["apps/vaccitron-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/vaccitron-e2e/**/*"]
           }
         }
       }
@@ -153,16 +143,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/constants/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/constants/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/constants"
-          ],
+          "outputs": ["coverage/libs/constants"],
           "options": {
             "jestConfig": "libs/constants/jest.config.js",
             "passWithNoTests": true
@@ -178,9 +164,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/interfaces/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/interfaces/**/*.ts"]
           }
         }
       }
@@ -198,10 +182,7 @@
               "libs/filter-form/tsconfig.lib.json",
               "libs/filter-form/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/filter-form/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/filter-form/**/*"]
           }
         },
         "test": {
@@ -227,10 +208,7 @@
               "libs/reports-list/tsconfig.lib.json",
               "libs/reports-list/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/reports-list/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/reports-list/**/*"]
           }
         },
         "test": {
@@ -256,17 +234,12 @@
               "libs/vaccines-reporter/tsconfig.lib.json",
               "libs/vaccines-reporter/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/vaccines-reporter/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/vaccines-reporter/**/*"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/vaccines-reporter"
-          ],
+          "outputs": ["coverage/libs/vaccines-reporter"],
           "options": {
             "jestConfig": "libs/vaccines-reporter/jest.config.js",
             "passWithNoTests": true
@@ -282,16 +255,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/fb-login/**/*.ts"
-            ]
+            "lintFilePatterns": ["libs/fb-login/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/fb-login"
-          ],
+          "outputs": ["coverage/libs/fb-login"],
           "options": {
             "jestConfig": "libs/fb-login/jest.config.js",
             "passWithNoTests": true
@@ -312,17 +281,12 @@
               "libs/login-modal/tsconfig.lib.json",
               "libs/login-modal/tsconfig.spec.json"
             ],
-            "exclude": [
-              "**/node_modules/**",
-              "!libs/login-modal/**/*"
-            ]
+            "exclude": ["**/node_modules/**", "!libs/login-modal/**/*"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/login-modal"
-          ],
+          "outputs": ["coverage/libs/login-modal"],
           "options": {
             "jestConfig": "libs/login-modal/jest.config.js",
             "passWithNoTests": true

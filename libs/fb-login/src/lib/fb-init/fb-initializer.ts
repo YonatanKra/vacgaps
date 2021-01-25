@@ -1,11 +1,11 @@
 export function fbInitializer(facebookAppId) {
   return new Promise((res) => {
-    window['fbAsyncInit'] = function() {
+    window['fbAsyncInit'] = function () {
       FB.init({
         appId: facebookAppId,
         cookie: true,
         xfbml: true,
-        version: 'v8.0'
+        version: 'v8.0',
       });
 
       FB.getLoginStatus(({ authResponse }) => {
@@ -13,7 +13,7 @@ export function fbInitializer(facebookAppId) {
       });
     };
 
-    (function(d, s, id) {
+    (function (d, s, id) {
       const fjs = d.getElementsByTagName(s)[0];
       if (d.getElementById(id)) {
         return;

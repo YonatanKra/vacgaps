@@ -87,7 +87,7 @@ describe('ReportListPageComponent', () => {
         FilterFormModule,
         NoopAnimationsModule,
         HttpClientTestingModule,
-        NoopAnimationsModule
+        NoopAnimationsModule,
       ],
       declarations: [ReportListPageComponent, TestComponent],
       schemas: [NO_ERRORS_SCHEMA],
