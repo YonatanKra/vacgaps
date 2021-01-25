@@ -2,8 +2,20 @@
 <main>
   <router-outlet></router-outlet>
 </main>
-<footer>
-  <mat-card dir="rtl">
-  האתר והמידע שבו מופעלים על ידי אנשים פרטיים ואינם מטעם גורם רשמי כלשהו, לרבות קופות החולים או משרד הבריאות. איננו נושאים באחריות על מהימנות המידע, וכל נזק הנגרם משימוש באתר ו/או במידע שבו הינו באחריות המשתמש בלבד. על המשתמש לוודא כי אינו משתף מידע רגיש.
-  </mat-card>
+<footer dir="rtl">
+  <mat-expansion-panel
+    hideToggle
+    (click)="disclaimerOpen = !disclaimerOpen"
+    [expanded]="disclaimerOpen"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title> תנאי שימוש באפליקציה </mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-card dir="rtl">
+      האתר והמידע שבו מופעלים על ידי אנשים פרטיים ואינם מטעם גורם רשמי כלשהו,
+      לרבות קופות החולים או משרד הבריאות. איננו נושאים באחריות על מהימנות המידע,
+      וכל נזק הנגרם משימוש באתר ו/או במידע שבו הינו באחריות המשתמש בלבד. על
+      המשתמש לוודא כי אינו משתף מידע רגיש.
+    </mat-card>
+  </mat-expansion-panel>
 </footer>

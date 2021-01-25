@@ -5,9 +5,13 @@
     maxBufferPx="400"
     class="viewport"
   >
-    <mat-list-item *cdkVirtualFor="let report of reportsList">
+    <mat-list-item
+      *cdkVirtualFor="let report of reportsList; trackBy: trackByFn"
+    >
       <vacgaps-reports-list-item
-        [reportItem]="report" (click)="openDialog(report)"
+        [reportItem]="report"
+        [expandable]="expandableList"
+        (comingFeedbackEvent)="handleComingFeedback($event)"
       ></vacgaps-reports-list-item>
     </mat-list-item>
   </cdk-virtual-scroll-viewport>
@@ -15,15 +19,18 @@
 <mat-card dir="rtl" *ngIf="reportsList && !reportsList.length">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>
-מצטערים
-    </mat-card-title>
+    <mat-card-title> מצטערים </mat-card-title>
     <mat-card-subtitle>אין תוצאות מתאימות לחיפוש שלך</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image src="../../assets/looking.jpeg" alt="תמונה של תוצאה ריקה">
+  <img
+    mat-card-image
+    src="../../assets/looking.jpeg"
+    alt="תמונה של תוצאה ריקה"
+  />
   <mat-card-content>
     <p>
-      תמיד ניתן לחפש בעיר אחרת - אולי יהיו שם תוצאות. התוצאות מתעדכנות אוטומטית כל 5 דקות - אז אפשר להשאיר את האפליקציה פתוחה ולהתעדכן בזמן אמת.
+      תמיד ניתן לחפש בעיר אחרת - אולי יהיו שם תוצאות. התוצאות מתעדכנות אוטומטית
+      כל 5 דקות - אז אפשר להשאיר את האפליקציה פתוחה ולהתעדכן בזמן אמת.
     </p>
   </mat-card-content>
 </mat-card>

@@ -8,4 +8,5 @@ import { CITIES } from '@vacgaps/constants';
 })
 export class AppComponent {
   name = 'המשקפת';
+  disclaimerOpen: boolean;
 }

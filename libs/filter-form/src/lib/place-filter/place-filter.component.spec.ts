@@ -145,12 +145,12 @@ describe('PlaceFilterComponent', () => {
     it(`should output the form data to parent component on form update`, function () {
       const data: any[] = ['100', '200'];
       spyOn(formComponent.placesUpdated, 'emit');
-      formComponent.addPlace(({	
-        option: { value: data[0] }
+      formComponent.addPlace(({
+        option: { value: data[0] },
       } as unknown) as MatAutocompleteSelectedEvent);
       expect(formComponent.placesUpdated.emit).toHaveBeenCalledWith([data[0]]);
-      formComponent.addPlace(({	
-        option: { value: data[1] }
+      formComponent.addPlace(({
+        option: { value: data[1] },
       } as unknown) as MatAutocompleteSelectedEvent);
       expect(formComponent.placesUpdated.emit).toHaveBeenCalledWith(data);
     });

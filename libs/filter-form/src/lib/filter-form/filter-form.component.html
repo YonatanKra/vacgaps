@@ -3,13 +3,15 @@
     <vacgaps-place-filter
       (placesUpdated)="districtsUpdated($event)"
       label="מחוז"
-      [places]="districtList">
+      [places]="districtList"
+    >
     </vacgaps-place-filter>
 
     <vacgaps-place-filter
       (placesUpdated)="citiesUpdated($event)"
       label="יישוב"
-      [places]="cityList">
+      [places]="cityList"
+    >
     </vacgaps-place-filter>
 
     <mat-form-field appearance="fill">
@@ -17,7 +19,7 @@
       <mat-select dense matInput formControlName="healthCareService">
         <mat-option
           *ngFor="let healthCareService of healthCareServices | keyvalue"
-          value="{{healthCareService.key}}"
+          value="{{ healthCareService.key }}"
         >
           {{ healthCareService.value }}
         </mat-option>

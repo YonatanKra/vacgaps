@@ -5,6 +5,9 @@ import { interval, Subject } from 'rxjs';
 import { CITIES } from '@vacgaps/constants';
 import { environment } from '../../environments/environment';
 import { takeUntil } from 'rxjs/operators';
+import { AccountService } from '../account/account.service';
+import { LoginModalComponent } from '@vacgaps/login-modal';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'vacgaps-report-list-page',
@@ -16,6 +19,10 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
   reportsList: VaccinesReport[] = [];
   #onDestroy$ = new Subject<void>();
 
+  get isLoggedIn(): boolean {
+    return this.accountService?.loggedIn;
+  }
+
   get filteredReportsList(): VaccinesReport[] {
     return this.filterList(this.#currentFilter);
   }
@@ -26,7 +33,11 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
     this.#currentFilter = newFilter;
   }
 
-  constructor(private vaccinesReportsService: VaccinesReportsService) {}
+  constructor(
+    private vaccinesReportsService: VaccinesReportsService,
+    private dialog?: MatDialog,
+    private accountService?: AccountService
+  ) {}
 
   ngOnInit(): void {
     this.getUpdate();
@@ -36,22 +47,47 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
   }
 
   getUpdate() {
-    this.vaccinesReportsService.getVaccinesReports(environment.vaccinesDataUrl)
-      .subscribe(data => {
+    this.vaccinesReportsService
+      .getVaccinesReports(environment.vaccinesDataUrl)
+      .subscribe((data) => {
         this.reportsList = data;
       });
   }
 
   filterList(notificationsFilter: NotificationsFilter): VaccinesReport[] {
-    return this.reportsList?.filter(report => {
-      return (!notificationsFilter.healthCareService || report.healthCareService === notificationsFilter.healthCareService)
-      && (!notificationsFilter.cities?.length || notificationsFilter.cities.includes(report.city))
-      && (!notificationsFilter.districts?.length || notificationsFilter.districts.includes(CITIES[report.city].district))
+    return this.reportsList?.filter((report) => {
+      return (
+        (!notificationsFilter.healthCareService ||
+          report.healthCareService === notificationsFilter.healthCareService) &&
+        (!notificationsFilter.cities?.length ||
+          notificationsFilter.cities.includes(report.city)) &&
+        (!notificationsFilter.districts?.length ||
+          notificationsFilter.districts.includes(CITIES[report.city].district))
+      );
       // TODO::add the time filter according to how it is supposed to be sent from the server (don't forget to update the interface)
     });
   }
 
   ngOnDestroy(): void {
     this.#onDestroy$.next();
+  }
+
+  reportsListActionEvent($event) {
+    if (!this.isLoggedIn) return this.openLoginDialog();
+  }
+
+  openLoginDialog() {
+    const dialogRef = this.dialog.open(LoginModalComponent, {
+      width: '350px',
+      height: '200px',
+      direction: 'rtl',
+      autoFocus: false,
+    });
+
+    dialogRef.afterClosed().subscribe(async (result) => {
+      if (result === true) {
+        await this.accountService.login();
+      }
+    });
   }
 }

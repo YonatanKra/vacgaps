@@ -6,24 +6,58 @@
   display: flex;
   justify-content: space-around;
   padding: 1em;
-  box-shadow: 5px 10px 18px #888888;
+  box-shadow: 5px 10px 18px rgba(136, 136, 136, 0.1);
   border-radius: 5px;
   direction: rtl;
   flex-wrap: wrap;
-  cursor: pointer;
 }
 
-.report-item-wrapper > div {
+.mat-expansion-panel-header {
+  width: 100%;
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: space-around;
+  flex: 1;
+}
+
+:host ::ng-deep .mat-expansion-panel-content {
+  flex: 1;
+}
+
+.report-item-wrapper button {
   width: 100px;
+  text-align: right;
 }
 
 .report-item-wrapper:hover {
-  text-decoration: underline;
+  box-shadow: 5px 10px 18px #888888;
+}
+
+.data {
+  pointer-events: none;
 }
 
 @media screen and (max-width: 342px) {
-  .report-item-wrapper > div {
+  .report-item-wrapper > button {
     width: 75px;
     font-size: 0.75em;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .mat-expansion-panel-header {
+    padding: 0;
+  }
+
+  .report-item-wrapper button {
+    width: 85px;
+  }
+
+  :host ::ng-deep span.mat-button-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }
