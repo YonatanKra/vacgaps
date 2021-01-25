@@ -4,7 +4,6 @@ import { VaccinesReport } from '@vacgaps/interfaces';
 import {
   BreakpointObserver,
   Breakpoints,
-  MediaMatcher,
 } from '@angular/cdk/layout';
 
 @Component({
