@@ -3,10 +3,11 @@ type Settings = {
     getVacciDatabase: string;
     cosmosEndpoint: string;
     cosmosRejectUnauthorized: boolean, // allows self-signed certificate, required for local emulator
+    reportListUrl: string,
 
-    vacGapsDatabase: string;
-    mongoConnectionString: string;
-    allowSelfSignedMongoCert: boolean;
+    vacGapsDatabase?: string;
+    mongoConnectionString?: string;
+    allowSelfSignedMongoCert?: boolean;
 }
 
 class Secrets {
@@ -26,14 +27,29 @@ const devSettings: Settings = {
     cosmosEndpoint: 'https://localhost:8081',
     getVacciDatabase: 'getvacci-dev',
     cosmosRejectUnauthorized: false,
+    reportListUrl: 'https://www.getvacci.org.il/api/reports.json',
+};
 
-    vacGapsDatabase: process.env.vacgaps_database || "",
-    mongoConnectionString: process.env.mongo_connection_string || "",
-    allowSelfSignedMongoCert: JSON.parse(process.env.allow_self_signed_mongo_cert || "false"),
+const ppeSettings: Settings = {
+    secrets: new Secrets('ppe'),
+    cosmosEndpoint: 'https://vacgaps-db.documents.azure.com:443/',
+    getVacciDatabase: 'getvacci-ppe',
+    cosmosRejectUnauthorized: true,
+    reportListUrl: 'https://ppe.azureedge.net/api/reports.json',
+};
+
+const prodSettings: Settings = {
+    secrets: new Secrets('prod'),
+    cosmosEndpoint: 'https://vacgaps-db.documents.azure.com:443/',
+    getVacciDatabase: 'getvacci-prod',
+    cosmosRejectUnauthorized: true,
+    reportListUrl: 'https://www.getvacci.org.il/api/reports.json',
 };
 
 const settingsByKey = {
     'dev': devSettings,
+    'ppe': ppeSettings,
+    'prod': prodSettings,
 };
 
 const settings = settingsByKey[process.env.settingskey || 'dev'];

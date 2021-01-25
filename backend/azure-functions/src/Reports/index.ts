@@ -1,5 +1,6 @@
 import * as FacebookAuth from '../Auth/facebook-auth';
-import { getComingFeedbackContainer, SingleComingFeedback } from '../Containers/containers';
+import { getComingFeedbackContainer } from '../Containers/containers';
+import { EnvironmentSettings } from '../Settings/EnvironmentSettings';
 import { Context, HttpRequest } from 'azure-functions-ts-essentials';
 import * as Axios from 'axios';
 import * as knex from 'knex';
@@ -10,15 +11,17 @@ const httpTrigger = async function (
     context: Context,
     req: HttpRequest
 ): Promise<void> {
+    const authResult: FacebookAuth.AuthenticationResult = await FacebookAuth.authenticate(
+        req, context, /*allowNoCredentials=*/true);
+    
+    if (!(authResult === FacebookAuth.NoAuthenticationResult.NoCredentials ||
+          authResult instanceof FacebookAuth.PassedAuthenticationResult)) {
+        return;
+    }
+
     // TODO: Extract data from DB instead
-    // const reportsResponse: Axios.AxiosResponse<{reports: VaccinesReport[]}> = await Axios.default.get<{reports: VaccinesReport[]}>(
-    //     'https://www.getvacci.org.il/api/reports.json');
-    const reportsResponse = { status: 200, data: { reports: [{
-        reportId: '1',
-        city: '4800',
-        healthCareService: '1',
-        anotherProp: 'hello',
-    }] }};
+    const reportsResponse: Axios.AxiosResponse<{reports: VaccinesReport[]}> = await Axios.default.get<{reports: VaccinesReport[]}>(
+         EnvironmentSettings.reportListUrl);
 
     if (reportsResponse.status < 200 || reportsResponse.status >= 300) {
         console.log('InternalError because failed to get reports: ' + reportsResponse.status)
@@ -27,9 +30,6 @@ const httpTrigger = async function (
         return;
     }
 
-    const authResult: FacebookAuth.AuthenticationResult = await FacebookAuth.authenticate(
-        req, context, /*allowNoCredentials=*/true);
-    
     if (authResult === FacebookAuth.NoAuthenticationResult.NoCredentials) {
         let filteredReports: Partial<VaccinesReport>[] = reportsResponse.data.reports.map(report => {
             return {
@@ -54,7 +54,7 @@ const httpTrigger = async function (
     let minTime = new Date(Date.now());
     minTime.setHours(minTime.getHours() - 1);
 
-    const reportIds = reportsResponse.data.reports.map(report => report.reportId);
+    const reportIds = reportsResponse.data.reports.map(report => report.id);
     let container = getComingFeedbackContainer();
     // TODO: Use QueryBuilder like knex
     //const query: string = knex('c')
@@ -69,17 +69,12 @@ const httpTrigger = async function (
         reportIds.map(reportId => '\'' + reportId + '\'').join(', ') + ') GROUP BY c.reportId';
     const aggregated = await container.items.query({query}).fetchAll();
     
-    let enrichedReports = await Promise.all(reportsResponse.data.reports.map(async report => {
-        let countRecordIndex = await aggregated.resources.findIndex(record => record.reportId === report.reportId);
-        if (countRecordIndex < 0) {
-            return report;
-        }
-
-        return {
+    const recordById: Map<string, VaccinesReport> = new Map(aggregated.resources.map(record => [record.reportId, record]));
+    let enrichedReports = reportsResponse.data.reports.map(report =>
+        !recordById.has(report.id) ? report : {
             ...report,
-            comingFeedbackCount: aggregated.resources[countRecordIndex].count,
-        };
-    }));
+            comingFeedbackCount: recordById.get(report.id).count,
+        });
 
     context.res = {
         status: 200,
