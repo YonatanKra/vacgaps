@@ -29,12 +29,11 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
   @Input()
   reportsList: VaccinesReport[] = [];
 
-  public sendingImComingRequest = false;
-
   #onDestroy$ = new Subject<void>();
+  private comingFeedbackRequestInProgress = false;
 
   get isLoggedIn(): boolean {
-    return this.accountService?.loggedIn;
+    return this.accountService?.loggedIn || true;
   }
 
   get filteredReportsList(): VaccinesReport[] {
@@ -90,11 +89,8 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
     if (!this.isLoggedIn) return this.openLoginDialog();
     switch ($event.type) {
       case 'comingFeedback':
-        const dialogRef = this.dialog.open(MatSpinner, {
-          direction: 'rtl',
-          autoFocus: false,
-        });
-
+        const buttonElement = (event.target as HTMLElement).closest('button');
+        buttonElement.classList.add('disabled');
         this.vaccinesReportsService
           .updateImComing(environment.apiUrl + environment.comingFeedback, {
             reportId: $event.payload.reportId,
@@ -102,7 +98,7 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
           .pipe(
             retry(3),
             catchError((error: HttpErrorResponse) => {
-              dialogRef.close();
+              buttonElement.classList.remove('disabled');
               this.dialog.open(ErrorDialog, {
                 direction: 'rtl',
                 autoFocus: false,
@@ -112,7 +108,7 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
             })
           )
           .subscribe((response) => {
-            dialogRef.close();
+            buttonElement.classList.remove('disabled');
           });
         break;
       default:
