@@ -8,12 +8,12 @@ import { catchError, retry, takeUntil } from 'rxjs/operators';
 import { AccountService } from '../account/account.service';
 import { LoginModalComponent } from '@vacgaps/login-modal';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { ReportsListAction } from '../../../../../libs/reports-list/src/lib/reports-list/reports-list.component';
+import { ReportsListAction } from '@vacgaps/reports-list';
 import { MatSpinner } from '@angular/material/progress-spinner';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'error-dialog',
+  selector: 'vacgaps-error-dialog',
   template: ` {{ data }} `,
 })
 export class ErrorDialog {
