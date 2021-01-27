@@ -24,13 +24,14 @@ const httpTrigger = async function (
          EnvironmentSettings.reportListUrl);
 
     if (reportsResponse.status < 200 || reportsResponse.status >= 300) {
-        console.log('InternalError because failed to get reports: ' + reportsResponse.status)
+        context.log.error('InternalError because failed to get reports: ' + reportsResponse.status)
         context.res.status = 500;
         context.done();
         return;
     }
 
     if (authResult === FacebookAuth.NoAuthenticationResult.NoCredentials) {
+        context.log.info('No credentials, return the list as is');
         let filteredReports: Partial<VaccinesReport>[] = reportsResponse.data.reports.map(report => {
             return {
                 city: report.city,
@@ -47,9 +48,7 @@ const httpTrigger = async function (
         return;
     }
 
-    if (!(authResult instanceof FacebookAuth.PassedAuthenticationResult)) {
-        return;
-    }
+    context.log.info('Authenticated, collecting missing info from DB');
 
     let minTime = new Date(Date.now());
     minTime.setHours(minTime.getHours() - 1);

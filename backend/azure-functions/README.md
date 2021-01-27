@@ -50,6 +50,29 @@ or simply hit `F5` if running on vs code
 
 ## deploy
 
+Until automating the process:
+```
+yarn build
+```
+Copy node_modules into azure-functions/dist/ and then zip all azure-functions/dist/* into dist.zip
+(TODO: We can have a package.json file in the zip, then we will be able to go to console in the portal and run npm install).
+In Azure CLI:
+```
+Connect-AzAccount -Tenant "f084d812-1342-4d86-8bf1-f03ff8ac22c1" -SubscriptionId "8d9dd7e5-2464-4c47-a649-7676fc13da66"
+az functionapp deployment source config-zip -g vacgaps -n getvacci --src .\dist.zip
+```
+If you get an error about MFA, use
+```
+az login
+```
+And try again.
+Within Azure portal - go to Configuration tab, and add the following settings:
+FacebookClientSecret: take from https://developers.facebook.com/apps/1279648522401260/settings/basic/?business_id=229352928771577
+ppeCosmosSecret: take from https://portal.azure.com/#@idanigrahotmail.onmicrosoft.com/resource/subscriptions/8d9dd7e5-2464-4c47-a649-7676fc13da66/resourceGroups/vacgaps/providers/Microsoft.DocumentDB/databaseAccounts/vacgaps-db/keys
+settingskey: ppe
+
+## deploy (old)
+
 ```
 yarn build:production
 yarn deploy
