@@ -5,6 +5,7 @@ import { EnvironmentSettings } from '../Settings/EnvironmentSettings';
 
 const FACEBOOK_EXPIRATION_TIME_FACTOR = 1000;
 const CLIENT_ID: string = '1279648522401260';
+const FACEBOOK_AUTH_SCHEME_LOWERCASE = 'facebook';
 
 let appToken: string;
 let appTokenExpiration: number = 0;
@@ -17,7 +18,8 @@ export async function authenticate(
 
     // TODO: log calls, returns and authResponse.data.data.error
 
-    if (!req.body || !req.body.access_token) {
+    const authHeader: string = req.headers['authorization'] || req.headers['Authorization'];
+    if (!authHeader || authHeader == '') {
         if (allowNoCredentials) {
             console.log('NoCredentials');
             return NoAuthenticationResult.NoCredentials;
@@ -29,7 +31,16 @@ export async function authenticate(
         return NoAuthenticationResult.Failed;
     }
 
-    let userId: string | null = userTokenCache.getUserIdFromValidToken(req.body.access_token);
+    if (authHeader.substring(0, FACEBOOK_AUTH_SCHEME_LOWERCASE.length + 1).toLowerCase() != FACEBOOK_AUTH_SCHEME_LOWERCASE + ' ') {
+        console.log('Authorization header format not supported');
+        context.res.status = 401;
+        context.done();
+        return NoAuthenticationResult.Failed;
+    }
+
+    const userToken: string = authHeader.substring(FACEBOOK_AUTH_SCHEME_LOWERCASE.length + 1);
+
+    let userId: string | null = userTokenCache.getUserIdFromValidToken(userToken);
     if (userId != null) {
         console.log('Passed from cache');
         return new PassedAuthenticationResult(userId);
@@ -54,7 +65,7 @@ export async function authenticate(
 
     console.log('Validating user token');
     const authResponse: Axios.AxiosResponse<any> = await Axios.default.get(
-        'https://graph.facebook.com/debug_token?input_token=' + req.body.access_token + '&access_token=' + appToken,
+        'https://graph.facebook.com/debug_token?input_token=' + userToken + '&access_token=' + appToken,
     );
 
     if (authResponse.status < 200 || authResponse.status >= 300) {
@@ -77,7 +88,7 @@ export async function authenticate(
 
     userId = authResponse.data.data.user_id;
     appTokenExpiration = authResponse.data.data.data_access_expires_at * FACEBOOK_EXPIRATION_TIME_FACTOR;
-    userTokenCache.addToken(req.body.access_token, authResponse.data.data.expires_at * FACEBOOK_EXPIRATION_TIME_FACTOR, userId);
+    userTokenCache.addToken(userToken, authResponse.data.data.expires_at * FACEBOOK_EXPIRATION_TIME_FACTOR, userId);
 
     console.log('Passed');
     return new PassedAuthenticationResult(userId);
