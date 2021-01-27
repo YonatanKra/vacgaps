@@ -4,8 +4,9 @@ import { SingleComingFeedback } from '../Containers/single-coming-feedback';
 import { Context, HttpRequest } from 'azure-functions-ts-essentials';
 import { Container } from '@azure/cosmos';
 import * as knex from 'knex';
+import { cors } from '../Middlewares/cors';
 
-const httpTrigger = async function (context: Context, req: HttpRequest): Promise<void> {
+const httpTrigger = cors(async function (context: Context, req: HttpRequest): Promise<void> {
     const reportId: string = req.query.reportId;
     if (!reportId || reportId.length === 0) {
         context.res = {
@@ -59,6 +60,6 @@ const httpTrigger = async function (context: Context, req: HttpRequest): Promise
     };
 
     context.done();
-};
+});
 
 export default httpTrigger;

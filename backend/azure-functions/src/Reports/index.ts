@@ -4,10 +4,11 @@ import { EnvironmentSettings } from '../Settings/EnvironmentSettings';
 import { Context, HttpRequest } from 'azure-functions-ts-essentials';
 import * as Axios from 'axios';
 import * as knex from 'knex';
+import { cors } from '../Middlewares/cors';
 
 type VaccinesReport = any;
 
-const httpTrigger = async function (
+const httpTrigger = cors(async function (
     context: Context,
     req: HttpRequest
 ): Promise<void> {
@@ -81,6 +82,6 @@ const httpTrigger = async function (
     };
 
     context.done();
-};
+});
 
 export default httpTrigger;
