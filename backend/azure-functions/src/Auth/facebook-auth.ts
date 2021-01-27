@@ -42,19 +42,19 @@ export async function authenticate(
 
     let userId: string | null = userTokenCache.getUserIdFromValidToken(userToken);
     if (userId != null) {
-        context.log.info('Passed from cache');
+        context.log.info('Authorization token found on cache');
         return new PassedAuthenticationResult(userId);
     }
 
     if (IsExpired(appTokenExpiration)) {
-        context.log.info('Acquiring app token');
+        context.log.info('Acquiring Facebook app token');
         const clientSecret: string = EnvironmentSettings.secrets.facebookClientSecret;
         const appTokenResponse: Axios.AxiosResponse<any> = await Axios.default.get(
             'https://graph.facebook.com/oauth/access_token?client_id=' + CLIENT_ID + '&client_secret=' + clientSecret + '&grant_type=client_credentials'
         );
 
         if (appTokenResponse.status < 200 || appTokenResponse.status >= 300) {
-            context.log.error('InternalError because app access token request failed')
+            context.log.error('InternalError: Facebook app access token request failed')
             context.res.status = 500;
             context.done();
             return NoAuthenticationResult.InternalError;
@@ -71,14 +71,14 @@ export async function authenticate(
     appTokenExpiration = authResponse.data.data.data_access_expires_at * FACEBOOK_EXPIRATION_TIME_FACTOR;
     
     if (authResponse.status < 200 || authResponse.status >= 300) {
-        context.log.error('InternalError because user access token verification request failed')
+        context.log.error('InternalError: Facebook user access token verification request failed')
         context.res.status = 500;
         context.done();
         return NoAuthenticationResult.InternalError;
     }
     
     if (!authResponse.data?.data?.is_valid) {
-        context.log.info('Failed because facebook responded that token not valid')
+        context.log.info('Authentication failed: facebook responded that token not valid')
         context.res = {
             status: 401,
             body: 'Authentication failed',

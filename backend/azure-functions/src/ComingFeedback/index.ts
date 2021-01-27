@@ -1,14 +1,13 @@
 import * as FacebookAuth from '../Auth/facebook-auth';
 import { getComingFeedbackContainer } from '../Containers/containers';
 import { SingleComingFeedback } from '../Containers/single-coming-feedback';
-import { Context, HttpRequest } from 'azure-functions-ts-essentials';
+import { Context, HttpMethod, HttpRequest } from 'azure-functions-ts-essentials';
 import { Container } from '@azure/cosmos';
 import * as knex from 'knex';
-import { cors } from '../Middlewares/cors';
 
-const httpTrigger = cors(async function (context: Context, req: HttpRequest): Promise<void> {
-    const reportId: string = req.query.reportId;
-    if (!reportId || reportId.length === 0) {
+const httpTrigger = async function (context: Context, req: HttpRequest): Promise<void> {
+    const reportId: string = req.body.reportId;
+    if (!(reportId?.length)) {
         context.res = {
             status: 400,
             body: 'Bad request: missing reportId query parameter',
@@ -46,13 +45,17 @@ const httpTrigger = cors(async function (context: Context, req: HttpRequest): Pr
         return;
     }
 
-    const feedback: SingleComingFeedback = {
-        userId: authResult.userId,
-        reportId: reportId,
-        feedbackTime: new Date(Date.now()),
-    };
+    if (req.method == HttpMethod.Options) {
+        context.log.info("OPTIONS request, not writing to DB");
+    } else {
+        const feedback: SingleComingFeedback = {
+            userId: authResult.userId,
+            reportId: reportId,
+            feedbackTime: new Date(Date.now()),
+        };
 
-    await container.items.create(feedback);
+        await container.items.create(feedback);
+    }
 
     context.res = {
         status: 200,
@@ -60,6 +63,6 @@ const httpTrigger = cors(async function (context: Context, req: HttpRequest): Pr
     };
 
     context.done();
-});
+};
 
 export default httpTrigger;

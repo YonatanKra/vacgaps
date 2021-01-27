@@ -1,14 +1,13 @@
 import * as FacebookAuth from '../Auth/facebook-auth';
 import { getComingFeedbackContainer } from '../Containers/containers';
 import { EnvironmentSettings } from '../Settings/EnvironmentSettings';
-import { Context, HttpRequest } from 'azure-functions-ts-essentials';
+import { Context, HttpMethod, HttpRequest } from 'azure-functions-ts-essentials';
 import * as Axios from 'axios';
 import * as knex from 'knex';
-import { cors } from '../Middlewares/cors';
 
 type VaccinesReport = any;
 
-const httpTrigger = cors(async function (
+const httpTrigger = async function (
     context: Context,
     req: HttpRequest
 ): Promise<void> {
@@ -17,6 +16,16 @@ const httpTrigger = cors(async function (
     
     if (!(authResult === FacebookAuth.NoAuthenticationResult.NoCredentials ||
           authResult instanceof FacebookAuth.PassedAuthenticationResult)) {
+        return;
+    }
+
+    if (req.method == HttpMethod.Options) {
+        context.log.info("OPTIONS request, not fetching list from server");
+        context.res = {
+            status: 200,
+            body: []
+        };
+        context.done();
         return;
     }
 
@@ -32,7 +41,7 @@ const httpTrigger = cors(async function (
     }
 
     if (authResult === FacebookAuth.NoAuthenticationResult.NoCredentials) {
-        context.log.info('No credentials, return the list as is');
+        context.log.info('No credentials, return the list with minimal data');
         let filteredReports: Partial<VaccinesReport>[] = reportsResponse.data.reports.map(report => {
             return {
                 city: report.city,
@@ -82,6 +91,6 @@ const httpTrigger = cors(async function (
     };
 
     context.done();
-});
+};
 
 export default httpTrigger;
