@@ -30,10 +30,9 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
   reportsList: VaccinesReport[] = [];
 
   #onDestroy$ = new Subject<void>();
-  private comingFeedbackRequestInProgress = false;
 
   get isLoggedIn(): boolean {
-    return this.accountService?.loggedIn || true;
+    return this.accountService?.loggedIn;
   }
 
   get filteredReportsList(): VaccinesReport[] {
