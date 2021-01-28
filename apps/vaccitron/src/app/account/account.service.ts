@@ -32,6 +32,6 @@ export class AccountService {
   }
 
   async login() {
-    this.userDetails = await fbLogin.login();
+    return this.userDetails = await fbLogin.login();
   }
 }
