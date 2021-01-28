@@ -1,9 +1,14 @@
 type Settings = {
     secrets: Secrets;
-    exampleCollection: string;
-    vacGapsDatabase: string;
-    mongoConnectionString: string;
-    allowSelfSignedMongoCert: boolean;
+    getVacciDatabase: string;
+    cosmosEndpoint: string;
+    cosmosRejectUnauthorized: boolean, // allows self-signed certificate, required for local emulator
+    reportListUrl: string,
+    allowCorsUrls: string[],
+
+    vacGapsDatabase?: string;
+    mongoConnectionString?: string;
+    allowSelfSignedMongoCert?: boolean;
 }
 
 class Secrets {
@@ -20,14 +25,35 @@ class Secrets {
 
 const devSettings: Settings = {
     secrets: new Secrets('dev'),
-    exampleCollection: "examples",
-    vacGapsDatabase: process.env.vacgaps_database || "",
-    mongoConnectionString: process.env.mongo_connection_string || "",
-    allowSelfSignedMongoCert: JSON.parse(process.env.allow_self_signed_mongo_cert || "false"),
+    cosmosEndpoint: 'https://localhost:8081',
+    getVacciDatabase: 'getvacci-dev',
+    cosmosRejectUnauthorized: false,
+    reportListUrl: 'https://www.getvacci.org.il/api/reports.json',
+    allowCorsUrls: ['http://localhost:4200', 'https://localhost:4200'],
+};
+
+const ppeSettings: Settings = {
+    secrets: new Secrets('ppe'),
+    cosmosEndpoint: 'https://vacgaps-db.documents.azure.com:443/',
+    getVacciDatabase: 'getvacci-ppe',
+    cosmosRejectUnauthorized: true,
+    reportListUrl: 'https://getvacci-ppe.azureedge.net/api/reports.json',
+    allowCorsUrls: ['https://getvacci-ppe.azureedge.net'],
+};
+
+const prodSettings: Settings = {
+    secrets: new Secrets('prod'),
+    cosmosEndpoint: 'https://vacgaps-db.documents.azure.com:443/',
+    getVacciDatabase: 'getvacci-prod',
+    cosmosRejectUnauthorized: true,
+    reportListUrl: 'https://www.getvacci.org.il/api/reports.json',
+    allowCorsUrls: ['https://www.getvacci.org.il'],
 };
 
 const settingsByKey = {
     'dev': devSettings,
+    'ppe': ppeSettings,
+    'prod': prodSettings,
 };
 
 const settings = settingsByKey[process.env.settingskey || 'dev'];
