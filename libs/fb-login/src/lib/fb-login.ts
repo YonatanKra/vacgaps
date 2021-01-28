@@ -16,26 +16,39 @@ export interface UserDetails {
 }
 
 export class FbLogin {
+  private lastIsLoggedIn: boolean;
+  private resolveLoggedIn: () => void;
+
   initState: Promise<boolean>;
+  loggedInPromise: Promise<void>;
   userDetails: UserDetails;
   get isLoggedIn(): boolean {
     return !!this.userDetails;
   }
 
   constructor(private config: FbLoginConfig) {
-    this.initState = fbInitializer(config.fbAppId).then(
-      (authResponse: AuthResponse) => {
-        if (!this.userDetails)
-          this.userDetails = {
-            extraInfo: '',
-            facebookId: '',
-            id: '',
-            name: '',
-          };
-        this.userDetails.token = authResponse ? authResponse.accessToken : null;
-        return true;
-      }
-    );
+    this.loggedInPromise = new Promise(resolveLoggedIn => {
+      this.resolveLoggedIn = resolveLoggedIn;
+      this.initState = fbInitializer(config.fbAppId).then(
+        (authResponse: AuthResponse) => {
+          const token: string = authResponse ? authResponse.accessToken : null;
+          if (!token) {
+            return false;
+          }
+
+          if (!this.userDetails)
+            this.userDetails = {
+              extraInfo: '',
+              facebookId: '',
+              id: '',
+              name: '',
+              token: token,
+            };
+          this.checkIfLoggedIn();
+          return true;
+        }
+      );
+    });
   }
 
   login(): Promise<UserDetails> {
@@ -44,9 +57,17 @@ export class FbLogin {
         this.userDetails = response.authResponse
           ? statusResponseToUserDetails(response)
           : null;
+        this.checkIfLoggedIn();
         resolve(this.userDetails);
       });
     });
+  }
+
+  private checkIfLoggedIn(): void {
+    if (!this.lastIsLoggedIn && this.isLoggedIn) {
+      this.lastIsLoggedIn = true;
+      this.resolveLoggedIn();
+    }
   }
 }
 

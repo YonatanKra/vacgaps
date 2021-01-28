@@ -12,4 +12,6 @@ export interface VaccinesReport {
   updateTime: number;
   reporter: string;
   availableVaccines?: number;
+  id: string;
+  comingFeedbackCount: number;
 }

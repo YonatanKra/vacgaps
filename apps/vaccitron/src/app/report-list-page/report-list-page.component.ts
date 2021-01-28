@@ -11,10 +11,26 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ReportsListAction } from '@vacgaps/reports-list';
 import { MatSpinner } from '@angular/material/progress-spinner';
 import { HttpErrorResponse } from '@angular/common/http';
+import { MatGridList, MatGridTile } from '@angular/material/grid-list';
 
+ // TODO: Prettify this code
 @Component({
   selector: 'vacgaps-error-dialog',
-  template: ` {{ data }} `,
+  template: `
+    <div>
+      {{ data }}
+    </div>
+    <br>
+    <div style="text-align: center;">
+      <button
+        color="primary"
+        mat-button
+        mat-raised-button
+        [mat-dialog-close]="true"
+      >
+        אישור
+      </button>
+    </div>`,
 })
 export class ErrorDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: string) {}
@@ -49,7 +65,13 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
     private vaccinesReportsService: VaccinesReportsService,
     private dialog?: MatDialog,
     private accountService?: AccountService
-  ) {}
+  ) {
+    this.accountService?.loggedInStatusChanged.subscribe($event => {
+      if ($event.event === 'loggedInStatusChanged' && $event.payload.loggedIn) {
+        this.getUpdate();
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.getUpdate();
@@ -91,17 +113,18 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
         const buttonElement = (event.target as HTMLElement).closest('button');
         buttonElement.classList.add('disabled');
         this.vaccinesReportsService
-          .updateImComing(environment.apiUrl + environment.comingFeedback, {
-            reportId: $event.payload.reportId,
-          })
+          .updateImComing(environment.apiUrl + environment.comingFeedback,
+                          $event.payload.id)
           .pipe(
-            retry(3),
             catchError((error: HttpErrorResponse) => {
               buttonElement.classList.remove('disabled');
+              const text = error.status === 409
+                ? 'כבר אישרת הגעה למיקום זה לאחרונה' :
+                'תקלה באישור הבקשה. נא לנסות שנית.';
               this.dialog.open(ErrorDialog, {
                 direction: 'rtl',
                 autoFocus: false,
-                data: 'תקלה באישור הבקשה. נא לנסות שנית.',
+                data: text,
               });
               return throwError(error);
             })

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 
 import { FbLogin, UserDetails } from '@vacgaps/fb-login';
 import { environment } from '../../environments/environment';
@@ -11,13 +11,27 @@ const fbLogin = new FbLogin({ fbAppId: environment.facebookAppId });
 export class AccountService {
   userDetails: UserDetails;
 
+  @Output()
+  loggedInStatusChanged = new EventEmitter<{
+    event: string,
+    payload: { loggedIn: boolean }
+  }>();
+
   get loggedIn() {
     return !!this.userDetails;
   }
 
-  constructor() {}
+  constructor() {
+    fbLogin.loggedInPromise.then(() => {
+      this.userDetails = fbLogin.userDetails;
+      this.loggedInStatusChanged.emit({
+        event: 'loggedInStatusChanged',
+        payload: { loggedIn: this.loggedIn },
+      });
+    });
+  }
 
   async login() {
-    return (this.userDetails = await fbLogin.login());
+    this.userDetails = await fbLogin.login();
   }
 }
