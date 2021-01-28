@@ -5,7 +5,6 @@ import { AccountService } from './account.service';
 import { FbLogin } from '@vacgaps/fb-login';
 import {
   HttpClientTestingModule,
-  HttpTestingController,
 } from '@angular/common/http/testing';
 
 const MOCK_USER_DETAILS = {

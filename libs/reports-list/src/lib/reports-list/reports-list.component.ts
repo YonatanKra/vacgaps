@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { VaccinesReport } from '@vacgaps/interfaces';
 import { registerLocaleData } from '@angular/common';
 import localeIL from '@angular/common/locales/en-IL';
