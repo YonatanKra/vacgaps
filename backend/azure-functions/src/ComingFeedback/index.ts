@@ -10,7 +10,7 @@ const httpTrigger = async function (context: Context, req: HttpRequest): Promise
     if (!(reportId?.length)) {
         context.res = {
             status: 400,
-            body: 'Bad request: missing reportId query parameter',
+            body: 'Bad request: missing reportId in body',
         };
 
         context.done();

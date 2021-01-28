@@ -45,7 +45,8 @@ const httpTrigger = async function (
         let filteredReports: Partial<VaccinesReport>[] = reportsResponse.data.reports.map(report => {
             return {
                 city: report.city,
-                healthCareService: report.healthCareService
+                healthCareService: report.healthCareService,
+                id: report.id,
             };
         });
 
