@@ -23,7 +23,7 @@ export class VaccinesReportsService {
   }
 
   updateImComing(url, reportId) {
-    return this.httpClient.put(url, { reportId });
+    return this.httpClient.put(url, { reportId }, { responseType: 'text'});
   }
 
   get(url): Observable<VaccinesReport[]> {

@@ -18,7 +18,7 @@ import { of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { MatDialogModule } from '@angular/material/dialog';
 
-const MOCK_REPORTS = [
+const MOCK_REPORTS: VaccinesReport[] = [
   {
     city: '100',
     healthCareService: '1',
@@ -28,6 +28,8 @@ const MOCK_REPORTS = [
     updateTime: 5,
     minimalAge: 55,
     endTime: '2021-01-16T22:00:00',
+    id: '1',
+    comingFeedbackCount: 12
   },
   {
     city: '1001',
@@ -36,7 +38,8 @@ const MOCK_REPORTS = [
     branchName: 'wat',
     reporter: 'ww',
     updateTime: 5,
-    region: '3',
+    id: '1',
+    comingFeedbackCount: 12
   },
   {
     city: '530',
@@ -46,8 +49,9 @@ const MOCK_REPORTS = [
     reporter: 'ww',
     updateTime: 5,
     minimalAge: 40,
-    region: '3',
     endTime: '2021-01-18T21:00:00',
+    id: '1',
+    comingFeedbackCount: 12
   },
   {
     city: '2379',
@@ -57,6 +61,8 @@ const MOCK_REPORTS = [
     reporter: 'ww',
     updateTime: 5,
     endTime: '2021-01-19T17:30:00',
+    id: '1',
+    comingFeedbackCount: 12
   },
   {
     city: '110',
@@ -65,6 +71,8 @@ const MOCK_REPORTS = [
     branchName: 'wat',
     reporter: 'ww',
     updateTime: 5,
+    id: '1',
+    comingFeedbackCount: 12
   },
 ];
 
@@ -167,6 +175,8 @@ describe('ReportListPageComponent', () => {
           updateTime: 5,
           minimalAge: 55,
           endTime: '2021-01-16T22:00:00',
+          id: '1',
+          comingFeedbackCount: 12
         },
         {
           city: '110',
@@ -175,6 +185,8 @@ describe('ReportListPageComponent', () => {
           branchName: 'wat',
           reporter: 'ww',
           updateTime: 5,
+          id: '1',
+          comingFeedbackCount: 12
         },
       ]);
     });

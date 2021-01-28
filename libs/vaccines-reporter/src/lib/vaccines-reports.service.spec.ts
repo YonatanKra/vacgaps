@@ -74,7 +74,8 @@ describe('VaccinesReportsService', () => {
 
       expect(httpClient.put).toHaveBeenCalledWith(url, {
         reportId: body.reportId,
-      });
+      },
+        {"responseType": "text"});
     });
 
     it(`should return an observable`, function () {

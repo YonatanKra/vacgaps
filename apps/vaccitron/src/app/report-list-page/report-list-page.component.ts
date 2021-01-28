@@ -1,13 +1,40 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { NotificationsFilter, VaccinesReport } from '@vacgaps/interfaces';
 import { VaccinesReportsService } from '@vacgaps/vaccines-reporter';
-import { interval, Subject } from 'rxjs';
+import { interval, Observable, Subject, throwError } from 'rxjs';
 import { CITIES } from '@vacgaps/constants';
 import { environment } from '../../environments/environment';
-import { takeUntil } from 'rxjs/operators';
+import { catchError, retry, takeUntil } from 'rxjs/operators';
 import { AccountService } from '../account/account.service';
 import { LoginModalComponent } from '@vacgaps/login-modal';
-import { MatDialog } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { ReportsListAction } from '@vacgaps/reports-list';
+import { MatSpinner } from '@angular/material/progress-spinner';
+import { HttpErrorResponse } from '@angular/common/http';
+import { MatGridList, MatGridTile } from '@angular/material/grid-list';
+
+ // TODO: Prettify this code
+@Component({
+  selector: 'vacgaps-error-dialog',
+  template: `
+    <div>
+      {{ data }}
+    </div>
+    <br>
+    <div style="text-align: center;">
+      <button
+        color="primary"
+        mat-button
+        mat-raised-button
+        [mat-dialog-close]="true"
+      >
+        אישור
+      </button>
+    </div>`,
+})
+export class ErrorDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: string) {}
+}
 
 @Component({
   selector: 'vacgaps-report-list-page',
@@ -17,6 +44,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class ReportListPageComponent implements OnInit, OnDestroy {
   @Input()
   reportsList: VaccinesReport[] = [];
+
   #onDestroy$ = new Subject<void>();
 
   get isLoggedIn(): boolean {
@@ -37,7 +65,13 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
     private vaccinesReportsService: VaccinesReportsService,
     private dialog?: MatDialog,
     private accountService?: AccountService
-  ) {}
+  ) {
+    this.accountService?.loggedInStatusChanged.subscribe($event => {
+      if ($event.event === 'loggedInStatusChanged' && $event.payload.loggedIn) {
+        this.getUpdate();
+      }
+    });
+  }
 
   ngOnInit(): void {
     this.getUpdate();
@@ -72,8 +106,36 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
     this.#onDestroy$.next();
   }
 
-  reportsListActionEvent($event) {
+  reportsListActionEvent($event: ReportsListAction) {
     if (!this.isLoggedIn) return this.openLoginDialog();
+    switch ($event.type) {
+      case 'comingFeedback':
+        const buttonElement = (event.target as HTMLElement).closest('button');
+        buttonElement.classList.add('disabled');
+        this.vaccinesReportsService
+          .updateImComing(environment.apiUrl + environment.comingFeedback,
+                          $event.payload.id)
+          .pipe(
+            catchError((error: HttpErrorResponse) => {
+              buttonElement.classList.remove('disabled');
+              const text = error.status === 409
+                ? 'כבר אישרת הגעה למיקום זה לאחרונה' :
+                'תקלה באישור הבקשה. נא לנסות שנית.';
+              this.dialog.open(ErrorDialog, {
+                direction: 'rtl',
+                autoFocus: false,
+                data: text,
+              });
+              return throwError(error);
+            })
+          )
+          .subscribe((response) => {
+            buttonElement.classList.remove('disabled');
+          });
+        break;
+      default:
+        break;
+    }
   }
 
   openLoginDialog() {

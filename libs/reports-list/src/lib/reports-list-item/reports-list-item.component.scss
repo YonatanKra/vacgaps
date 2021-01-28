@@ -39,6 +39,11 @@
   pointer-events: none;
 }
 
+button[color="primary"] {
+  justify-content: center;
+  display: flex;
+}
+
 @media screen and (max-width: 342px) {
   .report-item-wrapper > button {
     width: 75px;
