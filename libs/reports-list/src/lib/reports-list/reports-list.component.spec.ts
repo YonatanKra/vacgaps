@@ -41,6 +41,8 @@ const REPORTS_LIST_MOCK: VaccinesReport[] = [
     branchName: 'wat',
     reporter: 'ww',
     updateTime: 5,
+    id: "1",
+    comingFeedbackCount: 12
   },
 ];
 
@@ -51,7 +53,9 @@ export class VaccineReportItem implements VaccinesReport {
     public healthCareService: HEALTH_CARE_SERVICES_TYPE[number] = '2',
     public branchName = 'wat',
     public reporter = 'ww',
-    public updateTime = 5
+    public updateTime = 5,
+    public comingFeedbackCount: number = 12,
+    public id: string = "1"
   ) {}
 }
 
@@ -124,12 +128,13 @@ describe('ReportsListComponent', () => {
   describe(`handleComingReport`, function () {
     it(`should emit a coming report action`, function () {
       const eventData: VaccinesReport = {
+        comingFeedbackCount: 12, id: '1',
         address: '',
         branchName: '',
         city: '',
         healthCareService: '',
         reporter: '',
-        updateTime: 0,
+        updateTime: 0
       };
       const actionData = {
         type: 'comingFeedback',

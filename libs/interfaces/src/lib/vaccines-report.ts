@@ -11,5 +11,6 @@ export interface VaccinesReport {
   minimalAge?: number;
   reporter?: string;
   availableVaccines?: number;
-  id?: string;
+  id: string;
+  comingFeedbackCount: number;
 }

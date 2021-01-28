@@ -1,10 +1,7 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { CITIES, HEALTH_CARE_SERVICES } from '@vacgaps/constants';
 import { VaccinesReport } from '@vacgaps/interfaces';
-import {
-  BreakpointObserver,
-  Breakpoints,
-} from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'vacgaps-report-modal',
@@ -28,8 +25,6 @@ export class ReportModalComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
-
   get healthCareService(): string {
     return HEALTH_CARE_SERVICES[this.report?.healthCareService];
   }
@@ -43,4 +38,6 @@ export class ReportModalComponent implements OnInit {
     const city = CITIES[this.report?.city];
     return city ? city.district : '';
   }
+
+  ngOnInit(): void {}
 }

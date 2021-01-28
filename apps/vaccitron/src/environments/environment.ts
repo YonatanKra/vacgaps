@@ -4,8 +4,14 @@
 
 export const environment = {
   production: false,
+  // TODO: Use these values when yarn nx serve will support also BE.
+  // Currently just uncomment manually when want to debug e2e
+  // vaccinesDataUrl: 'http://localhost:7071/api/Reports',
+  // apiUrl: 'http://localhost:7071/api',
+  // comingFeedback: '/ComingFeedback',
   vaccinesDataUrl: '../../assets/demo-data.json',
+  apiUrl: '../../assets',
+  comingFeedback: '/ComingFeedback.json',
   reportsQueryIntervalInMs: 5000,
   facebookAppId: '1279648522401260',
-  apiUrl: '../../assets/demo-data.json',
 };
