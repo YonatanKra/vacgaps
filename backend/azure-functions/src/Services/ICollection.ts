@@ -1,32 +1,40 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
+  AggregationCursor,
+  Collection,
+  CollectionAggregationOptions,
   CollectionInsertOneOptions,
   InsertOneWriteOpResult,
   FilterQuery,
   FindOneOptions,
   UpdateQuery,
   UpdateOneOptions,
-  UpdateWriteOpResult,
-  Collection,
+  UpdateWriteOpResult
 } from 'mongodb';
-import { BaseEntity } from '../Models/BaseEntity';
+import { BaseEntity, Entity } from '../Models/BaseEntity';
 
-export interface ICollection<T extends BaseEntity> {
+type PartialEntity<T> = Partial<Entity<T>>;
+
+export interface ICollection<T> {
+  aggregateDocuments<TAggregated>(
+    pipeline?: object[],
+    options?: CollectionAggregationOptions
+  ): Promise<AggregationCursor<TAggregated>>;
   insertOne(
-    docs: T,
+    docs: T & Partial<BaseEntity>,
     options?: CollectionInsertOneOptions
-  ): Promise<InsertOneWriteOpResult<T>>;
+  ): Promise<InsertOneWriteOpResult<Entity<T>>>;
   findOne(
-    filter: FilterQuery<Partial<T>>,
+    filter: FilterQuery<PartialEntity<T>>,
     options?: FindOneOptions<any>
-  ): Promise<T>;
+  ): Promise<Entity<T>>;
   findMany(
-    query: FilterQuery<Partial<T>>,
+    query: FilterQuery<PartialEntity<T>>,
     options?: FindOneOptions<any>
   ): Promise<any[]>;
   updateOne(
-    filter: FilterQuery<Partial<T>>,
-    update: UpdateQuery<Partial<T>> | Partial<T>,
+    filter: FilterQuery<PartialEntity<T>>,
+    update: UpdateQuery<Partial<T & BaseEntity>> | Partial<T & BaseEntity>,
     options?: UpdateOneOptions
   ): Promise<UpdateWriteOpResult>;
 }
@@ -42,5 +50,20 @@ export function patchMongoCollection<T extends BaseEntity>(
   ): Promise<T[]> {
     return this.find(query, options).toArray();
   };
+  // error: MongoError, result: T
+  patchedCollection.aggregateDocuments = function<TAggregated> (pipeline?: object[], options?: CollectionAggregationOptions): Promise<AggregationCursor<TAggregated>> {
+    let that: Collection<any> = this;
+    return new Promise<AggregationCursor<TAggregated>>((resolve, reject) =>
+    {
+      that.aggregate<TAggregated>(pipeline, options, (err, cursor) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(cursor);
+        }
+      });
+    });
+  };
+
   return patchedCollection;
 }
