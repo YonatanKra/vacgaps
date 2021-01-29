@@ -112,25 +112,33 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
       case 'comingFeedback':
         const buttonElement = (event.target as HTMLElement).closest('button');
         buttonElement.classList.add('disabled');
+        
+        let isShowedFinishMessage = false;
+        const endFeedbackRequest = (text:string) => {
+          if (isShowedFinishMessage) return;
+          isShowedFinishMessage = true;
+          buttonElement.classList.remove('disabled');
+          this.dialog.open(ErrorDialog, {
+            direction: 'rtl',
+            autoFocus: false,
+            data: text,
+          });
+        };
+        
         this.vaccinesReportsService
           .updateImComing(environment.apiUrl + environment.comingFeedback,
                           $event.payload.id)
           .pipe(
             catchError((error: HttpErrorResponse) => {
-              buttonElement.classList.remove('disabled');
               const text = error.status === 409
                 ? 'כבר אישרת הגעה למיקום זה לאחרונה' :
                 'תקלה באישור הבקשה. נא לנסות שנית.';
-              this.dialog.open(ErrorDialog, {
-                direction: 'rtl',
-                autoFocus: false,
-                data: text,
-              });
+                endFeedbackRequest(text);
               return throwError(error);
             })
           )
           .subscribe((response) => {
-            buttonElement.classList.remove('disabled');
+            endFeedbackRequest('אישור ההגעה נקלט בהצלחה');
           });
         break;
       default:
