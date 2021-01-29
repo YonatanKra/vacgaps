@@ -229,12 +229,13 @@ describe('ReportListPageComponent', () => {
   it(`should query the server every ${environment.reportsQueryIntervalInMs} ms`, fakeAsync(function () {
     fixture.detectChanges();
     const fakeReportLists = [
-      [{ list1: 'data' }] as unknown as VaccinesReport[],
-      [{ list2: 'data' }] as unknown as VaccinesReport[],
-      [{ list3: 'data' }] as unknown as VaccinesReport[],
+      ([{ list1: 'data' }] as unknown) as VaccinesReport[],
+      ([{ list2: 'data' }] as unknown) as VaccinesReport[],
+      ([{ list3: 'data' }] as unknown) as VaccinesReport[],
     ];
 
     const vaccinesReportsService = TestBed.inject(VaccinesReportsService);
+    let iteration = 0;
     spyOn(vaccinesReportsService, 'getVaccinesReports').and.callFake(() =>
       of(fakeReportLists[iteration])
     );
