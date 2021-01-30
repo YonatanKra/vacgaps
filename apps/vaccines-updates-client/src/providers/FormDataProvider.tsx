@@ -1,4 +1,4 @@
-import React, { createContext, FunctionComponent, useState, useContext, useCallback } from 'react';
+import React, { createContext, FunctionComponent, useState, useContext, useCallback, useMemo } from 'react';
 import { TargetGroup } from '@vacgaps/constants';
 import { VaccinesReport } from '@vacgaps/interfaces';
 
@@ -11,6 +11,7 @@ export type FormDataContextProps = VaccinesReport & {
     removeTargetGroup: (value: TargetGroup) => void;
     setAvailableVaccines: (newValue: number) => void;
     setEndTime: (newValue: string) => void;
+    canSendReport: boolean;
 };
 
 const FormDataContext = createContext<FormDataContextProps>({} as unknown as any);
@@ -38,6 +39,13 @@ export const FormDataProvider: FunctionComponent = props => {
         setTargetGroups(newTargetGroups);
     }, [targetGroups]);
 
+    const canSendReport: boolean = useMemo(() => {
+        console.log(healthCareService, city, address, minimalAge, availableVaccines, endTime);
+        return !!healthCareService && !!city && !!address && !!minimalAge && !!availableVaccines && !!endTime;
+    },
+        [healthCareService, city, address, minimalAge, availableVaccines, endTime]
+    );
+
     return (
         <FormDataContext.Provider value={{
             healthCareService,
@@ -56,7 +64,8 @@ export const FormDataProvider: FunctionComponent = props => {
             endTime,
             setEndTime,
             id: undefined,
-            comingFeedbackCount: undefined
+            comingFeedbackCount: undefined,
+            canSendReport
         }}>
             {props.children}
         </FormDataContext.Provider>

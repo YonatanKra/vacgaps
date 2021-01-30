@@ -1,84 +1,125 @@
-import React, { FunctionComponent, createContext, useContext, useState, useEffect, useCallback } from 'react';
+import React, { FunctionComponent, createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import styled from 'styled-components';
+import { LoginButton } from '../components/login';
+import { isSupervisor } from '../services/vacgaps-api-client';
+
+type AuthenticationState = 'logged-out' | 'logged-in' | 'not-authorized';
 
 export type AuthenticationContextProps = {
     token?: string;
-    isLoggedIn: boolean;
+    authenticationState: AuthenticationState;
     logout: VoidFunction;
 };
 
-const AuthenticationContext = createContext<AuthenticationContextProps>({} as any);
+const LogoutButtonWrapper = styled.div`
+    height: 50px;
+    width: 200px;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    margin-bottom: 50px;
+`;
+
+const TextButton = styled.button`
+    outline: none;
+    border: none;
+    background-color: transparent;
+    width: auto;
+    text-decoration: underline;
+    font-size: 14px;
+    color: gray;
+    padding: 4px 10px;
+    cursor: pointer;
+`;
+
+const AuthWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+`;
+
+const AuthenticationContext = createContext<AuthenticationContextProps>({
+    isLoggedIn: false,
+} as any);
 
 export const useAuthentication = (): AuthenticationContextProps => useContext(AuthenticationContext);
 
-const LoginButtonContainer = styled.div`
-    position: absolute; 
-    width: 300px;
-    right: 50%; 
-    top: 50%;
-    margin-right: -150px;
-    margin-top: -150px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+const LoginComponents: FunctionComponent = ({ children }) => {
+    const { authenticationState } = useAuthentication();
 
-    .title {
-        font-size: 18px;
-        margin: 20px;
-        text-align: center;
-    }
-`;
-
-const LoginButton = () => {
-    return (
-        <LoginButtonContainer>
-            <label className="title">התחבר</label>
-            <div
-                className="fb-login-button"
-                data-width=""
-                data-size="large"
-                data-button-type="continue_with"
-                data-layout="default"
-                data-auto-logout-link="false"
-                data-use-continue-as="true">
-            </div>
-        </LoginButtonContainer>);
-};
+    if (authenticationState === 'logged-out') return <LoginButton />;
+    if (authenticationState === 'logged-in') return <>{children}</>;
+    if (authenticationState === 'not-authorized') return <>לא מורשה</>;
+    return null;
+}
 
 export const AuthenticationProvider: FunctionComponent = ({ children }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+    const [isCheckingLoginStatus, setIsCheckingLoginStatus] = useState<boolean>(true);
     const [facebookAccessToken, setFacebookAccessToken] = useState<string | undefined>(undefined);
+    const [authenticationState, setAuthenticationState] = useState<AuthenticationState>('logged-out');
 
-    const onAuthChanged = useCallback((response: fb.StatusResponse) => {
-        const token = response.authResponse.accessToken;
+    const onAuthChanged = useCallback(async (response: fb.StatusResponse) => {
+        const token = response?.authResponse?.accessToken;
         if (response.status !== 'connected' || !token) {
-            setIsLoggedIn(false);
+            setAuthenticationState('logged-out');
             setFacebookAccessToken(undefined);
             return;
         }
 
-        setIsLoggedIn(true);
-        setFacebookAccessToken(token);
+        setIsCheckingLoginStatus(true);
+
+        try {
+            const isAuthorized = await isSupervisor(token);
+            if (isAuthorized) {
+                setAuthenticationState('logged-in')
+                setFacebookAccessToken(token);
+            } else {
+                setFacebookAccessToken(undefined);
+                setAuthenticationState('not-authorized');
+            }
+        } catch (error) {
+            setFacebookAccessToken(undefined);
+            setAuthenticationState('logged-out');
+        } finally {
+            setIsCheckingLoginStatus(false);
+        }
     }, []);
 
+    const onAuthChangedSync = useCallback((response: fb.StatusResponse) => {
+        onAuthChanged(response);
+    }, [onAuthChanged]);
+
     const logout = useCallback(() => {
-        FB.logout(onAuthChanged);
+        FB.logout(onAuthChangedSync);
     }, [onAuthChanged]);
 
     useEffect(() => {
+        setIsCheckingLoginStatus(true);
         FB.getLoginStatus(onAuthChanged)
         FB.Event.subscribe('auth.statusChange', onAuthChanged);
         return () => FB.Event.unsubscribe('auth.statusChange', onAuthChanged)
     }, [onAuthChanged]);
 
+    const shouldShowLogoutButton = useMemo(
+        () => !isCheckingLoginStatus && (authenticationState === 'logged-in' || authenticationState === 'not-authorized'),
+        [isCheckingLoginStatus, authenticationState]);
+
     return (
         <AuthenticationContext.Provider value={{
-            isLoggedIn,
+            authenticationState,
             token: facebookAccessToken,
             logout,
         }}>
-            {isLoggedIn ? children : <LoginButton />}
+            <AuthWrapper>
+                <LoginComponents>{children}</LoginComponents>
+                {shouldShowLogoutButton &&
+                    <LogoutButtonWrapper>
+                        <TextButton onClick={logout}>התנתק</TextButton>
+                    </LogoutButtonWrapper>}
+            </AuthWrapper>
         </AuthenticationContext.Provider>
     );
 };

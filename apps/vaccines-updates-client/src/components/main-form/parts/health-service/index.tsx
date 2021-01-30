@@ -19,7 +19,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
                 options={dropDownOptions}
                 getOptionLabel={(option) => option.text}
                 renderInput={(params) => <TextField {...params} />}
-                onChange={(_, value) => setHealthCareService(value as string)}
+                onChange={(_, value) => setHealthCareService((value as any).value)}
             />
         </FormItem>
     );
