@@ -3,14 +3,6 @@ import { TargetGroup } from '@vacgaps/constants';
 import { VaccinesReport } from '@vacgaps/interfaces';
 
 export type FormDataContextProps = VaccinesReport & {
-    // healthCareService: string;
-    // city: string;
-    // address: string;
-    // minimumAge: number;
-    // targetGroups: TargetGroup[];
-    // availableVaccines: number;
-    // endingTime: number;
-
     setHealthCareService: (newValue: string) => void;
     setCity: (newValue: string) => void;
     setAddress: (newValue: string) => void;
@@ -63,6 +55,8 @@ export const FormDataProvider: FunctionComponent = props => {
             setAvailableVaccines,
             endTime,
             setEndTime,
+            id: undefined,
+            comingFeedbackCount: undefined
         }}>
             {props.children}
         </FormDataContext.Provider>

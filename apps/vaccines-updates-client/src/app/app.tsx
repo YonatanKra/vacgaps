@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AddressListProvider } from '../providers/AddressListProvider';
-import { FormDataProvider } from '../providers/FormDataProvider';
+import { AddressListProvider, FormDataProvider, AuthenticationProvider } from '../providers';
 import { MainForm } from '../components/main-form';
 import { createGlobalStyle } from 'styled-components';
 
@@ -29,7 +28,7 @@ const StyledMainForm = styled(MainForm)`
 
 export function App() {
   return (
-    <>
+    <AuthenticationProvider>
       <GlobalStyle />
       <FormDataProvider>
         <AddressListProvider>
@@ -38,7 +37,7 @@ export function App() {
           </MainContainer>
         </AddressListProvider>
       </FormDataProvider>
-    </>
+    </AuthenticationProvider>
   );
 }
 
