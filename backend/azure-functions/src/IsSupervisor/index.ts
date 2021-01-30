@@ -9,17 +9,17 @@ const IsSupervisor = async function (context: Context, req: HttpRequest): Promis
   const authenticatedUser: PassedAuthenticationResult = await authenticate(req, context, true) as PassedAuthenticationResult;
   if (!(authenticatedUser instanceof PassedAuthenticationResult)) return;
 
-  if (allowedUserIds.indexOf(authenticatedUser.userId) > -1)
+  if (allowedUserIds.indexOf(authenticatedUser.userId) > -1) {
     context.res = {
       status: 200,
       body: true,
     };
-  else
+  } else {
     context.res = {
       status: 401,
       body: false,
     };
-
+  }
 
   context.done();
 };
