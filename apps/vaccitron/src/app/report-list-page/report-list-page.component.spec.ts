@@ -85,6 +85,7 @@ const MOCK_REPORTS: VaccinesReport[] = [
 class TestComponent {
   reportsList: VaccinesReport[] = MOCK_REPORTS;
 }
+
 describe('ReportListPageComponent', () => {
   let component: ReportListPageComponent;
   let fixture: ComponentFixture<ReportListPageComponent>;

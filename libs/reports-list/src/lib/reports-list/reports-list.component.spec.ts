@@ -9,7 +9,7 @@ import { ReportsListComponent } from './reports-list.component';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { VaccinesReport } from '@vacgaps/interfaces';
 import { By } from '@angular/platform-browser';
-import { CITIES_TYPE, HEALTH_CARE_SERVICES_TYPE } from '@vacgaps/constants';
+import { CITIES_TYPE, HEALTH_CARE_SERVICES_TYPE, TargetGroup } from '@vacgaps/constants';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatListModule } from '@angular/material/list';
 import { animationFrameScheduler } from 'rxjs';
