@@ -2,7 +2,8 @@ import * as FacebookAuth from '../Auth/facebook-auth';
 import { EnvironmentSettings } from '../Settings/EnvironmentSettings';
 import { Context, HttpMethod, HttpRequest } from 'azure-functions-ts-essentials';
 import * as Axios from 'axios';
-import { getComingFeedbackAccessor } from '../DataAccess/accessors';
+import { getComingFeedbackAccessor, getVaccinesReportAccessor } from '../DataAccess/accessors';
+import { VaccinesReports } from '../DataAccess/vaccines-report';
 
 type VaccinesReport = any;
 
@@ -28,30 +29,16 @@ const httpTrigger = async function (
         return;
     }
 
-    // TODO: Extract data from DB instead
-    const reportsResponse: Axios.AxiosResponse<{reports: VaccinesReport[]}> = await Axios.default.get<{reports: VaccinesReport[]}>(
-         EnvironmentSettings.reportListUrl);
+    let reportAccessor = getVaccinesReportAccessor(context);
+    const isOnlyMinimalData: boolean = authResult === FacebookAuth.NoAuthenticationResult.NoCredentials;
+    const reports: VaccinesReports = await reportAccessor.getVaccinesReports(isOnlyMinimalData);
 
-    if (reportsResponse.status < 200 || reportsResponse.status >= 300) {
-        context.log.error('InternalError because failed to get reports: ' + reportsResponse.status)
-        context.res.status = 500;
-        context.done();
-        return;
-    }
-
-    if (authResult === FacebookAuth.NoAuthenticationResult.NoCredentials) {
+    if (isOnlyMinimalData) {
         context.log.info('No credentials, return the list with minimal data');
-        let filteredReports: Partial<VaccinesReport>[] = reportsResponse.data.reports.map(report => {
-            return {
-                city: report.city,
-                healthCareService: report.healthCareService,
-                id: report.id,
-            };
-        });
 
         context.res = {
             status: 200,
-            body: JSON.stringify({reports:filteredReports}),
+            body: JSON.stringify(reports),
         };
 
         context.done();
@@ -60,11 +47,11 @@ const httpTrigger = async function (
 
     context.log.info('Authenticated, collecting missing info from DB');
 
-    const reportIds = reportsResponse.data.reports.map(report => report.id);
+    const reportIds = reports.reports.map(report => report.id);
     let comingFeedbackAccessor = getComingFeedbackAccessor(context);
     const feedbackCounts = await comingFeedbackAccessor.getFeedbackCountsForReports(reportIds);
     
-    let enrichedReports = reportsResponse.data.reports.map(report => {
+    let enrichedReports = reports.reports.map(report => {
         return {
             ...report,
             comingFeedbackCount: feedbackCounts.countByReportId[report.id] ?? 0,

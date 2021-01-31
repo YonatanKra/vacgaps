@@ -4,7 +4,9 @@ import { isSupervisor } from '../Services/is-supervisor';
 
 const IsSupervisor = async function (context: Context, req: HttpRequest): Promise<void> {
   const authenticatedUser: PassedAuthenticationResult = await authenticate(req, context, true) as PassedAuthenticationResult;
-  if (!(authenticatedUser instanceof PassedAuthenticationResult)) return;
+  if (!(authenticatedUser instanceof PassedAuthenticationResult)) {
+    context.log.info("IsSupervisor: User not authenticated");
+  }
 
   const userId = authenticatedUser.userId;
   if (isSupervisor(userId)) {
