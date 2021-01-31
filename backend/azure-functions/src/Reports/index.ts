@@ -1,10 +1,8 @@
 import * as FacebookAuth from '../Auth/facebook-auth';
-import { getComingFeedbackContainer } from '../Containers/containers';
 import { EnvironmentSettings } from '../Settings/EnvironmentSettings';
 import { Context, HttpMethod, HttpRequest } from 'azure-functions-ts-essentials';
 import * as Axios from 'axios';
-import * as knex from 'knex';
-import { getFeedbackExpirationTimeForSql } from '../ComingFeedback/coming-feedback-expiration';
+import { getComingFeedbackAccessor } from '../DataAccess/accessors';
 
 type VaccinesReport = any;
 
@@ -63,28 +61,14 @@ const httpTrigger = async function (
     context.log.info('Authenticated, collecting missing info from DB');
 
     const reportIds = reportsResponse.data.reports.map(report => report.id);
-    let container = getComingFeedbackContainer();
-    // TODO: Use QueryBuilder like knex
-    //const query: string = knex('c')
-    //    .select('count(*) as count, reportId')
-    //    .where('feedbackTime', '>', minTime)
-    //    .whereIn('reportId', reportIds)
-    //    .groupBy('reportId')
-    //    .toQuery();
-    const query: string =
-        'SELECT COUNT(c.userId) AS count, c.reportId FROM c WHERE c.feedbackTime > \'' +
-        getFeedbackExpirationTimeForSql() + '\' AND c.reportId IN (' +
-        reportIds.map(reportId => '\'' + reportId + '\'').join(', ') + ') GROUP BY c.reportId';
-    context.log.info('DB query: ' + query);
-    const aggregated = await container.items.query({query}).fetchAll();
-    context.log.info('Found ' + aggregated.resources.length + ' results in ComingFeedback query for reports');
+    let comingFeedbackAccessor = getComingFeedbackAccessor(context);
+    const feedbackCounts = await comingFeedbackAccessor.getFeedbackCountsForReports(reportIds);
     
-    const recordById: Map<string, VaccinesReport> = new Map(aggregated.resources.map(record => [record.reportId, record]));
-    let enrichedReports = reportsResponse.data.reports.map(report =>
-        !recordById.has(report.id) ? report : {
+    let enrichedReports = reportsResponse.data.reports.map(report => {
+        return {
             ...report,
-            comingFeedbackCount: recordById.get(report.id).count,
-        });
+            comingFeedbackCount: feedbackCounts.countByReportId[report.id] ?? 0,
+        }});
 
     context.res = {
         status: 200,
