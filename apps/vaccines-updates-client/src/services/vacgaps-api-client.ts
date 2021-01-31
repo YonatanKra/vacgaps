@@ -11,7 +11,7 @@ const getFacebookAuthTokenHeader: (token: string) => { headers: { Authorization:
 });
 
 export async function sendReport(report: VaccinesReport, facebookAccessToken: string): Promise<void> {
-    await httpClient.post('/NewReport', report, {
+    await httpClient.put('/Report', report, {
         ...getFacebookAuthTokenHeader(facebookAccessToken)
     });
 }
@@ -22,7 +22,7 @@ export async function isSupervisor(facebookAccessToken: string): Promise<boolean
             ...getFacebookAuthTokenHeader(facebookAccessToken)
         });
 
-        return response.status === 200 && response.data === 'true';
+        return response.status === 200 && response.data.isSupervisor;
     }
     catch {
         return false;

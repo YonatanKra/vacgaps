@@ -10,13 +10,13 @@ const IsSupervisor = async function (context: Context, req: HttpRequest): Promis
   if (isSupervisor(userId)) {
     context.res = {
       status: 200,
-      body: true,
+      body: {isSupervisor:true},
     };
     context.log.info(`user ${userId} found in the supervisors list`);
   } else {
     context.res = {
       status: 200,
-      body: false,
+      body: {isSupervisor:false},
     };
     context.log.info(`user ${userId} wasn't found in the supervisors list`);
   }

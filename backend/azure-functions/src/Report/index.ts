@@ -1,7 +1,7 @@
 import { PassedAuthenticationResult, authenticate } from '../Auth/facebook-auth';
 import { Context, HttpRequest } from 'azure-functions-ts-essentials';
 
-const newReport = async function (context: Context, req: HttpRequest): Promise<void> {
+const Report = async function (context: Context, req: HttpRequest): Promise<void> {
     const authenticatedUser: PassedAuthenticationResult = await authenticate(req, context, true) as PassedAuthenticationResult;
     if (!(authenticatedUser instanceof PassedAuthenticationResult)) return;
 
@@ -15,4 +15,4 @@ const newReport = async function (context: Context, req: HttpRequest): Promise<v
     context.done();
 };
 
-export default newReport;
+export default Report;
