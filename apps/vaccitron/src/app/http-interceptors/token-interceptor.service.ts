@@ -26,7 +26,7 @@ export class TokenInterceptorService implements HttpInterceptor {
       req = req.clone({
         headers: req.headers.set(
           'Authorization',
-          `${this.accountService.userDetails.token}`
+          `Facebook ${this.accountService.userDetails.token}`
         ),
       });
     }

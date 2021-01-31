@@ -40,10 +40,8 @@ export const FormDataProvider: FunctionComponent = props => {
     }, [targetGroups]);
 
     const canSendReport: boolean = useMemo(() => {
-        console.log(healthCareService, city, address, minimalAge, availableVaccines, endTime);
         return !!healthCareService && !!city && !!address && !!minimalAge && !!availableVaccines && !!endTime;
-    },
-        [healthCareService, city, address, minimalAge, availableVaccines, endTime]
+    }, [healthCareService, city, address, minimalAge, availableVaccines, endTime]
     );
 
     return (

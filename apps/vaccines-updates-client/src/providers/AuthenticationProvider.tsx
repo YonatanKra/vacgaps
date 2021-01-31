@@ -70,7 +70,7 @@ export const AuthenticationProvider: FunctionComponent = ({ children }) => {
         }
 
         setIsCheckingLoginStatus(true);
-
+console.log("gil", token)
         try {
             const isAuthorized = await isSupervisor(token);
             if (isAuthorized) {

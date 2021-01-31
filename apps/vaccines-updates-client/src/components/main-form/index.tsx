@@ -84,7 +84,7 @@ const FormStateWrapper = styled.label`
 
 type FormState = 'idle' | 'sending' | 'sent' | 'has-error';
 
-export const MainForm: FunctionComponent<{className?: string}> = props => {
+export const MainForm: FunctionComponent<{ className?: string }> = props => {
     const sendReport = useSendReport();
     const [formState, setFormState] = useState<FormState>('idle');
 
@@ -117,10 +117,7 @@ export const MainForm: FunctionComponent<{className?: string}> = props => {
                         disabled={!canSendReport}
                         variant="contained"
                         color="primary"
-                        onClick={onSendClicked}
-                    >
-                        שלח
-                </Button>
+                        onClick={onSendClicked}>שלח</Button>
                     <FormStateWrapper>
                         {formState === 'has-error' && <label data-error>איראה שגיאה</label>}
                         {formState === 'sent' && <label data-success>נשלח בהצלחה !</label>}

@@ -18,7 +18,7 @@ export async function sendReport(report: VaccinesReport, facebookAccessToken: st
 
 export async function isSupervisor(facebookAccessToken: string): Promise<boolean> {
     try {
-        const response = await httpClient.post('/isSupervisor', {}, {
+        const response = await httpClient.get('/isSupervisor', {
             ...getFacebookAuthTokenHeader(facebookAccessToken)
         });
 
