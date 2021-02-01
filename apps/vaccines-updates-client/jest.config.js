@@ -10,4 +10,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/apps/vaccines-updates-client',
+  setupFiles: ["<rootDir>/jest/setup-globals.ts"],
 };

@@ -108,10 +108,10 @@ export const MainForm: FunctionComponent<{ className?: string }> = props => {
                 <HealthService />
                 <City />
                 <Address />
+                <WorkingHours />
                 <Age />
                 <TargetGroups />
                 <VaccinesAvailability />
-                <WorkingHours />
                 <StyledFormITem>
                     <Button
                         disabled={!canSendReport}

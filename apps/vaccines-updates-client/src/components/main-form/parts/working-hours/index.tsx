@@ -50,7 +50,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
 
     const partialEndingTime: string = useMemo(() => {
         return dateFormat(Date.now(), 'dd/mm/yyyy');
-    }, [endTime]);
+    }, []);
 
     return (
         <FormItem className={props.className}>
@@ -60,7 +60,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
                     options={timeOptions}
                     getOptionLabel={(option) => option.text}
                     renderInput={(params) => <TextField {...params} />}
-                    onChange={(_, value) => setEndTime((value as any).value)} />
+                    onChange={(_, value) => setEndTime((value as {value:string; text:any}).value)} />
                 {partialEndingTime}
             </DropdownWrapper>
         </FormItem>

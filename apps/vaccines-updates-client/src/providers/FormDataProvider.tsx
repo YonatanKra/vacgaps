@@ -14,7 +14,7 @@ export type FormDataContextProps = VaccinesReport & {
     canSendReport: boolean;
 };
 
-const FormDataContext = createContext<FormDataContextProps>({} as unknown as any);
+const FormDataContext = createContext<FormDataContextProps>({} as FormDataContextProps);
 export const useFormData = (): FormDataContextProps => useContext(FormDataContext);
 
 export const FormDataProvider: FunctionComponent = props => {
@@ -40,8 +40,8 @@ export const FormDataProvider: FunctionComponent = props => {
     }, [targetGroups]);
 
     const canSendReport: boolean = useMemo(() => {
-        return !!healthCareService && !!city && !!address && !!minimalAge && !!availableVaccines && !!endTime;
-    }, [healthCareService, city, address, minimalAge, availableVaccines, endTime]
+        return !!healthCareService && !!city && !!address && !!endTime;
+    }, [healthCareService, city, address, endTime]
     );
 
     return (
@@ -52,6 +52,8 @@ export const FormDataProvider: FunctionComponent = props => {
             setCity,
             address,
             setAddress,
+            endTime,
+            setEndTime,
             minimalAge,
             setMinimalAge,
             targetGroups,
@@ -59,8 +61,6 @@ export const FormDataProvider: FunctionComponent = props => {
             removeTargetGroup,
             availableVaccines,
             setAvailableVaccines,
-            endTime,
-            setEndTime,
             id: undefined,
             comingFeedbackCount: undefined,
             canSendReport

@@ -1,5 +1,6 @@
 import React, { FunctionComponent, createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import styled from 'styled-components';
+import { types } from 'util';
 import { LoginButton } from '../components/login';
 import { isSupervisor } from '../services/vacgaps-api-client';
 
@@ -43,7 +44,7 @@ const AuthWrapper = styled.div`
 
 const AuthenticationContext = createContext<AuthenticationContextProps>({
     isLoggedIn: false,
-} as any);
+} as unknown as AuthenticationContextProps);
 
 export const useAuthentication = (): AuthenticationContextProps => useContext(AuthenticationContext);
 
@@ -70,7 +71,6 @@ export const AuthenticationProvider: FunctionComponent = ({ children }) => {
         }
 
         setIsCheckingLoginStatus(true);
-console.log("gil", token)
         try {
             const isAuthorized = await isSupervisor(token);
             if (isAuthorized) {
@@ -94,11 +94,11 @@ console.log("gil", token)
 
     const logout = useCallback(() => {
         FB.logout(onAuthChangedSync);
-    }, [onAuthChanged]);
+    }, []);
 
     useEffect(() => {
         setIsCheckingLoginStatus(true);
-        FB.getLoginStatus(onAuthChanged)
+        FB.getLoginStatus(onAuthChanged);
         FB.Event.subscribe('auth.statusChange', onAuthChanged);
         return () => FB.Event.unsubscribe('auth.statusChange', onAuthChanged)
     }, [onAuthChanged]);
