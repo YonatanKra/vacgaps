@@ -12,9 +12,9 @@ let appTokenExpiration: number = 0;
 let userTokenCache: TokenCache = new TokenCache();
 
 export async function authenticate(
-    req: HttpRequest,
-    context: Context,
-    allowNoCredentials: boolean = false): Promise<AuthenticationResult> {
+        req: HttpRequest,
+        context: Context,
+        allowNoCredentials: boolean = false) : Promise<AuthenticationResult> {
 
     // TODO: log calls, returns and authResponse.data.data.error
 
@@ -69,21 +69,21 @@ export async function authenticate(
     );
 
     appTokenExpiration = authResponse.data.data.data_access_expires_at * FACEBOOK_EXPIRATION_TIME_FACTOR;
-
+    
     if (authResponse.status < 200 || authResponse.status >= 300) {
         context.log.error('InternalError: Facebook user access token verification request failed')
         context.res.status = 500;
         context.done();
         return NoAuthenticationResult.InternalError;
     }
-
+    
     if (!authResponse.data?.data?.is_valid) {
         context.log.info('Authentication failed: facebook responded that token not valid')
         context.res = {
             status: 401,
             body: 'Authentication failed',
         }
-
+    
         context.done();
         return NoAuthenticationResult.Failed;
     }
@@ -100,9 +100,9 @@ export class PassedAuthenticationResult {
 }
 
 export enum NoAuthenticationResult {
-    Failed = 'Failed',
-    NoCredentials = 'NoCredentials',
-    InternalError = 'InternalError',
+    Failed,
+    NoCredentials,
+    InternalError
 }
 
 export type AuthenticationResult = PassedAuthenticationResult | NoAuthenticationResult;

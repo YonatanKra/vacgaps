@@ -2,8 +2,6 @@ const fs = require('fs');
 const glob = require('glob');
 const path = require('path');
 
-!fs.existsSync('dist') && mkdirSync('dist');
-
 glob('src/*/function.json', (err, result) => {
     if (err) throw err;
     result.forEach(functionJsonFile => {
