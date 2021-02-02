@@ -1,8 +1,9 @@
-import * as FacebookAuth from '../Auth/facebook-auth';
-import { EnvironmentSettings } from '../Settings/EnvironmentSettings';
+import * as FacebookAuth from '../Services/Auth/facebook-auth';
+import { EnvironmentSettings } from '../Services/EnvironmentSettings';
 import { Context, HttpMethod, HttpRequest } from 'azure-functions-ts-essentials';
 import * as Axios from 'axios';
-import { getComingFeedbackAccessor } from '../DataAccess/accessors';
+import { getComingFeedbackAccessor, getVaccinesReportAccessor } from '../Services/DataAccess/accessors';
+import { VaccinesReports } from '../Services/DataAccess/vaccines-report';
 
 type VaccinesReport = any;
 
@@ -28,30 +29,21 @@ const httpTrigger = async function (
         return;
     }
 
-    // TODO: Extract data from DB instead
-    const reportsResponse: Axios.AxiosResponse<{reports: VaccinesReport[]}> = await Axios.default.get<{reports: VaccinesReport[]}>(
-         EnvironmentSettings.reportListUrl);
+    let reportAccessor = getVaccinesReportAccessor(context);
+    const isOnlyMinimalData: boolean = authResult === FacebookAuth.NoAuthenticationResult.NoCredentials;
+    const reports: VaccinesReports = await reportAccessor.getVaccinesReports(isOnlyMinimalData);
 
-    if (reportsResponse.status < 200 || reportsResponse.status >= 300) {
-        context.log.error('InternalError because failed to get reports: ' + reportsResponse.status)
-        context.res.status = 500;
-        context.done();
-        return;
-    }
-
-    if (authResult === FacebookAuth.NoAuthenticationResult.NoCredentials) {
-        context.log.info('No credentials, return the list with minimal data');
-        let filteredReports: Partial<VaccinesReport>[] = reportsResponse.data.reports.map(report => {
-            return {
-                city: report.city,
-                healthCareService: report.healthCareService,
-                id: report.id,
-            };
-        });
+    if (isOnlyMinimalData || reports.reports.length === 0) {
+        if (isOnlyMinimalData) {
+            context.log.info('No credentials, return the list with minimal data');
+        }
+        if (reports.reports.length === 0) {
+            context.log.info('No reports found in the date range');
+        }
 
         context.res = {
             status: 200,
-            body: JSON.stringify({reports:filteredReports}),
+            body: JSON.stringify(reports),
         };
 
         context.done();
@@ -60,11 +52,11 @@ const httpTrigger = async function (
 
     context.log.info('Authenticated, collecting missing info from DB');
 
-    const reportIds = reportsResponse.data.reports.map(report => report.id);
+    const reportIds = reports.reports.map(report => report.id);
     let comingFeedbackAccessor = getComingFeedbackAccessor(context);
     const feedbackCounts = await comingFeedbackAccessor.getFeedbackCountsForReports(reportIds);
     
-    let enrichedReports = reportsResponse.data.reports.map(report => {
+    let enrichedReports = reports.reports.map(report => {
         return {
             ...report,
             comingFeedbackCount: feedbackCounts.countByReportId[report.id] ?? 0,

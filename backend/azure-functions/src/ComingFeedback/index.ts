@@ -1,6 +1,6 @@
-import * as FacebookAuth from '../Auth/facebook-auth';
-import { getComingFeedbackAccessor } from '../DataAccess/accessors';
-import { SingleComingFeedback } from '../DataAccess/single-coming-feedback';
+import * as FacebookAuth from '../Services/Auth/facebook-auth';
+import { getComingFeedbackAccessor } from '../Services/DataAccess/accessors';
+import { SingleComingFeedback } from '../Services/DataAccess/single-coming-feedback';
 import { Context, HttpMethod, HttpRequest } from 'azure-functions-ts-essentials';
 
 const httpTrigger = async function (context: Context, req: HttpRequest): Promise<void> {

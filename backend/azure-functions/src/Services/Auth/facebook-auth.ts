@@ -1,7 +1,7 @@
 import * as Axios from 'axios';
 import { Context, HttpRequest } from 'azure-functions-ts-essentials';
-import { TokenCache, IsExpired } from './token-cache';
-import { EnvironmentSettings } from '../Settings/EnvironmentSettings';
+import { EnvironmentSettings } from '../EnvironmentSettings';
+import { IsExpired, TokenCache } from './token-cache';
 
 const FACEBOOK_EXPIRATION_TIME_FACTOR = 1000;
 const CLIENT_ID: string = '1279648522401260';
@@ -12,9 +12,10 @@ let appTokenExpiration: number = 0;
 let userTokenCache: TokenCache = new TokenCache();
 
 export async function authenticate(
-        req: HttpRequest,
-        context: Context,
-        allowNoCredentials: boolean = false) : Promise<AuthenticationResult> {
+    req: HttpRequest,
+    context: Context,
+    allowNoCredentials: boolean = false,
+    logUserId: boolean = false): Promise<AuthenticationResult> {
 
     // TODO: log calls, returns and authResponse.data.data.error
 
@@ -42,7 +43,11 @@ export async function authenticate(
 
     let userId: string | null = userTokenCache.getUserIdFromValidToken(userToken);
     if (userId != null) {
-        context.log.info('Authorization token found on cache');
+        if (logUserId) {
+            context.log.info('Authorization token found on cache for user ' + userId)
+        } else {
+            context.log.info('Authorization token found on cache');
+        }
         return new PassedAuthenticationResult(userId);
     }
 
@@ -69,21 +74,21 @@ export async function authenticate(
     );
 
     appTokenExpiration = authResponse.data.data.data_access_expires_at * FACEBOOK_EXPIRATION_TIME_FACTOR;
-    
+
     if (authResponse.status < 200 || authResponse.status >= 300) {
         context.log.error('InternalError: Facebook user access token verification request failed')
         context.res.status = 500;
         context.done();
         return NoAuthenticationResult.InternalError;
     }
-    
+
     if (!authResponse.data?.data?.is_valid) {
         context.log.info('Authentication failed: facebook responded that token not valid')
         context.res = {
             status: 401,
             body: 'Authentication failed',
         }
-    
+
         context.done();
         return NoAuthenticationResult.Failed;
     }
@@ -91,7 +96,11 @@ export async function authenticate(
     userId = authResponse.data.data.user_id;
     userTokenCache.addToken(userToken, authResponse.data.data.expires_at * FACEBOOK_EXPIRATION_TIME_FACTOR, userId);
 
-    context.log.info('Authentication passed');
+    if (logUserId) {
+        context.log.info('Authentication passed for user ' + userId);
+    } else {
+        context.log.info('Authentication passed');
+    }
     return new PassedAuthenticationResult(userId);
 }
 
@@ -100,9 +109,9 @@ export class PassedAuthenticationResult {
 }
 
 export enum NoAuthenticationResult {
-    Failed,
-    NoCredentials,
-    InternalError
+    Failed = 'Failed',
+    NoCredentials = 'NoCredentials',
+    InternalError = 'InternalError',
 }
 
 export type AuthenticationResult = PassedAuthenticationResult | NoAuthenticationResult;
