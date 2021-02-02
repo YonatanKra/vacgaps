@@ -1,8 +1,8 @@
-import { EnvironmentSettings } from '../EnvironmentSettings';
-import { CosmosClient, CosmosClientOptions, Container } from '@azure/cosmos';
 import * as https from 'https';
+import { CosmosClient, CosmosClientOptions } from '@azure/cosmos';
 import { ComingFeedbackAccessor } from './coming-feedback-accessor';
 import { Context } from 'azure-functions-ts-essentials';
+import { EnvironmentSettings } from '../EnvironmentSettings';
 import { VaccinesReportAccessor } from './vaccines-report-accessor';
 
 export type SingleComingFeedback = {
