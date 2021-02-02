@@ -1,7 +1,7 @@
 import * as Axios from 'axios';
 import { Context, HttpRequest } from 'azure-functions-ts-essentials';
 import { TokenCache, IsExpired } from './token-cache';
-import { EnvironmentSettings } from '../Settings/EnvironmentSettings';
+import { EnvironmentSettings } from '../EnvironmentSettings';
 
 const FACEBOOK_EXPIRATION_TIME_FACTOR = 1000;
 const CLIENT_ID: string = '1279648522401260';

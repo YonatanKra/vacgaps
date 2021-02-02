@@ -1,9 +1,9 @@
-import * as FacebookAuth from '../Auth/facebook-auth';
-import { EnvironmentSettings } from '../Settings/EnvironmentSettings';
+import * as FacebookAuth from '../Services/Auth/facebook-auth';
+import { EnvironmentSettings } from '../Services/EnvironmentSettings';
 import { Context, HttpMethod, HttpRequest } from 'azure-functions-ts-essentials';
 import * as Axios from 'axios';
-import { getComingFeedbackAccessor, getVaccinesReportAccessor } from '../DataAccess/accessors';
-import { VaccinesReports } from '../DataAccess/vaccines-report';
+import { getComingFeedbackAccessor, getVaccinesReportAccessor } from '../Services/DataAccess/accessors';
+import { VaccinesReports } from '../Services/DataAccess/vaccines-report';
 
 type VaccinesReport = any;
 

@@ -1,7 +1,7 @@
-import { PassedAuthenticationResult, authenticate } from '../Auth/facebook-auth';
+import { PassedAuthenticationResult, authenticate } from '../Services/Auth/facebook-auth';
 import { Context, HttpMethod, HttpRequest } from 'azure-functions-ts-essentials';
-import { VaccinesReportAccessor } from '../DataAccess/vaccines-report-accessor';
-import { getVaccinesReportAccessor } from '../DataAccess/accessors';
+import { VaccinesReportAccessor } from '../Services/DataAccess/vaccines-report-accessor';
+import { getVaccinesReportAccessor } from '../Services/DataAccess/accessors';
 import { isSupervisor } from '../Services/is-supervisor';
 
 const Report = async function (context: Context, req: HttpRequest): Promise<void> {

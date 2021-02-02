@@ -1,9 +1,13 @@
-import { PassedAuthenticationResult, authenticate } from '../Auth/facebook-auth';
+import { PassedAuthenticationResult, authenticate } from '../Services/Auth/facebook-auth';
 import { Context, HttpRequest } from 'azure-functions-ts-essentials';
 import { isSupervisor } from '../Services/is-supervisor';
 
 const IsSupervisor = async function (context: Context, req: HttpRequest): Promise<void> {
-  const authenticatedUser: PassedAuthenticationResult = await authenticate(req, context, true) as PassedAuthenticationResult;
+  const authenticatedUser: PassedAuthenticationResult = await authenticate(
+    req,
+    context,
+    /*allowNoCredentials=*/true,
+    /*logUserId=*/true) as PassedAuthenticationResult;
   if (!(authenticatedUser instanceof PassedAuthenticationResult)) {
     context.log.info("IsSupervisor: User not authenticated");
   }

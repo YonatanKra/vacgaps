@@ -1,4 +1,4 @@
-import { EnvironmentSettings } from '../Settings/EnvironmentSettings';
+import { EnvironmentSettings } from '../EnvironmentSettings';
 import { CosmosClient, CosmosClientOptions, Container } from '@azure/cosmos';
 import * as https from 'https';
 import { ComingFeedbackAccessor } from './coming-feedback-accessor';
