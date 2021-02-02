@@ -6,10 +6,12 @@ const IsSupervisor = async function (context: Context, req: HttpRequest): Promis
   const authenticatedUser: PassedAuthenticationResult = await authenticate(
     req,
     context,
-    /*allowNoCredentials=*/true,
+    /*allowNoCredentials=*/false,
     /*logUserId=*/true) as PassedAuthenticationResult;
+  
   if (!(authenticatedUser instanceof PassedAuthenticationResult)) {
     context.log.info("IsSupervisor: User not authenticated");
+    return;
   }
 
   const userId = authenticatedUser.userId;
