@@ -94,7 +94,7 @@ export const AuthenticationProvider: FunctionComponent = ({ children }) => {
 
     const logout = useCallback(() => {
         FB.logout(onAuthChangedSync);
-    }, []);
+    }, [onAuthChangedSync]);
 
     useEffect(() => {
         setIsCheckingLoginStatus(true);

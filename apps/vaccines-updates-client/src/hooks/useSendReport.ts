@@ -20,11 +20,12 @@ export const useSendReport: () => () => Promise<void> = () => {
             targetGroups: formData.targetGroups,
             minimalAge: formData.minimalAge,
             reporter: formData.reporter,
+            comments: formData.comments,
             availableVaccines: formData.availableVaccines,
             id: formData.id,
             comingFeedbackCount: formData.comingFeedbackCount,
         };
 
         return sendReport(report, token);
-    }, [formData]);
+    }, [formData, token]);
 };

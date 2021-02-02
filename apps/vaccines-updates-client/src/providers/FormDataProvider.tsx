@@ -11,6 +11,7 @@ export type FormDataContextProps = VaccinesReport & {
     removeTargetGroup: (value: TargetGroup) => void;
     setAvailableVaccines: (newValue: number) => void;
     setEndTime: (newValue: string) => void;
+    setComments: (newValue: string) => void;
     canSendReport: boolean;
 };
 
@@ -25,6 +26,7 @@ export const FormDataProvider: FunctionComponent = props => {
     const [targetGroups, setTargetGroups] = useState<TargetGroup[]>([]);
     const [availableVaccines, setAvailableVaccines] = useState<number>();
     const [endTime, setEndTime] = useState<string>();
+    const [comments, setComments] = useState<string>();
 
     const addTargetGroup = useCallback((group: TargetGroup) => {
         setTargetGroups([...targetGroups, group]);
@@ -61,6 +63,8 @@ export const FormDataProvider: FunctionComponent = props => {
             removeTargetGroup,
             availableVaccines,
             setAvailableVaccines,
+            comments,
+            setComments,
             id: undefined,
             comingFeedbackCount: undefined,
             canSendReport

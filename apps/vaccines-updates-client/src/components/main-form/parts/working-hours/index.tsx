@@ -60,7 +60,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
                     options={timeOptions}
                     getOptionLabel={(option) => option.text}
                     renderInput={(params) => <TextField {...params} />}
-                    onChange={(_, value) => setEndTime((value as {value:string; text:any}).value)} />
+                    onChange={(_, value) => setEndTime((value as {value:string}).value)} />
                 {partialEndingTime}
             </DropdownWrapper>
         </FormItem>

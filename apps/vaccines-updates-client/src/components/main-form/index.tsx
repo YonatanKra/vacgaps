@@ -7,6 +7,7 @@ import Age from './parts/age';
 import TargetGroups from './parts/target-groups';
 import VaccinesAvailability from './parts/vaccines-availability';
 import WorkingHours from './parts/working-hours';
+import Comments from './parts/comments';
 import { FormItem } from './form-item';
 import { Button } from '@material-ui/core';
 import { useSendReport } from '../../hooks/useSendReport';
@@ -112,6 +113,7 @@ export const MainForm: FunctionComponent<{ className?: string }> = props => {
                 <Age />
                 <TargetGroups />
                 <VaccinesAvailability />
+                <Comments />
                 <StyledFormITem>
                     <Button
                         disabled={!canSendReport}
@@ -119,7 +121,7 @@ export const MainForm: FunctionComponent<{ className?: string }> = props => {
                         color="primary"
                         onClick={onSendClicked}>שלח</Button>
                     <FormStateWrapper>
-                        {formState === 'has-error' && <label data-error>איראה שגיאה</label>}
+                        {formState === 'has-error' && <label data-error>אירעה שגיאה</label>}
                         {formState === 'sent' && <label data-success>נשלח בהצלחה !</label>}
                     </FormStateWrapper>
                 </StyledFormITem>

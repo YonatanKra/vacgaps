@@ -23,7 +23,7 @@ const Comp: FunctionComponent<Props> = props => {
                 options={dropDownOptions}
                 getOptionLabel={(option) => option.text}
                 renderInput={(params) => <TextField {...params} />}
-                onChange={(_, value) => setCity((value as {value:string; text:any}).value)}
+                onChange={(_, value) => setCity((value as {value:string}).value)}
             />
         </FormItem>
     );
