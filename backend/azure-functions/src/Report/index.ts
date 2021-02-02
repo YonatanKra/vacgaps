@@ -1,11 +1,15 @@
 import { PassedAuthenticationResult, authenticate } from '../Auth/facebook-auth';
-import { Context, HttpRequest } from 'azure-functions-ts-essentials';
+import { Context, HttpMethod, HttpRequest } from 'azure-functions-ts-essentials';
 import { VaccinesReportAccessor } from '../DataAccess/vaccines-report-accessor';
 import { getVaccinesReportAccessor } from '../DataAccess/accessors';
 import { isSupervisor } from '../Services/is-supervisor';
 
 const Report = async function (context: Context, req: HttpRequest): Promise<void> {
-    const authenticatedUser: PassedAuthenticationResult = await authenticate(req, context, true) as PassedAuthenticationResult;
+    const authenticatedUser: PassedAuthenticationResult = await authenticate(
+        req,
+        context,
+        /*allowNoCredentials=*/true,
+        /*logUserId=*/req.method === HttpMethod.Put) as PassedAuthenticationResult;
     if (!(authenticatedUser instanceof PassedAuthenticationResult)) {
         context.log.info("Report: Unauthenticated call");
         return;

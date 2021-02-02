@@ -33,8 +33,13 @@ const httpTrigger = async function (
     const isOnlyMinimalData: boolean = authResult === FacebookAuth.NoAuthenticationResult.NoCredentials;
     const reports: VaccinesReports = await reportAccessor.getVaccinesReports(isOnlyMinimalData);
 
-    if (isOnlyMinimalData) {
-        context.log.info('No credentials, return the list with minimal data');
+    if (isOnlyMinimalData || reports.reports.length === 0) {
+        if (isOnlyMinimalData) {
+            context.log.info('No credentials, return the list with minimal data');
+        }
+        if (reports.reports.length === 0) {
+            context.log.info('No reports found in the date range');
+        }
 
         context.res = {
             status: 200,

@@ -14,7 +14,8 @@ let userTokenCache: TokenCache = new TokenCache();
 export async function authenticate(
     req: HttpRequest,
     context: Context,
-    allowNoCredentials: boolean = false): Promise<AuthenticationResult> {
+    allowNoCredentials: boolean = false,
+    logUserId: boolean = false): Promise<AuthenticationResult> {
 
     // TODO: log calls, returns and authResponse.data.data.error
 
@@ -42,7 +43,11 @@ export async function authenticate(
 
     let userId: string | null = userTokenCache.getUserIdFromValidToken(userToken);
     if (userId != null) {
-        context.log.info('Authorization token found on cache');
+        if (logUserId) {
+            context.log.info('Authorization token found on cache for user ' + userId)
+        } else {
+            context.log.info('Authorization token found on cache');
+        }
         return new PassedAuthenticationResult(userId);
     }
 
@@ -91,7 +96,11 @@ export async function authenticate(
     userId = authResponse.data.data.user_id;
     userTokenCache.addToken(userToken, authResponse.data.data.expires_at * FACEBOOK_EXPIRATION_TIME_FACTOR, userId);
 
-    context.log.info('Authentication passed');
+    if (logUserId) {
+        context.log.info('Authentication passed for user ' + userId);
+    } else {
+        context.log.info('Authentication passed');
+    }
     return new PassedAuthenticationResult(userId);
 }
 
