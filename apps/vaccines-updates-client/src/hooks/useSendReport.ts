@@ -8,7 +8,7 @@ export const useSendReport: () => () => Promise<void> = () => {
     const { token } = useAuthentication();
 
     return useCallback(() => {
-        if (!token) throw {error: 'not authorized'};
+        if (!token) throw new Error('not authorized');
 
         const report: VaccinesReport = {
             city: formData.city,
