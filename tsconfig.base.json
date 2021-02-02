@@ -26,7 +26,10 @@
       "@vacgaps/vaccines-reporter": ["libs/vaccines-reporter/src/index.ts"],
       "@vacgaps/fb-login": ["libs/fb-login/src/index.ts"],
       "@vacgaps/login-modal": ["libs/login-modal/src/index.ts"]
-    }
+    },
+    "types": [
+      "facebook-js-sdk"
+    ]
   },
   "exclude": [
     "node_modules",

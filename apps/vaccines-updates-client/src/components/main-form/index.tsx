@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useCallback, useState } from 'react';
 import HealthService from './parts/health-service';
 import City from './parts/city';
 import Address from './parts/address';
@@ -7,17 +7,19 @@ import Age from './parts/age';
 import TargetGroups from './parts/target-groups';
 import VaccinesAvailability from './parts/vaccines-availability';
 import WorkingHours from './parts/working-hours';
+import Comments from './parts/comments';
 import { FormItem } from './form-item';
 import { Button } from '@material-ui/core';
-
+import { useSendReport } from '../../hooks/useSendReport';
 import * as logo from './resources/logo.jpeg';
+import { useFormData } from '../../providers';
 
 const Container = styled.div`   
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 50px;
+    padding: 40px;
     border: 1px solid lightgray;
     border-radius: 20px;
     background-color:white;
@@ -58,27 +60,47 @@ const FormInputsWrapper = styled.div`
         border-bottom: 1px solid #00000011;
         &:last-child {
             border: none;
+            padding-bottom: 0;
         }
     }
 `;
 
-const TextButton = styled.button`
-    outline: none;
-    border: none;
-    background-color: transparent;
-    width: auto;
-    text-decoration: underline;
-    font-size: 14px;
-    color: gray;
-    padding: 4px 10px;
-    cursor: pointer;
+const StyledFormITem = styled(FormItem)`
+    display: flex;
+    flex-direction: column;
 `;
 
-type Props = {
-    className?: string;
-}
+const FormStateWrapper = styled.label`
+    margin: 5px;
 
-export const MainForm: FunctionComponent<Props> = props => {
+    * {
+        &[data-success] {
+            color: green;
+        }
+        &[data-error] {
+            color: orange;
+        }
+    }
+`;
+
+type FormState = 'idle' | 'sending' | 'sent' | 'has-error';
+
+export const MainForm: FunctionComponent<{ className?: string }> = props => {
+    const sendReport = useSendReport();
+    const [formState, setFormState] = useState<FormState>('idle');
+
+    const onSendClicked = useCallback(async () => {
+        try {
+            setFormState('sending')
+            await sendReport();
+            setFormState('sent')
+        } catch (error) {
+            setFormState('has-error')
+        }
+    }, [sendReport]);
+
+    const { canSendReport } = useFormData();
+
     return (
         <Container className={props.className}>
             <Logo src={logo.default}></Logo>
@@ -87,11 +109,22 @@ export const MainForm: FunctionComponent<Props> = props => {
                 <HealthService />
                 <City />
                 <Address />
+                <WorkingHours />
                 <Age />
                 <TargetGroups />
                 <VaccinesAvailability />
-                <WorkingHours />
-                <FormItem><Button variant="contained" color="primary">שלח</Button></FormItem>
+                <Comments />
+                <StyledFormITem>
+                    <Button
+                        disabled={!canSendReport}
+                        variant="contained"
+                        color="primary"
+                        onClick={onSendClicked}>שלח</Button>
+                    <FormStateWrapper>
+                        {formState === 'has-error' && <label data-error>אירעה שגיאה</label>}
+                        {formState === 'sent' && <label data-success>נשלח בהצלחה !</label>}
+                    </FormStateWrapper>
+                </StyledFormITem>
             </FormInputsWrapper>
         </Container >
     );

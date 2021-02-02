@@ -3,4 +3,5 @@
 
 export const environment = {
   production: false,
+  vacGapsApiUrl: 'http://localhost:7071/api',
 };

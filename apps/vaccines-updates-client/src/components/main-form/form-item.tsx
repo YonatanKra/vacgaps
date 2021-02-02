@@ -6,7 +6,7 @@ export const FormItem = styled.div`
     justify-content: center;
     width: 100%;
     max-width: 500px;
-    padding: 5px 20px;
+    padding: 10px;
     align-items: center;
 
     >*{

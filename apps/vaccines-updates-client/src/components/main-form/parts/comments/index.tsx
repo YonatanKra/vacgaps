@@ -4,12 +4,12 @@ import { useFormData } from '../../../../providers/FormDataProvider';
 import { TextField } from '@material-ui/core';
 
 const Comp: FunctionComponent<{ className?: string; }> = props => {
-    const { setAddress, address } = useFormData();
+    const { setComments, comments } = useFormData();
 
     return (
         <FormItem className={props.className}>
-            <h3>כתובת</h3>
-            <TextField onChange={_ => setAddress(_.target.value)} />
+            <h3>הערות</h3>
+            <TextField onChange={_ => setComments(_.target.value)} />
         </FormItem>
     );
 };

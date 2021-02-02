@@ -1,16 +1,8 @@
-import React, { createContext, FunctionComponent, useState, useContext, useCallback } from 'react';
+import React, { createContext, FunctionComponent, useState, useContext, useCallback, useMemo } from 'react';
 import { TargetGroup } from '@vacgaps/constants';
 import { VaccinesReport } from '@vacgaps/interfaces';
 
 export type FormDataContextProps = VaccinesReport & {
-    // healthCareService: string;
-    // city: string;
-    // address: string;
-    // minimumAge: number;
-    // targetGroups: TargetGroup[];
-    // availableVaccines: number;
-    // endingTime: number;
-
     setHealthCareService: (newValue: string) => void;
     setCity: (newValue: string) => void;
     setAddress: (newValue: string) => void;
@@ -19,9 +11,11 @@ export type FormDataContextProps = VaccinesReport & {
     removeTargetGroup: (value: TargetGroup) => void;
     setAvailableVaccines: (newValue: number) => void;
     setEndTime: (newValue: string) => void;
+    setComments: (newValue: string) => void;
+    canSendReport: boolean;
 };
 
-const FormDataContext = createContext<FormDataContextProps>({} as unknown as any);
+const FormDataContext = createContext<FormDataContextProps>({} as FormDataContextProps);
 export const useFormData = (): FormDataContextProps => useContext(FormDataContext);
 
 export const FormDataProvider: FunctionComponent = props => {
@@ -32,6 +26,7 @@ export const FormDataProvider: FunctionComponent = props => {
     const [targetGroups, setTargetGroups] = useState<TargetGroup[]>([]);
     const [availableVaccines, setAvailableVaccines] = useState<number>();
     const [endTime, setEndTime] = useState<string>();
+    const [comments, setComments] = useState<string>();
 
     const addTargetGroup = useCallback((group: TargetGroup) => {
         setTargetGroups([...targetGroups, group]);
@@ -46,6 +41,11 @@ export const FormDataProvider: FunctionComponent = props => {
         setTargetGroups(newTargetGroups);
     }, [targetGroups]);
 
+    const canSendReport: boolean = useMemo(() => {
+        return !!healthCareService && !!city && !!address && !!endTime;
+    }, [healthCareService, city, address, endTime]
+    );
+
     return (
         <FormDataContext.Provider value={{
             healthCareService,
@@ -54,6 +54,8 @@ export const FormDataProvider: FunctionComponent = props => {
             setCity,
             address,
             setAddress,
+            endTime,
+            setEndTime,
             minimalAge,
             setMinimalAge,
             targetGroups,
@@ -61,8 +63,11 @@ export const FormDataProvider: FunctionComponent = props => {
             removeTargetGroup,
             availableVaccines,
             setAvailableVaccines,
-            endTime,
-            setEndTime,
+            comments,
+            setComments,
+            id: undefined,
+            comingFeedbackCount: undefined,
+            canSendReport
         }}>
             {props.children}
         </FormDataContext.Provider>

@@ -34,4 +34,10 @@
       <mat-label class="field-value">{{ report?.comingFeedbackCount || 0 }} אישרו הגעה בשעה האחרונה</mat-label>
     </mat-grid-tile>
   </mat-grid-list>
+  <mat-grid-list cols="1" [rowHeight]="rowHeight">
+    <mat-grid-tile>
+      <mat-label class="field-name">הערות:</mat-label>
+      <mat-label class="field-value">{{ report?.comments }}</mat-label>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>
