@@ -9,6 +9,7 @@ export type VaccinesReport = {
     minimalAge?: number;
     reporter?: string;
     availableVaccines?: number;
+    comments?: string;
     id: string;
     comingFeedbackCount: number;
   }

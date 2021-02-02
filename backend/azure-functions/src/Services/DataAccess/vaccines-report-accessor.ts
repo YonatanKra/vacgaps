@@ -24,7 +24,7 @@ export class VaccinesReportAccessor {
 
     private getStartOfDayForSql() {
         let minTime = new Date(Date.now());
-        minTime.setHours(0);
+        minTime.setHours(-3); // Capture timezone diff against GMT
         minTime.setMinutes(0);
         minTime.setSeconds(0);
         return minTime.toISOString();
