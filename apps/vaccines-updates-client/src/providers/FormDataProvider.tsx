@@ -2,7 +2,8 @@ import React, { createContext, FunctionComponent, useState, useContext, useCallb
 import { TargetGroup } from '@vacgaps/constants';
 import { VaccinesReport } from '@vacgaps/interfaces';
 
-export type FormDataContextProps = VaccinesReport & {
+
+export type FormDataContextProps = Omit<VaccinesReport, "id"> & {
     setHealthCareService: (newValue: string) => void;
     setCity: (newValue: string) => void;
     setAddress: (newValue: string) => void;
@@ -12,8 +13,15 @@ export type FormDataContextProps = VaccinesReport & {
     setAvailableVaccines: (newValue: number) => void;
     setEndTime: (newValue: string) => void;
     setComments: (newValue: string) => void;
+
+    reportToEdit: ReportIdOrNew;
+    setReportToEdit: (newValue: ReportIdOrNew) => void;
+    
     canSendReport: boolean;
 };
+
+export type ReportIdOrNew = { reportId: string } | 'NewReport';
+export const NewReport: ReportIdOrNew = 'NewReport';
 
 const FormDataContext = createContext<FormDataContextProps>({} as FormDataContextProps);
 export const useFormData = (): FormDataContextProps => useContext(FormDataContext);
@@ -27,6 +35,7 @@ export const FormDataProvider: FunctionComponent = props => {
     const [availableVaccines, setAvailableVaccines] = useState<number>();
     const [endTime, setEndTime] = useState<string>();
     const [comments, setComments] = useState<string>();
+    const [reportToEdit, setReportToEdit] = useState<ReportIdOrNew>(NewReport);
 
     const addTargetGroup = useCallback((group: TargetGroup) => {
         setTargetGroups([...targetGroups, group]);
@@ -65,7 +74,8 @@ export const FormDataProvider: FunctionComponent = props => {
             setAvailableVaccines,
             comments,
             setComments,
-            id: undefined,
+            reportToEdit,
+            setReportToEdit,
             comingFeedbackCount: undefined,
             canSendReport
         }}>

@@ -1,5 +1,5 @@
 import { VaccinesReport } from '@vacgaps/interfaces';
-import { useAuthentication, useFormData } from '../providers';
+import { NewReport, useAuthentication, useFormData } from '../providers';
 import { useCallback } from 'react';
 import { sendReport } from '../services/vacgaps-api-client';
 
@@ -22,7 +22,7 @@ export const useSendReport: () => () => Promise<void> = () => {
             reporter: formData.reporter,
             comments: formData.comments,
             availableVaccines: formData.availableVaccines,
-            id: formData.id,
+            id: formData.reportToEdit === NewReport ? undefined : (formData.reportToEdit as {reportId: string}).reportId,
             comingFeedbackCount: formData.comingFeedbackCount,
         };
 

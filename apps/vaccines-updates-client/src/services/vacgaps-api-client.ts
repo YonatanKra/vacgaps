@@ -16,6 +16,19 @@ export async function sendReport(report: VaccinesReport, facebookAccessToken: st
     });
 }
 
+export async function getReports(facebookAccessToken: string): Promise<{reports: VaccinesReport[]}> {
+    try {
+        const response = await httpClient.get('/Reports', {
+            ...getFacebookAuthTokenHeader(facebookAccessToken)
+        });
+
+        return response.status === 200 && response.data;
+    }
+    catch {
+        return {reports: []};
+    }
+}
+
 export async function isSupervisor(facebookAccessToken: string): Promise<boolean> {
     try {
         const response = await httpClient.get('/isSupervisor', {

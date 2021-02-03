@@ -5,11 +5,16 @@ import { Context } from 'azure-functions-ts-essentials';
 export class VaccinesReportAccessor {
     constructor(private reportContainer: Container, private context: Context) {}
 
-    async create(report: VaccinesReport) {
-        await this.reportContainer.items.create({
+    async create(report: VaccinesReport): Promise<{id: string}> {
+        const response = await this.reportContainer.items.create({
             id: undefined,
             ...report
         });
+        return {id: response.item.id};
+    }
+
+    async replace(report: VaccinesReport) {
+        await this.reportContainer.item(report.id, report.address).replace(report);
     }
 
     async getVaccinesReports(isOnlyMinimalData: boolean): Promise<VaccinesReports> {

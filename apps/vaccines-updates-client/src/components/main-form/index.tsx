@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React, { FunctionComponent, useCallback, useState } from 'react';
+import ReportToEdit  from './parts/report-to-edit';
 import HealthService from './parts/health-service';
 import City from './parts/city';
 import Address from './parts/address';
@@ -106,6 +107,7 @@ export const MainForm: FunctionComponent<{ className?: string }> = props => {
             <Logo src={logo.default}></Logo>
             <h1>הכנסת פרטי חיסונים זמינים</h1>
             <FormInputsWrapper>
+                <ReportToEdit />
                 <HealthService />
                 <City />
                 <Address />

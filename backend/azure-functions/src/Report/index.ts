@@ -21,12 +21,21 @@ const Report = async function (context: Context, req: HttpRequest): Promise<void
     }
 
     let vaccinesReportAccessor: VaccinesReportAccessor = getVaccinesReportAccessor(context);
-    vaccinesReportAccessor.create(req.body);
-
-    context.res = {
-        status: 200,
-        body: ('report saved'),
-    };
+    if (req.body.id) {
+        context.log.info('Replacing report ' + req.body.id);
+        await vaccinesReportAccessor.replace(req.body);
+        context.res = {
+            status: 200,
+            body: {createdReportId: req.body.id},
+        };
+    } else {
+        context.log.info('Creating report');
+        const newReportId = (await vaccinesReportAccessor.create(req.body)).id;
+        context.res = {
+            status: 200,
+            body: {newReportId},
+        };
+    }
 
     context.done();
 };
