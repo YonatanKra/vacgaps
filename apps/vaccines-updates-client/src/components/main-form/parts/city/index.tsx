@@ -30,9 +30,13 @@ const Comp: FunctionComponent<Props> = props => {
             <h3>עיר</h3>
             <Autocomplete<CityOption>
                 options={dropDownOptions}
-                getOptionLabel={(option) => option.text}
+                getOptionLabel={(option) => {
+                    return option.text;
+                }}
                 renderInput={(params) => <TextField {...params} />}
-                onChange={(_, value) => setCity((value as CityOption)?.value)}
+                onChange={(_, value) => {
+                    return setCity((value as CityOption)?.value);
+                }}
                 value={getOption(city)}
             />
         </FormItem>

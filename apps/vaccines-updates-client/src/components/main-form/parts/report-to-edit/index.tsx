@@ -8,6 +8,10 @@ import styled from 'styled-components';
 import React, { FunctionComponent, useCallback } from 'react';
 import { VaccinesReport } from '@vacgaps/interfaces';
 
+type ReportOption = {
+    text: string;
+    report: ReportOrNew;
+}
 
 const Comp: FunctionComponent<{ className?: string; }> = props => {
     const getReports = useGetReports();
@@ -40,14 +44,45 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
         formData.setMinimalAge(existingReport.minimalAge);
     };
 
+    function getReportOptions(reports: ReportOrNew[]): ReportOption[] {
+        const newReportOption: ReportOption = {
+            text: 'הוסף דיווח חדש',
+            report: NewReport,
+        };
+
+        if (!reports) {
+            return [newReportOption];
+        }
+
+        let alreadySeenText: {[text: string]: boolean} = {};
+        return reports.map(report => {
+            if (report === NewReport) {
+                return newReportOption;
+            }
+
+            let text = CITIES[report.report.city].name;
+            let nextIndex = 1;
+            while (alreadySeenText[text]) {
+                text = CITIES[report.report.city].name + ' (' + (++nextIndex) + ')';
+            }
+
+            alreadySeenText[text] = true;
+
+            return {
+                text,
+                report,
+            }
+        });
+    }
+
     return (
         <FormItem className={props.className}>
             <h3>בחירת דיווח לעריכה:</h3>
-            <Autocomplete<ReportOrNew>
-                options={formData.availableReportsToEdit?.reports ?? [NewReport]}
-                getOptionLabel={(option) => option === NewReport ? 'הוסף דיווח חדש' : CITIES[option.report.city].name}
+            <Autocomplete<{text: string, report: ReportOrNew}>
+                options={getReportOptions(formData.availableReportsToEdit?.reports)}
+                getOptionLabel={option => option?.text}
                 renderInput={(params) => <TextField {...params} />}
-                onChange={(_, value) => setReportToEdit(value as ReportOrNew)}
+                onChange={(_, value) => setReportToEdit((value as {report: ReportOrNew})?.report ?? NewReport)}
             />
             <Button onClick={refreshReports}>רענן דיווחים</Button>
         </FormItem>

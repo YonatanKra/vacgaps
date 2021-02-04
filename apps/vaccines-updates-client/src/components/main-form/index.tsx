@@ -15,6 +15,8 @@ import { Button } from '@material-ui/core';
 import { useSendReport } from '../../hooks/useSendReport';
 import * as logo from './resources/logo.jpeg';
 import { useFormData } from '../../providers';
+import { NewReport } from '../../providers';
+import { VaccinesReport } from '@vacgaps/interfaces';
 
 const Container = styled.div`   
     display: flex;
@@ -91,17 +93,28 @@ export const MainForm: FunctionComponent<{ className?: string }> = props => {
     const sendReport = useSendReport();
     const [formState, setFormState] = useState<FormState>('idle');
 
+    const { canSendReport, availableReportsToEdit, setAvailableReportsToEdit, setReportIdToEdit } = useFormData();
+
     const onSendClicked = useCallback(async () => {
         try {
-            setFormState('sending')
-            await sendReport();
-            setFormState('sent')
+            setFormState('sending');
+            const report = await sendReport();
+            setFormState('sent');
+
+            setReportIdToEdit(NewReport);
+            if (report.id) {
+                const index = availableReportsToEdit.reports.findIndex(r =>
+                     (r as {report: VaccinesReport}).report?.id?.pKey === report.id.pKey &&
+                     (r as {report: VaccinesReport}).report?.id?.internalId === report.id.internalId);
+                availableReportsToEdit.reports[index] = {report};
+            } else {
+                availableReportsToEdit.reports.push({report});
+            }
+            setAvailableReportsToEdit(availableReportsToEdit);
         } catch (error) {
-            setFormState('has-error')
+            setFormState('has-error');
         }
     }, [sendReport]);
-
-    const { canSendReport } = useFormData();
 
     return (
         <Container className={props.className}>

@@ -15,11 +15,13 @@ for (let hour = 0; hour <= 23; hour++) {
 
         now.setHours(hour);
         now.setMinutes(minute);
-        timeOptions.push(formatDateOption(now));
+        now.setSeconds(0);
+        now.setMilliseconds(0);
+        timeOptions.push(getDateOption(now));
     }
 }
 
-function formatDateOption(date: Date) {
+function getDateOption(date: Date) {
     const hour: number = date.getHours();
     const minute: number = date.getMinutes();
     const formatHour: string = hour < 10 ? `0${hour}` : `${hour}`;
@@ -27,7 +29,7 @@ function formatDateOption(date: Date) {
     const text = `${formatHour}:${formatMinute}`;
     return {
         text,
-        value: now.toJSON(),
+        value: date.toJSON(),
     };
 }
 
@@ -62,7 +64,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
                     getOptionLabel={(option) => option.text}
                     renderInput={(params) => <TextField {...params} />}
                     onChange={(_, value) => setEndTime((value as {value:string}).value)}
-                    value={formatDateOption(new Date(endTime))}
+                    value={getDateOption(new Date(endTime))}
                 />
                 {partialEndingTime}
             </DropdownWrapper>

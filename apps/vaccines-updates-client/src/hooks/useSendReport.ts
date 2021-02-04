@@ -3,11 +3,11 @@ import { NewReport, useAuthentication, useFormData } from '../providers';
 import { useCallback } from 'react';
 import { sendReport } from '../services/vacgaps-api-client';
 
-export const useSendReport: () => () => Promise<void> = () => {
+export const useSendReport: () => () => Promise<VaccinesReport> = () => {
     const formData = useFormData();
     const { token } = useAuthentication();
 
-    return useCallback(() => {
+    return useCallback(async () => {
         if (!token) throw new Error('not authorized');
 
         const report: VaccinesReport = {
@@ -27,6 +27,8 @@ export const useSendReport: () => () => Promise<void> = () => {
             comingFeedbackCount: formData.comingFeedbackCount,
         };
 
-        return sendReport(report, token);
+        await sendReport(report, token);
+
+        return report;
     }, [formData, token]);
 };

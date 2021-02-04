@@ -31,13 +31,19 @@ const FormDataContext = createContext<FormDataContextProps>({} as FormDataContex
 export const useFormData = (): FormDataContextProps => useContext(FormDataContext);
 
 export const FormDataProvider: FunctionComponent = props => {
+    let initialEndTime = new Date();
+    initialEndTime.setHours(20);
+    initialEndTime.setMinutes(0);
+    initialEndTime.setSeconds(0);
+    initialEndTime.setMilliseconds(0);
+
     const [healthCareService, setHealthCareService] = useState<string>();
     const [city, setCity] = useState<string>();
     const [address, setAddress] = useState<string>();
     const [minimalAge, setMinimalAge] = useState<number>();
     const [targetGroups, setTargetGroups] = useState<TargetGroup[]>([]);
     const [availableVaccines, setAvailableVaccines] = useState<number>();
-    const [endTime, setEndTime] = useState<string>();
+    const [endTime, setEndTime] = useState<string>(initialEndTime.toJSON());
     const [comments, setComments] = useState<string>();
     const [hideReport, setHideReport] = useState<boolean>();
 

@@ -27,7 +27,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
                 <Checkbox
                     id='hideCheck'
                     onChange={_ => setHideReport(_.target.checked)}
-                    checked={hideReport}
+                    checked={!!hideReport}
                 />
                 <label htmlFor='hideCheck'>הסתר דיווח</label>
             </HideReportContainer>
