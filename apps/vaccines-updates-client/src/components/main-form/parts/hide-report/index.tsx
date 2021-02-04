@@ -24,7 +24,11 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
         <FormItem className={props.className}>
             <h3>הסתרה</h3>
             <HideReportContainer>
-                <Checkbox id='hideCheck' onChange={_ => setHideReport(_.target.checked)} />
+                <Checkbox
+                    id='hideCheck'
+                    onChange={_ => setHideReport(_.target.checked)}
+                    checked={hideReport}
+                />
                 <label htmlFor='hideCheck'>הסתר דיווח</label>
             </HideReportContainer>
         </FormItem>

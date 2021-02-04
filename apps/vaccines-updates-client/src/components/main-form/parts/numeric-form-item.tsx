@@ -8,6 +8,7 @@ type Props = {
     onChange: (value: number) => void;
     title: string;
     maxValue?: number;
+    value?: number;
 };
 
 function isNumeric(value: string): boolean {
@@ -46,7 +47,8 @@ const Comp: FunctionComponent<Props> = props => {
                 placeholder={`הכנס ${props.title}`}
                 onChange={args => onValueChange(args.target.value)}
                 helperText={error}
-                error={!!error} />
+                error={!!error}
+                value={props.value} />
         </FormItem>
     );
 };

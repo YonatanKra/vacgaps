@@ -12,7 +12,7 @@ import { VaccinesReport } from '@vacgaps/interfaces';
 const Comp: FunctionComponent<{ className?: string; }> = props => {
     const getReports = useGetReports();
     const formData = useFormData();
-    const onRefreshReportsClicked = useCallback(async () => {
+    const refreshReports = useCallback(async () => {
         // TODO: Error treatment
         const reportsResponse = await getReports();
         const reports: ReportOrNew[] = reportsResponse.reports.map(report => {
@@ -23,7 +23,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
     }, [getReports]);
 
     const setReportToEdit: (report: ReportOrNew) => void = report => {
-        if (report === NewReport) {
+        if (!report || report === NewReport) {
             formData.setReportIdToEdit(NewReport);
             return;
         }
@@ -43,13 +43,13 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
     return (
         <FormItem className={props.className}>
             <h3>בחירת דיווח לעריכה:</h3>
-            <Autocomplete
+            <Autocomplete<ReportOrNew>
                 options={formData.availableReportsToEdit?.reports ?? [NewReport]}
                 getOptionLabel={(option) => option === NewReport ? 'הוסף דיווח חדש' : CITIES[option.report.city].name}
                 renderInput={(params) => <TextField {...params} />}
                 onChange={(_, value) => setReportToEdit(value as ReportOrNew)}
-                value={NewReport} />
-            <Button onClick={onRefreshReportsClicked}>טען דיווחים</Button>
+            />
+            <Button onClick={refreshReports}>רענן דיווחים</Button>
         </FormItem>
     );
 };
