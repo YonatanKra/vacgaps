@@ -18,7 +18,7 @@ export async function sendReport(report: VaccinesReport, facebookAccessToken: st
 
 export async function getReports(facebookAccessToken: string): Promise<{reports: VaccinesReport[]}> {
     try {
-        const response = await httpClient.get('/Reports', {
+        const response = await httpClient.get('/Reports?returnhiddenreports=1&nocomingfeedback=1', {
             ...getFacebookAuthTokenHeader(facebookAccessToken)
         });
 

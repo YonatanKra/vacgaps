@@ -3,6 +3,7 @@ import { Context, HttpMethod, HttpRequest } from 'azure-functions-ts-essentials'
 import { VaccinesReportAccessor } from '../Services/DataAccess/vaccines-report-accessor';
 import { getVaccinesReportAccessor } from '../Services/DataAccess/accessors';
 import { isSupervisor } from '../Services/is-supervisor';
+import { randomInt } from 'crypto';
 
 const Report = async function (context: Context, req: HttpRequest): Promise<void> {
     const authenticatedUser: PassedAuthenticationResult = await authenticate(
@@ -22,7 +23,7 @@ const Report = async function (context: Context, req: HttpRequest): Promise<void
 
     let vaccinesReportAccessor: VaccinesReportAccessor = getVaccinesReportAccessor(context);
     if (req.body.id) {
-        context.log.info('Replacing report ' + req.body.id);
+        context.log.info('Replacing report ' + JSON.stringify(req.body.id));
         await vaccinesReportAccessor.replace(req.body);
         context.res = {
             status: 200,

@@ -2,22 +2,12 @@ import { Autocomplete, TextField } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { CITIES } from '@vacgaps/constants';
 import { FormItem } from '../../form-item';
-import { NewReport, ReportIdOrNew, useFormData } from '../../../../providers/FormDataProvider';
+import { NewReport, ReportIdOrNew, ReportOrNew, useFormData } from '../../../../providers/FormDataProvider';
 import { useGetReports } from 'apps/vaccines-updates-client/src/hooks/useGetReports';
 import styled from 'styled-components';
 import React, { FunctionComponent, useCallback } from 'react';
 import { VaccinesReport } from '@vacgaps/interfaces';
 
-type ReportOrNew = VaccinesReport | 'NewReport';
-type ReportOrNewOption = {
-    text: string;
-    value: ReportOrNew;
-};
-const newReportOption: ReportOrNewOption = {
-    text: 'הוסף דיווח חדש',
-    value: 'NewReport',
-};
-let reportToEditOptions: ReportOrNewOption[] = [newReportOption];
 
 const Comp: FunctionComponent<{ className?: string; }> = props => {
     const getReports = useGetReports();
@@ -25,29 +15,28 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
     const onRefreshReportsClicked = useCallback(async () => {
         // TODO: Error treatment
         const reportsResponse = await getReports();
-        reportToEditOptions = reportsResponse.reports.map(report => {
-            return {
-                text: CITIES[report.city].name,
-                value: report,
-            };
+        const reports: ReportOrNew[] = reportsResponse.reports.map(report => {
+            return { report };
         });
-        reportToEditOptions.unshift(newReportOption);
+        reports.unshift(NewReport);
+        formData.setAvailableReportsToEdit({reports});
     }, [getReports]);
 
     const setReportToEdit: (report: ReportOrNew) => void = report => {
-        if (report === newReportOption.value) {
-            formData.setReportToEdit(NewReport);
+        if (report === NewReport) {
+            formData.setReportIdToEdit(NewReport);
             return;
         }
 
-        const existingReport = report as VaccinesReport;
-        formData.setReportToEdit({reportId: existingReport.id});
+        const existingReport = (report as {report: VaccinesReport}).report;
+        formData.setReportIdToEdit({reportId: existingReport.id});
         formData.setAddress(existingReport.address);
         formData.setAvailableVaccines(existingReport.availableVaccines);
         formData.setCity(existingReport.city);
         formData.setComments(existingReport.comments);
         formData.setEndTime(existingReport.endTime);
         formData.setHealthCareService(existingReport.healthCareService);
+        formData.setHideReport(!!existingReport.hideReport);
         formData.setMinimalAge(existingReport.minimalAge);
     };
 
@@ -55,11 +44,11 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
         <FormItem className={props.className}>
             <h3>בחירת דיווח לעריכה:</h3>
             <Autocomplete
-                options={reportToEditOptions}
-                getOptionLabel={(option) => option.text}
+                options={formData.availableReportsToEdit?.reports ?? [NewReport]}
+                getOptionLabel={(option) => option === NewReport ? 'הוסף דיווח חדש' : CITIES[option.report.city].name}
                 renderInput={(params) => <TextField {...params} />}
-                onChange={(_, value) => setReportToEdit((value as {value:ReportOrNew}).value)}
-                value={newReportOption} />
+                onChange={(_, value) => setReportToEdit(value as ReportOrNew)}
+                value={NewReport} />
             <Button onClick={onRefreshReportsClicked}>טען דיווחים</Button>
         </FormItem>
     );

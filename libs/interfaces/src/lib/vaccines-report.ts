@@ -1,5 +1,10 @@
 import { CITIES_TYPE, HEALTH_CARE_SERVICES_TYPE, TargetGroup } from '@vacgaps/constants';
 
+export interface VaccinesReportId {
+  pKey: string;
+  internalId: string;
+}
+
 export interface VaccinesReport {
   city: CITIES_TYPE[number];
   address: string;
@@ -12,6 +17,7 @@ export interface VaccinesReport {
   reporter?: string;
   availableVaccines?: number;
   comments?: string;
-  id: string;
+  hideReport?: boolean;
+  id: VaccinesReportId;
   comingFeedbackCount: number;
 }

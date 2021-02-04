@@ -1,4 +1,4 @@
-import { VaccinesReport } from '@vacgaps/interfaces';
+import { VaccinesReport, VaccinesReportId } from '@vacgaps/interfaces';
 import { NewReport, useAuthentication, useFormData } from '../providers';
 import { useCallback } from 'react';
 import { sendReport } from '../services/vacgaps-api-client';
@@ -21,8 +21,9 @@ export const useSendReport: () => () => Promise<void> = () => {
             minimalAge: formData.minimalAge,
             reporter: formData.reporter,
             comments: formData.comments,
+            hideReport: !!formData.hideReport,
             availableVaccines: formData.availableVaccines,
-            id: formData.reportToEdit === NewReport ? undefined : (formData.reportToEdit as {reportId: string}).reportId,
+            id: formData.reportIdToEdit === NewReport ? undefined : (formData.reportIdToEdit as {reportId: VaccinesReportId}).reportId,
             comingFeedbackCount: formData.comingFeedbackCount,
         };
 

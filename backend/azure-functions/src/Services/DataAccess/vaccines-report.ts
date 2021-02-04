@@ -1,3 +1,8 @@
+export type VaccinesReportId = {
+    pKey: string;
+    internalId: string;
+}
+
 export type VaccinesReport = {
     city: string; // enum
     address: string;
@@ -10,7 +15,8 @@ export type VaccinesReport = {
     reporter?: string;
     availableVaccines?: number;
     comments?: string;
-    id: string;
+    hideReport?: boolean;
+    id: VaccinesReportId;
     comingFeedbackCount: number;
   }
 

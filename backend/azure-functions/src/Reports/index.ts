@@ -1,8 +1,8 @@
 import * as FacebookAuth from '../Services/Auth/facebook-auth';
-import { EnvironmentSettings } from '../Services/EnvironmentSettings';
 import { Context, HttpMethod, HttpRequest } from 'azure-functions-ts-essentials';
-import * as Axios from 'axios';
 import { getComingFeedbackAccessor, getVaccinesReportAccessor } from '../Services/DataAccess/accessors';
+import { isSupervisor } from '../Services/is-supervisor';
+import { ReportsDataToReturn } from '../Services/DataAccess/vaccines-report-accessor';
 import { VaccinesReports } from '../Services/DataAccess/vaccines-report';
 
 type VaccinesReport = any;
@@ -30,15 +30,20 @@ const httpTrigger = async function (
     }
 
     let reportAccessor = getVaccinesReportAccessor(context);
-    const isOnlyMinimalData: boolean = authResult === FacebookAuth.NoAuthenticationResult.NoCredentials;
-    const reports: VaccinesReports = await reportAccessor.getVaccinesReports(isOnlyMinimalData);
+    const reportsDataToReturn: ReportsDataToReturn =
+        authResult === FacebookAuth.NoAuthenticationResult.NoCredentials ? ReportsDataToReturn.Minimal :
+        (context.req.query.returnhiddenreports && isSupervisor((authResult as FacebookAuth.PassedAuthenticationResult).userId)) ? ReportsDataToReturn.DetailsAndHiddenReports :
+        ReportsDataToReturn.Details;
+    
+    context.log.info('reportsDataToReturn: ' + reportsDataToReturn);
+    const reports: VaccinesReports = await reportAccessor.getVaccinesReports(reportsDataToReturn);
 
-    if (isOnlyMinimalData || reports.reports.length === 0) {
-        if (isOnlyMinimalData) {
-            context.log.info('No credentials, return the list with minimal data');
-        }
+    if (reportsDataToReturn == ReportsDataToReturn.Minimal || reports.reports.length === 0 || context.req.query.nocomingfeedback) {
         if (reports.reports.length === 0) {
             context.log.info('No reports found in the date range');
+        }
+        if (context.req.query.nocomingfeedback) {
+            context.log.info('NoComingFeedback requested')
         }
 
         context.res = {
@@ -59,7 +64,7 @@ const httpTrigger = async function (
     let enrichedReports = reports.reports.map(report => {
         return {
             ...report,
-            comingFeedbackCount: feedbackCounts.countByReportId[report.id] ?? 0,
+            comingFeedbackCount: feedbackCounts.countByReportId[report.id.pKey + '/' + report.id.internalId] ?? 0,
         }});
 
     context.res = {

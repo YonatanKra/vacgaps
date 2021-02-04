@@ -7,7 +7,7 @@ import {
 
 import { ReportsListComponent } from './reports-list.component';
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
-import { VaccinesReport } from '@vacgaps/interfaces';
+import { VaccinesReport, VaccinesReportId } from '@vacgaps/interfaces';
 import { By } from '@angular/platform-browser';
 import { CITIES_TYPE, HEALTH_CARE_SERVICES_TYPE, TargetGroup } from '@vacgaps/constants';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -41,7 +41,7 @@ const REPORTS_LIST_MOCK: VaccinesReport[] = [
     branchName: 'wat',
     reporter: 'ww',
     updateTime: 5,
-    id: "1",
+    id: {pKey: '1', internalId: '2'},
     comingFeedbackCount: 12
   },
 ];
@@ -55,7 +55,7 @@ export class VaccineReportItem implements VaccinesReport {
     public reporter = 'ww',
     public updateTime = 5,
     public comingFeedbackCount: number = 12,
-    public id: string = "1"
+    public id: VaccinesReportId = {pKey: '1', internalId: '2'}
   ) {}
 }
 
@@ -128,7 +128,8 @@ describe('ReportsListComponent', () => {
   describe(`handleComingReport`, function () {
     it(`should emit a coming report action`, function () {
       const eventData: VaccinesReport = {
-        comingFeedbackCount: 12, id: '1',
+        comingFeedbackCount: 12,
+        id: {pKey: '1', internalId: '2'},
         address: '',
         branchName: '',
         city: '',

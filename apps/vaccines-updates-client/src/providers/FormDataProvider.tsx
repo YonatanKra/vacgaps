@@ -1,6 +1,6 @@
 import React, { createContext, FunctionComponent, useState, useContext, useCallback, useMemo } from 'react';
 import { TargetGroup } from '@vacgaps/constants';
-import { VaccinesReport } from '@vacgaps/interfaces';
+import { VaccinesReport, VaccinesReportId } from '@vacgaps/interfaces';
 
 
 export type FormDataContextProps = Omit<VaccinesReport, "id"> & {
@@ -13,15 +13,19 @@ export type FormDataContextProps = Omit<VaccinesReport, "id"> & {
     setAvailableVaccines: (newValue: number) => void;
     setEndTime: (newValue: string) => void;
     setComments: (newValue: string) => void;
+    setHideReport: (newValue: boolean) => void;
 
-    reportToEdit: ReportIdOrNew;
-    setReportToEdit: (newValue: ReportIdOrNew) => void;
+    availableReportsToEdit: {reports: ReportOrNew[]};
+    setAvailableReportsToEdit: (newValue: {reports: ReportOrNew[]}) => void;
+    reportIdToEdit: ReportIdOrNew;
+    setReportIdToEdit: (newValue: ReportIdOrNew) => void;
     
     canSendReport: boolean;
 };
 
-export type ReportIdOrNew = { reportId: string } | 'NewReport';
-export const NewReport: ReportIdOrNew = 'NewReport';
+export type ReportIdOrNew = { reportId: VaccinesReportId } | 'NewReport';
+export type ReportOrNew = { report: VaccinesReport } | 'NewReport';
+export const NewReport = 'NewReport';
 
 const FormDataContext = createContext<FormDataContextProps>({} as FormDataContextProps);
 export const useFormData = (): FormDataContextProps => useContext(FormDataContext);
@@ -35,7 +39,10 @@ export const FormDataProvider: FunctionComponent = props => {
     const [availableVaccines, setAvailableVaccines] = useState<number>();
     const [endTime, setEndTime] = useState<string>();
     const [comments, setComments] = useState<string>();
-    const [reportToEdit, setReportToEdit] = useState<ReportIdOrNew>(NewReport);
+    const [hideReport, setHideReport] = useState<boolean>();
+
+    const [availableReportsToEdit, setAvailableReportsToEdit] = useState<{reports: ReportOrNew[]}>();
+    const [reportIdToEdit, setReportIdToEdit] = useState<ReportIdOrNew>(NewReport);
 
     const addTargetGroup = useCallback((group: TargetGroup) => {
         setTargetGroups([...targetGroups, group]);
@@ -74,8 +81,12 @@ export const FormDataProvider: FunctionComponent = props => {
             setAvailableVaccines,
             comments,
             setComments,
-            reportToEdit,
-            setReportToEdit,
+            hideReport,
+            setHideReport,
+            availableReportsToEdit,
+            setAvailableReportsToEdit,
+            reportIdToEdit,
+            setReportIdToEdit,
             comingFeedbackCount: undefined,
             canSendReport
         }}>

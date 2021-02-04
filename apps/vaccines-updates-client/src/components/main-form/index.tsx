@@ -9,6 +9,7 @@ import TargetGroups from './parts/target-groups';
 import VaccinesAvailability from './parts/vaccines-availability';
 import WorkingHours from './parts/working-hours';
 import Comments from './parts/comments';
+import HideReport from './parts/hide-report';
 import { FormItem } from './form-item';
 import { Button } from '@material-ui/core';
 import { useSendReport } from '../../hooks/useSendReport';
@@ -116,6 +117,7 @@ export const MainForm: FunctionComponent<{ className?: string }> = props => {
                 <TargetGroups />
                 <VaccinesAvailability />
                 <Comments />
+                <HideReport />
                 <StyledFormITem>
                     <Button
                         disabled={!canSendReport}
