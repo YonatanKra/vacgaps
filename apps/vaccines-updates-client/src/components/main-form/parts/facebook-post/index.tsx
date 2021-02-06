@@ -38,7 +38,7 @@ function addFieldToRow(rowState: { isAddedField: boolean }, fieldPrefix: string,
     return result;
 }
 
-const Comp: FunctionComponent<{}> = props => {
+const Comp: FunctionComponent<{ className?: string; }> = props => {
     const [facebookPost, setFacebookPost] = useState<string>();
     const [textAreaRows, setTextAreaRows] = useState<number>();
 
@@ -96,7 +96,7 @@ const Comp: FunctionComponent<{}> = props => {
     }, [getReports]);
     
     return (
-        <FacebookPostContainer>
+        <FacebookPostContainer className={props.className}>
             <Button onClick={generatePost}>
                 צור פוסט מהדיווחים שנשמרו
             </Button>
