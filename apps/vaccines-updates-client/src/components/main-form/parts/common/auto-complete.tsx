@@ -21,4 +21,4 @@ export function AutoComplete<AutoCompleteOptionValueType>
         onChange={(_, value) => props?.onChange?.((value as OptionType<AutoCompleteOptionValueType>)?.value)}
         value={(props?.value && props.options.find(_ => _.value === props.value)) || { text: '', value: '' } as any}
     />
-};
+}

@@ -31,13 +31,13 @@ const FormDataContext = createContext<FormDataContextProps>({} as FormDataContex
 export const useFormData = (): FormDataContextProps => useContext(FormDataContext);
 
 export const FormDataProvider: FunctionComponent = props => {
-    let initialServiceEndTime = new Date();
+    const initialServiceEndTime = new Date();
     initialServiceEndTime.setHours(20);
     initialServiceEndTime.setMinutes(0);
     initialServiceEndTime.setSeconds(0);
     initialServiceEndTime.setMilliseconds(0);
 
-    let initialDisplayEndTime = new Date();
+    const initialDisplayEndTime = new Date();
     initialDisplayEndTime.setHours(23);
     initialDisplayEndTime.setMinutes(59);
     initialDisplayEndTime.setSeconds(59);

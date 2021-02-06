@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core';
 import { CITIES } from '@vacgaps/constants';
 import { FormItem } from '../../form-item';
 import { NewReport, ReportIdOrNew, ReportOrNew, useFormData } from '../../../../providers/FormDataProvider';
-import { useGetReports } from 'apps/vaccines-updates-client/src/hooks/useGetReports';
+import { useGetReports } from '../../../../hooks/useGetReports';
 import React, { FunctionComponent, useCallback, useEffect, useMemo } from 'react';
 import { VaccinesReport } from '@vacgaps/interfaces';
 import { AutoComplete, OptionType } from '../common/auto-complete';
@@ -20,7 +20,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
         });
         reports.unshift(NewReport);
         formData.setAvailableReportsToEdit({ reports });
-    }, [getReports]);
+    }, [getReports, formData.setAvailableReportsToEdit]);
 
     useEffect(() => {
         refreshReports();
@@ -55,7 +55,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
         const reports = formData.availableReportsToEdit?.reports;
         if (!reports) return [newReport];
 
-        let alreadySeenText: { [text: string]: boolean } = {};
+        const alreadySeenText: { [text: string]: boolean } = {};
         return reports.map(report => {
             if (report === NewReport) {
                 return newReport;

@@ -10,6 +10,7 @@ import VaccinesAvailability from './parts/vaccines-availability';
 import WorkingHours from './parts/working-hours';
 import Comments from './parts/comments';
 import HideReport from './parts/hide-report';
+import FacebookPost from './parts/facebook-post';
 import { FormItem } from './form-item';
 import { Button } from '@material-ui/core';
 import { useSendReport } from '../../hooks/useSendReport';
@@ -94,6 +95,17 @@ export const MainForm: FunctionComponent<{ className?: string }> = props => {
 
     const { canSendReport, availableReportsToEdit, setAvailableReportsToEdit, setReportIdToEdit } = useFormData();
 
+    function createOrUpdateReport(report: VaccinesReport) {
+        if (report.id) {
+            const index = availableReportsToEdit.reports.findIndex(r =>
+                (r as { report: VaccinesReport }).report?.id?.pKey === report.id.pKey &&
+                (r as { report: VaccinesReport }).report?.id?.internalId === report.id.internalId);
+            availableReportsToEdit.reports[index] = { report };
+        } else {
+            availableReportsToEdit.reports.push({ report });
+        }
+    }
+    
     const onSendClicked = useCallback(async () => {
         try {
             setFormState('sending');
@@ -101,19 +113,12 @@ export const MainForm: FunctionComponent<{ className?: string }> = props => {
             setFormState('sent');
 
             setReportIdToEdit(NewReport);
-            if (report.id) {
-                const index = availableReportsToEdit.reports.findIndex(r =>
-                    (r as { report: VaccinesReport }).report?.id?.pKey === report.id.pKey &&
-                    (r as { report: VaccinesReport }).report?.id?.internalId === report.id.internalId);
-                availableReportsToEdit.reports[index] = { report };
-            } else {
-                availableReportsToEdit.reports.push({ report });
-            }
+            createOrUpdateReport(report);
             setAvailableReportsToEdit(availableReportsToEdit);
         } catch (error) {
             setFormState('has-error');
         }
-    }, [sendReport]);
+    }, [sendReport, availableReportsToEdit, setAvailableReportsToEdit, setReportIdToEdit]);
 
     return (
         <Container className={props.className}>
@@ -141,6 +146,7 @@ export const MainForm: FunctionComponent<{ className?: string }> = props => {
                         {formState === 'sent' && <label data-success>נשלח בהצלחה !</label>}
                     </FormStateWrapper>
                 </StyledFormITem>
+                <FacebookPost />
             </FormInputsWrapper>
         </Container >
     );

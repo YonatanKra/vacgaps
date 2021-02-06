@@ -50,7 +50,7 @@ const Comp: FunctionComponent<Props> = props => {
             );
 
         return components;
-    }, [addTargetGroup, removeTargetGroup]);
+    }, [addTargetGroup, removeTargetGroup, targetGroups]);
 
     return (
         <FormItem className={props.className}>
