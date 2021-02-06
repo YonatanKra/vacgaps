@@ -21,6 +21,23 @@ const FacebookPostTextArea = styled.textarea`
     width: 90%;
 `;
 
+function addFieldToRow(rowState: { isAddedField: boolean }, fieldPrefix: string, value: string, convertValue?: (val: string) => string): string {
+    if (!value) {
+        return '';
+    }
+
+    let result: string = '';
+    if (!rowState.isAddedField) {
+        rowState.isAddedField = true;
+        result += ': ';
+    } else {
+        result += ', ';
+    }
+
+    result += fieldPrefix + (convertValue ? convertValue(value) : value);
+    return result;
+}
+
 const Comp: FunctionComponent<{}> = props => {
     const [facebookPost, setFacebookPost] = useState<string>();
     const [textAreaRows, setTextAreaRows] = useState<number>();
@@ -41,7 +58,6 @@ const Comp: FunctionComponent<{}> = props => {
         post += 'ימשיך להתעדכן במהלך היום\n';
         post += 'במקביל אתר המשקפת מתעדכן כל הזמן https://www.getvacci.org.il\n\n';
         let lastHealthCare = '';
-        let err = '';
         for (let i = 0; i < reports.length; ++i) {
             try {
                 if (lastHealthCare !== reports[i].healthCareService) {
@@ -51,25 +67,12 @@ const Comp: FunctionComponent<{}> = props => {
                 
                 post += '- #' + CITIES[reports[i].city].name.replace(' ', '_');
                 
-                let addedField = false;
-                function addField(fieldPrefix, value, convertValue?) {
-                    if (!value) {
-                        return;
-                    }
-                    if (!addedField) {
-                        addedField = true;
-                        post += ': ';
-                    } else {
-                        post += ', ';
-                    }
-
-                    post += fieldPrefix + (convertValue ? convertValue(value) : value);
-                }
+                let rowState = { isAddedField: false };
                 
-                addField('בכתובת ', reports[i].address);
-                addField('מעל גיל ', reports[i].minimalAge);
-                addField('עד ', reports[i].serviceEndTime, function(time) {
-                    time = new Date(time);
+                post += addFieldToRow(rowState, 'בכתובת ', reports[i].address);
+                post += addFieldToRow(rowState, 'מעל גיל ', reports[i].minimalAge?.toString());
+                post += addFieldToRow(rowState, 'עד ', reports[i].serviceEndTime, function(timeJson) {
+                    let time = new Date(timeJson);
                     let formatted = '';
                     const currentTime = new Date(Date.now());
                     if (currentTime.getDate() !== time.getDate() || currentTime.getMonth() !== time.getMonth()) {

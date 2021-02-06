@@ -118,7 +118,7 @@ export const MainForm: FunctionComponent<{ className?: string }> = props => {
         } catch (error) {
             setFormState('has-error');
         }
-    }, [sendReport, availableReportsToEdit, setAvailableReportsToEdit, setReportIdToEdit]);
+    }, [sendReport, availableReportsToEdit, setAvailableReportsToEdit, setReportIdToEdit, createOrUpdateReport]);
 
     return (
         <Container className={props.className}>
