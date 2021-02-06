@@ -48,9 +48,10 @@ const AuthenticationContext = createContext<AuthenticationContextProps>({
 
 export const useAuthentication = (): AuthenticationContextProps => useContext(AuthenticationContext);
 
-const LoginComponents: FunctionComponent = ({ children }) => {
+const LoginComponents: FunctionComponent<{ isCheckingLoginStatus: boolean }> = ({ isCheckingLoginStatus, children }) => {
     const { authenticationState } = useAuthentication();
 
+    if (isCheckingLoginStatus) return <>מנסה להתחבר</>;
     if (authenticationState === 'logged-out') return <LoginButton />;
     if (authenticationState === 'logged-in') return <>{children}</>;
     if (authenticationState === 'not-authorized') return <>לא מורשה</>;
@@ -114,7 +115,7 @@ export const AuthenticationProvider: FunctionComponent = ({ children }) => {
             logout,
         }}>
             <AuthWrapper>
-                <LoginComponents>{children}</LoginComponents>
+                <LoginComponents isCheckingLoginStatus={isCheckingLoginStatus}>{children}</LoginComponents>
                 {shouldShowLogoutButton &&
                     <LogoutButtonWrapper>
                         <TextButton onClick={logout}>התנתק</TextButton>

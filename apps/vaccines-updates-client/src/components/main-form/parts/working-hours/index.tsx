@@ -3,10 +3,9 @@ import { FormItem } from '../../form-item';
 import { useFormData } from '../../../../providers/FormDataProvider';
 import styled from 'styled-components';
 import dateFormat from 'dateformat';
-import Autocomplete from '@material-ui/core/Autocomplete';
-import TextField from '@material-ui/core/TextField';
+import { AutoComplete, OptionType } from '../common/auto-complete';
 
-const timeOptions: { text: string, value: string }[] = [];
+const timeOptions: OptionType<string>[] = [];
 const now = new Date();
 
 for (let hour = 0; hour <= 23; hour++) {
@@ -59,12 +58,10 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
         <FormItem className={props.className}>
             <h3>זמן סיום פעילות</h3>
             <DropdownWrapper>
-                <Autocomplete<{ text: string, value: string }>
+                <AutoComplete<string>
                     options={timeOptions}
-                    getOptionLabel={(option) => option.text}
-                    renderInput={(params) => <TextField {...params} />}
-                    onChange={(_, value) => setEndTime((value as {value:string}).value)}
-                    value={getDateOption(new Date(endTime))}
+                    onChange={value => setEndTime(value)}
+                    value={endTime}
                 />
                 {partialEndingTime}
             </DropdownWrapper>

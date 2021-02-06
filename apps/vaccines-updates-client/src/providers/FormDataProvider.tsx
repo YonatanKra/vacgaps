@@ -10,16 +10,15 @@ export type FormDataContextProps = Omit<VaccinesReport, "id"> & {
     setMinimalAge: (newValue: number) => void;
     addTargetGroup: (value: TargetGroup) => void;
     removeTargetGroup: (value: TargetGroup) => void;
+    clearTargetGroups: () => void;
     setAvailableVaccines: (newValue: number) => void;
     setEndTime: (newValue: string) => void;
     setComments: (newValue: string) => void;
     setHideReport: (newValue: boolean) => void;
-
-    availableReportsToEdit: {reports: ReportOrNew[]};
-    setAvailableReportsToEdit: (newValue: {reports: ReportOrNew[]}) => void;
+    availableReportsToEdit: { reports: ReportOrNew[] };
+    setAvailableReportsToEdit: (newValue: { reports: ReportOrNew[] }) => void;
     reportIdToEdit: ReportIdOrNew;
     setReportIdToEdit: (newValue: ReportIdOrNew) => void;
-    
     canSendReport: boolean;
 };
 
@@ -47,7 +46,7 @@ export const FormDataProvider: FunctionComponent = props => {
     const [comments, setComments] = useState<string>();
     const [hideReport, setHideReport] = useState<boolean>();
 
-    const [availableReportsToEdit, setAvailableReportsToEdit] = useState<{reports: ReportOrNew[]}>();
+    const [availableReportsToEdit, setAvailableReportsToEdit] = useState<{ reports: ReportOrNew[] }>();
     const [reportIdToEdit, setReportIdToEdit] = useState<ReportIdOrNew>(NewReport);
 
     const addTargetGroup = useCallback((group: TargetGroup) => {
@@ -68,6 +67,10 @@ export const FormDataProvider: FunctionComponent = props => {
     }, [healthCareService, city, address, endTime]
     );
 
+    const clearTargetGroups = useCallback(() => {
+        setTargetGroups([]);
+    }, []);
+
     return (
         <FormDataContext.Provider value={{
             healthCareService,
@@ -83,6 +86,7 @@ export const FormDataProvider: FunctionComponent = props => {
             targetGroups,
             addTargetGroup,
             removeTargetGroup,
+            clearTargetGroups,
             availableVaccines,
             setAvailableVaccines,
             comments,

@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { useFormData } from '../../../../providers/FormDataProvider';
-import NumericFormItem from '../numeric-form-item';
+import NumericFormItem from '../common/numeric-form-item';
 
 const Comp: FunctionComponent<{ className?: string }> = props => {
     const { setMinimalAge, minimalAge } = useFormData();

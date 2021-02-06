@@ -23,12 +23,12 @@ export const useSendReport: () => () => Promise<VaccinesReport> = () => {
             comments: formData.comments,
             hideReport: !!formData.hideReport,
             availableVaccines: formData.availableVaccines,
-            id: formData.reportIdToEdit === NewReport ? undefined : (formData.reportIdToEdit as {reportId: VaccinesReportId}).reportId,
+            id: formData.reportIdToEdit === NewReport ? undefined : (formData.reportIdToEdit as { reportId: VaccinesReportId }).reportId,
             comingFeedbackCount: formData.comingFeedbackCount,
         };
 
         await sendReport(report, token);
-
+        
         return report;
     }, [formData, token]);
 };

@@ -9,7 +9,9 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
     return (
         <FormItem className={props.className}>
             <h3>הערות</h3>
-            <TextField onChange={_ => setComments(_.target.value)} value={comments} />
+            <TextField
+                onChange={_ => setComments(_.target.value)}
+                value={comments || ''} />
         </FormItem>
     );
 };

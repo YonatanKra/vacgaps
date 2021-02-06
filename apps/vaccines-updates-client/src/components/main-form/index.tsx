@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import React, { FunctionComponent, useCallback, useState } from 'react';
-import ReportToEdit  from './parts/report-to-edit';
+import ReportToEdit from './parts/report-to-edit';
 import HealthService from './parts/health-service';
 import City from './parts/city';
 import Address from './parts/address';
@@ -104,11 +104,11 @@ export const MainForm: FunctionComponent<{ className?: string }> = props => {
             setReportIdToEdit(NewReport);
             if (report.id) {
                 const index = availableReportsToEdit.reports.findIndex(r =>
-                     (r as {report: VaccinesReport}).report?.id?.pKey === report.id.pKey &&
-                     (r as {report: VaccinesReport}).report?.id?.internalId === report.id.internalId);
-                availableReportsToEdit.reports[index] = {report};
+                    (r as { report: VaccinesReport }).report?.id?.pKey === report.id.pKey &&
+                    (r as { report: VaccinesReport }).report?.id?.internalId === report.id.internalId);
+                availableReportsToEdit.reports[index] = { report };
             } else {
-                availableReportsToEdit.reports.push({report});
+                availableReportsToEdit.reports.push({ report });
             }
             setAvailableReportsToEdit(availableReportsToEdit);
         } catch (error) {

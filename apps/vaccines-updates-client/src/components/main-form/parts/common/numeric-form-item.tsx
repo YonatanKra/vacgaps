@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useCallback, useState } from 'react';
-import { FormItem } from '../form-item';
-import styled from 'styled-components';
+import { FormItem } from '../../form-item';
 import { TextField } from '@material-ui/core';
 
 type Props = {
@@ -48,7 +47,7 @@ const Comp: FunctionComponent<Props> = props => {
                 onChange={args => onValueChange(args.target.value)}
                 helperText={error}
                 error={!!error}
-                value={props.value} />
+                value={props.value || ''} />
         </FormItem>
     );
 };

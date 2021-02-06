@@ -2,13 +2,9 @@ import React, { FunctionComponent } from 'react';
 import { FormItem } from '../../form-item';
 import { HEALTH_CARE_SERVICES } from '@vacgaps/constants';
 import { useFormData } from '../../../../providers/FormDataProvider';
-import { Autocomplete, TextField } from '@material-ui/core/';
+import { AutoComplete, OptionType } from '../common/auto-complete';
 
-type HealthCareOption = {
-    value: string;
-    text: string;
-}
-
+type HealthCareOption = OptionType<string>;
 const dropDownOptions: HealthCareOption[] = Object.keys(HEALTH_CARE_SERVICES).map(getOption);
 
 function getOption(value: string) {
@@ -24,11 +20,9 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
     return (
         <FormItem className={props.className}>
             <h3>קופת חולים</h3>
-            <Autocomplete<HealthCareOption>
+            <AutoComplete<string>
                 options={dropDownOptions}
-                getOptionLabel={(option) => option.text}
-                renderInput={(params) => <TextField {...params} />}
-                onChange={(_, value) => setHealthCareService((value as HealthCareOption)?.value)}
+                onChange={value => setHealthCareService(value)}
                 value={healthCareService}
             />
         </FormItem>
