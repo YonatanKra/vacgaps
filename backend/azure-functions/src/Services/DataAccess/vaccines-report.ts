@@ -7,9 +7,10 @@ export type VaccinesReport = {
     city: string; // enum
     address: string;
     healthCareService: string;  // enum
+    displayEndTime: string;
     updateTime?: number;
     branchName?: string;
-    endTime?: string;
+    serviceEndTime?: string;
     targetGroups?: string[]; // enum
     minimalAge?: number;
     reporter?: string;

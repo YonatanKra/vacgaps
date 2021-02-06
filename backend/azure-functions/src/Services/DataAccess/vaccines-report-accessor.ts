@@ -37,7 +37,7 @@ export class VaccinesReportAccessor {
         const fields: string = reportsDataToReturn === ReportsDataToReturn.Minimal ? 'id, city, healthCareService' : '*';
         const nonHiddenCondition = reportsDataToReturn === ReportsDataToReturn.DetailsAndHiddenReports ? '' : ' AND NOT c.hideReport';
         const query: string =
-            'SELECT ' + fields + ' FROM c WHERE c.endTime > \'' + this.getStartOfDayForSql() + '\'' + nonHiddenCondition;
+            'SELECT ' + fields + ' FROM c WHERE c.displayEndTime > \'' + this.getStartOfDayForSql() + '\'' + nonHiddenCondition;
         this.context.log.info('getVaccinesReports DB query: ' + query);
 
         const reports = await this.reportContainer.items.query({query}).fetchAll();

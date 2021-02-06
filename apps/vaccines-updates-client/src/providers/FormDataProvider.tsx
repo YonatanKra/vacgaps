@@ -12,7 +12,8 @@ export type FormDataContextProps = Omit<VaccinesReport, "id"> & {
     removeTargetGroup: (value: TargetGroup) => void;
     clearTargetGroups: () => void;
     setAvailableVaccines: (newValue: number) => void;
-    setEndTime: (newValue: string) => void;
+    setServiceEndTime: (newValue: string) => void;
+    setDisplayEndTime: (newValue: string) => void;
     setComments: (newValue: string) => void;
     setHideReport: (newValue: boolean) => void;
     availableReportsToEdit: { reports: ReportOrNew[] };
@@ -30,11 +31,17 @@ const FormDataContext = createContext<FormDataContextProps>({} as FormDataContex
 export const useFormData = (): FormDataContextProps => useContext(FormDataContext);
 
 export const FormDataProvider: FunctionComponent = props => {
-    let initialEndTime = new Date();
-    initialEndTime.setHours(20);
-    initialEndTime.setMinutes(0);
-    initialEndTime.setSeconds(0);
-    initialEndTime.setMilliseconds(0);
+    let initialServiceEndTime = new Date();
+    initialServiceEndTime.setHours(20);
+    initialServiceEndTime.setMinutes(0);
+    initialServiceEndTime.setSeconds(0);
+    initialServiceEndTime.setMilliseconds(0);
+
+    let initialDisplayEndTime = new Date();
+    initialDisplayEndTime.setHours(23);
+    initialDisplayEndTime.setMinutes(59);
+    initialDisplayEndTime.setSeconds(59);
+    initialDisplayEndTime.setMilliseconds(999);
 
     const [healthCareService, setHealthCareService] = useState<string>();
     const [city, setCity] = useState<string>();
@@ -42,7 +49,8 @@ export const FormDataProvider: FunctionComponent = props => {
     const [minimalAge, setMinimalAge] = useState<number>();
     const [targetGroups, setTargetGroups] = useState<TargetGroup[]>([]);
     const [availableVaccines, setAvailableVaccines] = useState<number>();
-    const [endTime, setEndTime] = useState<string>(initialEndTime.toJSON());
+    const [serviceEndTime, setServiceEndTime] = useState<string>(initialServiceEndTime.toJSON());
+    const [displayEndTime, setDisplayEndTime] = useState<string>(initialDisplayEndTime.toJSON());
     const [comments, setComments] = useState<string>();
     const [hideReport, setHideReport] = useState<boolean>();
 
@@ -63,8 +71,8 @@ export const FormDataProvider: FunctionComponent = props => {
     }, [targetGroups]);
 
     const canSendReport: boolean = useMemo(() => {
-        return !!healthCareService && !!city && !!address && !!endTime;
-    }, [healthCareService, city, address, endTime]
+        return !!healthCareService && !!city && !!address && !!displayEndTime;
+    }, [healthCareService, city, address, displayEndTime]
     );
 
     const clearTargetGroups = useCallback(() => {
@@ -79,8 +87,10 @@ export const FormDataProvider: FunctionComponent = props => {
             setCity,
             address,
             setAddress,
-            endTime,
-            setEndTime,
+            serviceEndTime,
+            setServiceEndTime,
+            displayEndTime,
+            setDisplayEndTime,
             minimalAge,
             setMinimalAge,
             targetGroups,

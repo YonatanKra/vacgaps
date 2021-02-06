@@ -27,7 +27,7 @@ const MOCK_REPORTS: VaccinesReport[] = [
     reporter: 'ww',
     updateTime: 5,
     minimalAge: 55,
-    endTime: '2021-01-16T22:00:00',
+    serviceEndTime: '2021-01-16T22:00:00',
     id: {pKey: '1', internalId: '2'},
     comingFeedbackCount: 12
   },
@@ -49,7 +49,7 @@ const MOCK_REPORTS: VaccinesReport[] = [
     reporter: 'ww',
     updateTime: 5,
     minimalAge: 40,
-    endTime: '2021-01-18T21:00:00',
+    serviceEndTime: '2021-01-18T21:00:00',
     id: {pKey: '1', internalId: '2'},
     comingFeedbackCount: 12
   },
@@ -60,7 +60,7 @@ const MOCK_REPORTS: VaccinesReport[] = [
     branchName: 'wat',
     reporter: 'ww',
     updateTime: 5,
-    endTime: '2021-01-19T17:30:00',
+    serviceEndTime: '2021-01-19T17:30:00',
     id: {pKey: '1', internalId: '2'},
     comingFeedbackCount: 12
   },
@@ -175,7 +175,7 @@ describe('ReportListPageComponent', () => {
           reporter: 'ww',
           updateTime: 5,
           minimalAge: 55,
-          endTime: '2021-01-16T22:00:00',
+          serviceEndTime: '2021-01-16T22:00:00',
           id: {pKey: '1', internalId: '2'},
           comingFeedbackCount: 12
         },

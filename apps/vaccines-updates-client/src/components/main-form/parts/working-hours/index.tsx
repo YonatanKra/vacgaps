@@ -48,7 +48,7 @@ const DropdownWrapper = styled.div`
 `;
 
 const Comp: FunctionComponent<{ className?: string; }> = props => {
-    const { endTime, setEndTime } = useFormData();
+    const { serviceEndTime, setServiceEndTime } = useFormData();
 
     const partialEndingTime: string = useMemo(() => {
         return dateFormat(Date.now(), 'dd/mm/yyyy');
@@ -60,8 +60,8 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
             <DropdownWrapper>
                 <AutoComplete<string>
                     options={timeOptions}
-                    onChange={value => setEndTime(value)}
-                    value={endTime}
+                    onChange={value => setServiceEndTime(value)}
+                    value={serviceEndTime}
                 />
                 {partialEndingTime}
             </DropdownWrapper>

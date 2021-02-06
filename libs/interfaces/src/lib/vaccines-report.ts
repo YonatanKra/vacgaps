@@ -9,9 +9,10 @@ export interface VaccinesReport {
   city: CITIES_TYPE[number];
   address: string;
   healthCareService: HEALTH_CARE_SERVICES_TYPE[number];
+  displayEndTime?: string;
   updateTime?: number;
   branchName?: string;
-  endTime?: string;
+  serviceEndTime?: string;
   targetGroups?: TargetGroup[];
   minimalAge?: number;
   reporter?: string;

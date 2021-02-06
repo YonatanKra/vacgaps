@@ -68,6 +68,7 @@ export const AuthenticationProvider: FunctionComponent = ({ children }) => {
         if (response.status !== 'connected' || !token) {
             setAuthenticationState('logged-out');
             setFacebookAccessToken(undefined);
+            setIsCheckingLoginStatus(false);
             return;
         }
 

@@ -38,7 +38,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
         formData.setAvailableVaccines(existingReport.availableVaccines);
         formData.setCity(existingReport.city);
         formData.setComments(existingReport.comments);
-        formData.setEndTime(existingReport.endTime);
+        formData.setServiceEndTime(existingReport.serviceEndTime);
         formData.setHealthCareService(existingReport.healthCareService);
         formData.setHideReport(!!existingReport.hideReport);
         formData.setMinimalAge(existingReport.minimalAge);

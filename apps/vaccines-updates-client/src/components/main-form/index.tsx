@@ -40,7 +40,6 @@ const Container = styled.div`
         margin-top: 10px;
         font-size: 14px;
         transition: all .5s ease-in-out;
-        line-height: 0;
     }
 `;
 

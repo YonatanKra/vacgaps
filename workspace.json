@@ -37,7 +37,7 @@
               "fileReplacements": [
                 {
                   "replace": "apps/vaccitron/src/environments/environment.ts",
-                  "with": "apps/vaccitron/src/environments/environment.ppe.ts"
+                  "with": "apps/vaccitron/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -343,7 +343,7 @@
               "fileReplacements": [
                 {
                   "replace": "apps/vaccines-updates-client/src/environments/environment.ts",
-                  "with": "apps/vaccines-updates-client/src/environments/environment.ppe.ts"
+                  "with": "apps/vaccines-updates-client/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
