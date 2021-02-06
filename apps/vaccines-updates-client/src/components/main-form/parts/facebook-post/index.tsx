@@ -26,7 +26,7 @@ function addFieldToRow(rowState: { isAddedField: boolean }, fieldPrefix: string,
         return '';
     }
 
-    let result: string = '';
+    let result = '';
     if (!rowState.isAddedField) {
         rowState.isAddedField = true;
         result += ': ';
@@ -67,12 +67,12 @@ const Comp: FunctionComponent<{}> = props => {
                 
                 post += '- #' + CITIES[reports[i].city].name.replace(' ', '_');
                 
-                let rowState = { isAddedField: false };
+                const rowState = { isAddedField: false };
                 
                 post += addFieldToRow(rowState, 'בכתובת ', reports[i].address);
                 post += addFieldToRow(rowState, 'מעל גיל ', reports[i].minimalAge?.toString());
                 post += addFieldToRow(rowState, 'עד ', reports[i].serviceEndTime, function(timeJson) {
-                    let time = new Date(timeJson);
+                    const time = new Date(timeJson);
                     let formatted = '';
                     const currentTime = new Date(Date.now());
                     if (currentTime.getDate() !== time.getDate() || currentTime.getMonth() !== time.getMonth()) {
