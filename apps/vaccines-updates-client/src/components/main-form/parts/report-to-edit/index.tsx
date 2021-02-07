@@ -10,7 +10,7 @@ import { AutoComplete, OptionType } from '../common/auto-complete';
 type ReportOption = OptionType<ReportOrNew>;
 
 const Comp: FunctionComponent<{ className?: string; }> = props => {
-    const getReports = useGetReports();
+    const getReports = useGetReports(/*returnHiddenReports=*/true);
     const formData = useFormData();
     const refreshReports = useCallback(async () => {
         // TODO: Error treatment
@@ -44,7 +44,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
         formData.setMinimalAge(existingReport.minimalAge);
         formData.clearTargetGroups();
         existingReport.targetGroups?.forEach(_ => formData.addTargetGroup(_));
-    }, [formData]);
+    }, [formData, formData.setReportIdToEdit]);
 
     const newReport: ReportOption = useMemo(() => ({
         text: 'הוסף דיווח חדש',

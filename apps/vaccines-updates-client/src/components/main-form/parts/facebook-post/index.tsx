@@ -42,7 +42,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
     const [facebookPost, setFacebookPost] = useState<string>();
     const [textAreaRows, setTextAreaRows] = useState<number>();
 
-    const getReports = useGetReports();
+    const getReports = useGetReports(/*returnHiddenReports=*/false);
     const generatePost = useCallback(async () => {
         // TODO: Error treatment
         const reportsResponse = await getReports();

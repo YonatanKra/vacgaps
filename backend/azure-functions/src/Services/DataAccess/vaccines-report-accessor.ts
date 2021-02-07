@@ -15,7 +15,7 @@ export class VaccinesReportAccessor {
         const dbItem = {
             ...report,
             id: undefined,
-            partitionKey: report.city + '_' + report.address, // Arbitrary for now
+            partitionKey: Math.random().toString(), // Arbitrary for now
         };
         const response = await this.reportContainer.items.create(dbItem);
         return {id: {
@@ -34,7 +34,7 @@ export class VaccinesReportAccessor {
     }
 
     async getVaccinesReports(reportsDataToReturn: ReportsDataToReturn): Promise<VaccinesReports> {
-        const fields: string = reportsDataToReturn === ReportsDataToReturn.Minimal ? 'id, city, healthCareService' : '*';
+        const fields: string = reportsDataToReturn === ReportsDataToReturn.Minimal ? 'c.id, c.partitionKey, c.city, c.healthCareService' : '*';
         const nonHiddenCondition = reportsDataToReturn === ReportsDataToReturn.DetailsAndHiddenReports ? '' : ' AND NOT c.hideReport';
         const query: string =
             'SELECT ' + fields + ' FROM c WHERE c.displayEndTime > \'' + this.getStartOfDayForSql() + '\'' + nonHiddenCondition;
