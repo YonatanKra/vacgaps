@@ -9,7 +9,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
     return (
         <FormItem className={props.className}>
             <h3>כתובת</h3>
-            <TextField onChange={_ => setAddress(_.target.value)} />
+            <TextField onChange={_ => setAddress(_.target.value)} value={address || ''} />
         </FormItem>
     );
 };

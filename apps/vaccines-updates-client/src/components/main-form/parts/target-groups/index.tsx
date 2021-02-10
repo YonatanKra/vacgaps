@@ -29,7 +29,7 @@ const TargetGroupWrapper = styled.div`
 `;
 
 const Comp: FunctionComponent<Props> = props => {
-    const { addTargetGroup, removeTargetGroup } = useFormData();
+    const { addTargetGroup, removeTargetGroup, targetGroups } = useFormData();
 
     const targetGroupsCheckboxes = useMemo(() => {
         const components = Object
@@ -42,13 +42,15 @@ const Comp: FunctionComponent<Props> = props => {
                         onChange={(_event, isChecked) => {
                             if (isChecked) addTargetGroup(_[1]);
                             else removeTargetGroup(_[1]);
-                        }} />
+                        }}
+                        checked={targetGroups.indexOf(_[1]) >= 0}
+                    />
                     <label htmlFor={`targetGroup${index}`}>{_[1]}</label>
                 </TargetGroupWrapper>
             );
 
         return components;
-    }, [addTargetGroup, removeTargetGroup]);
+    }, [addTargetGroup, removeTargetGroup, targetGroups]);
 
     return (
         <FormItem className={props.className}>

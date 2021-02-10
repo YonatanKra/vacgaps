@@ -1,5 +1,7 @@
+import { VaccinesReportId } from "./vaccines-report";
+
 export type SingleComingFeedback = {
-    reportId: string;
+    reportId: VaccinesReportId;
     userId: string;
     feedbackTime: Date;
 }

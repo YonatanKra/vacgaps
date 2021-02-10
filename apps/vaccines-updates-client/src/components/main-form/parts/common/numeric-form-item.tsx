@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useCallback, useState } from 'react';
-import { FormItem } from '../form-item';
-import styled from 'styled-components';
+import { FormItem } from '../../form-item';
 import { TextField } from '@material-ui/core';
 
 type Props = {
@@ -8,6 +7,7 @@ type Props = {
     onChange: (value: number) => void;
     title: string;
     maxValue?: number;
+    value?: number;
 };
 
 function isNumeric(value: string): boolean {
@@ -46,7 +46,8 @@ const Comp: FunctionComponent<Props> = props => {
                 placeholder={`הכנס ${props.title}`}
                 onChange={args => onValueChange(args.target.value)}
                 helperText={error}
-                error={!!error} />
+                error={!!error}
+                value={props.value || ''} />
         </FormItem>
     );
 };

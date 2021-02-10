@@ -63,7 +63,7 @@ az functionapp deployment source config-zip -g vacgaps -n getvacci --src .\dist.
 ```
 If you get an error about MFA, use
 ```
-az login
+az login --tenant f084d812-1342-4d86-8bf1-f03ff8ac22c1
 ```
 And try again.
 Within Azure portal - go to Configuration tab, and add the following settings:

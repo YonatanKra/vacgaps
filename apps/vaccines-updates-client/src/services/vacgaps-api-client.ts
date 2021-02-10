@@ -16,6 +16,19 @@ export async function sendReport(report: VaccinesReport, facebookAccessToken: st
     });
 }
 
+export async function getReports(facebookAccessToken: string, returnHiddenReports = true): Promise<{reports: VaccinesReport[]}> {
+    try {
+        const response = await httpClient.get('/Reports?' + (returnHiddenReports ? 'returnhiddenreports=1&' : '') + 'nocomingfeedback=1', {
+            ...getFacebookAuthTokenHeader(facebookAccessToken)
+        });
+
+        return response.status === 200 && response.data;
+    }
+    catch {
+        return {reports: []};
+    }
+}
+
 export async function isSupervisor(facebookAccessToken: string): Promise<boolean> {
     try {
         const response = await httpClient.get('/isSupervisor', {

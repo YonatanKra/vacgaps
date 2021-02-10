@@ -2,10 +2,11 @@ import * as FacebookAuth from '../Services/Auth/facebook-auth';
 import { getComingFeedbackAccessor } from '../Services/DataAccess/accessors';
 import { SingleComingFeedback } from '../Services/DataAccess/single-coming-feedback';
 import { Context, HttpMethod, HttpRequest } from 'azure-functions-ts-essentials';
+import { VaccinesReportId } from '../Services/DataAccess/vaccines-report';
 
 const httpTrigger = async function (context: Context, req: HttpRequest): Promise<void> {
-    const reportId: string = req.body.reportId;
-    if (!(reportId?.length)) {
+    const reportId: VaccinesReportId = req.body.reportId;
+    if (!reportId || !(reportId.pKey?.length) || !(reportId.internalId?.length)) {
         context.res = {
             status: 400,
             body: 'Bad request: missing reportId in body',

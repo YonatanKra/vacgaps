@@ -2,28 +2,28 @@ import React, { FunctionComponent } from 'react';
 import { FormItem } from '../../form-item';
 import { CITIES } from '@vacgaps/constants';
 import { useFormData } from '../../../../providers/FormDataProvider';
-import { TextField, Autocomplete } from '@material-ui/core';
+import { AutoComplete, OptionType } from '../common/auto-complete';
 
-type Props = {
-    className?: string;
-};
+type CityOption = OptionType<string>;
+const dropDownOptions: CityOption[] = Object.keys(CITIES).map(getOption);
 
-const dropDownOptions = Object.keys(CITIES).map(_ => ({
-    value: _,
-    text: CITIES[_].name,
-}));
+function getOption(value: string) {
+    return !value ? undefined : {
+        value,
+        text: CITIES[value].name as string,
+    };
+}
 
-const Comp: FunctionComponent<Props> = props => {
-    const { setCity } = useFormData();
+const Comp: FunctionComponent<{ className?: string }> = props => {
+    const { setCity, city } = useFormData();
 
     return (
         <FormItem className={props.className}>
             <h3>עיר</h3>
-            <Autocomplete
+            <AutoComplete<string>
                 options={dropDownOptions}
-                getOptionLabel={(option) => option.text}
-                renderInput={(params) => <TextField {...params} />}
-                onChange={(_, value) => setCity((value as {value:string}).value)}
+                onChange={value => setCity(value)}
+                value={city}
             />
         </FormItem>
     );
