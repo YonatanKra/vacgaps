@@ -16,6 +16,8 @@ export type FormDataContextProps = Omit<VaccinesReport, "id"> & {
     setDisplayEndTime: (newValue: string) => void;
     setComments: (newValue: string) => void;
     setHideReport: (newValue: boolean) => void;
+    showHiddenReports: boolean;
+    setShowHiddenReports: (newValue: boolean) => void;
     availableReportsToEdit: { reports: ReportOrNew[] };
     setAvailableReportsToEdit: (newValue: { reports: ReportOrNew[] }) => void;
     reportIdToEdit: ReportIdOrNew;
@@ -53,6 +55,7 @@ export const FormDataProvider: FunctionComponent = props => {
     const [displayEndTime, setDisplayEndTime] = useState<string>(initialDisplayEndTime.toJSON());
     const [comments, setComments] = useState<string>();
     const [hideReport, setHideReport] = useState<boolean>();
+    const [showHiddenReports, setShowHiddenReports] = useState<boolean>();
 
     const [availableReportsToEdit, setAvailableReportsToEdit] = useState<{ reports: ReportOrNew[] }>();
     const [reportIdToEdit, setReportIdToEdit] = useState<ReportIdOrNew>(NewReport);
@@ -103,6 +106,8 @@ export const FormDataProvider: FunctionComponent = props => {
             setComments,
             hideReport,
             setHideReport,
+            showHiddenReports,
+            setShowHiddenReports,
             availableReportsToEdit,
             setAvailableReportsToEdit,
             reportIdToEdit,
