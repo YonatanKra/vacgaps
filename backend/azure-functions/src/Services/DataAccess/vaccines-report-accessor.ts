@@ -37,7 +37,7 @@ export class VaccinesReportAccessor {
         const fields: string = reportsDataToReturn === ReportsDataToReturn.Minimal ? 'c.id, c.partitionKey, c.city, c.healthCareService' : '*';
         const nonHiddenCondition = reportsDataToReturn === ReportsDataToReturn.DetailsAndHiddenReports ? '' : ' AND NOT c.hideReport';
         const query: string =
-            'SELECT ' + fields + ' FROM c WHERE c.displayEndTime > \'' + this.getStartOfDayForSql() + '\'' + nonHiddenCondition;
+            'SELECT ' + fields + ' FROM c WHERE c.displayEndTime > \'' + new Date(Date.now()).toISOString() + '\'' + nonHiddenCondition;
         this.context.log.info('getVaccinesReports DB query: ' + query);
 
         const reports = await this.reportContainer.items.query({query}).fetchAll();
@@ -51,13 +51,5 @@ export class VaccinesReportAccessor {
                 }
             };
         })};
-    }
-
-    private getStartOfDayForSql() {
-        let minTime = new Date(Date.now());
-        minTime.setHours(-3); // Capture timezone diff against GMT
-        minTime.setMinutes(0);
-        minTime.setSeconds(0);
-        return minTime.toISOString();
     }
 }

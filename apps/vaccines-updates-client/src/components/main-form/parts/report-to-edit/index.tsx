@@ -58,7 +58,13 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
 
     const setReportToEdit = useCallback((report: ReportOrNew) => {
         if (!report || report === NewReport) {
-            formData.setReportIdToEdit(NewReport);
+            const initialServiceEndTime = new Date();
+            initialServiceEndTime.setHours(20);
+            initialServiceEndTime.setMinutes(0);
+            initialServiceEndTime.setSeconds(0);
+            initialServiceEndTime.setMilliseconds(0);
+
+            formData.resetForm();
             return;
         }
 
