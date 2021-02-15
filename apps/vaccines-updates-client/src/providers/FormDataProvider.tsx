@@ -1,4 +1,4 @@
-import React, { createContext, FunctionComponent, useState, useContext, useCallback, useMemo } from 'react';
+import React, { createContext, FunctionComponent, useState, useContext, useCallback, useMemo, useEffect } from 'react';
 import { TargetGroup } from '@vacgaps/constants';
 import { VaccinesReport, VaccinesReportId } from '@vacgaps/interfaces';
 
@@ -23,6 +23,7 @@ export type FormDataContextProps = Omit<VaccinesReport, "id"> & {
     reportIdToEdit: ReportIdOrNew;
     setReportIdToEdit: (newValue: ReportIdOrNew) => void;
     canSendReport: boolean;
+    resetForm: () => void;
 };
 
 export type ReportIdOrNew = { reportId: VaccinesReportId } | 'NewReport';
@@ -39,6 +40,15 @@ export const FormDataProvider: FunctionComponent = props => {
     initialServiceEndTime.setSeconds(0);
     initialServiceEndTime.setMilliseconds(0);
 
+    useEffect(() => {
+        const newDisplayEndTime = new Date(serviceEndTime);
+        newDisplayEndTime.setHours(23);
+        newDisplayEndTime.setMinutes(59);
+        newDisplayEndTime.setSeconds(59);
+        newDisplayEndTime.setMilliseconds(999);
+        setDisplayEndTime(newDisplayEndTime.toJSON());
+    });
+
     const initialDisplayEndTime = new Date();
     initialDisplayEndTime.setHours(23);
     initialDisplayEndTime.setMinutes(59);
@@ -52,7 +62,7 @@ export const FormDataProvider: FunctionComponent = props => {
     const [targetGroups, setTargetGroups] = useState<TargetGroup[]>([]);
     const [availableVaccines, setAvailableVaccines] = useState<number>();
     const [serviceEndTime, setServiceEndTime] = useState<string>(initialServiceEndTime.toJSON());
-    const [displayEndTime, setDisplayEndTime] = useState<string>(initialDisplayEndTime.toJSON());
+    const [displayEndTime, setDisplayEndTime] = useState<string>(initialServiceEndTime.toJSON());
     const [comments, setComments] = useState<string>();
     const [hideReport, setHideReport] = useState<boolean>();
     const [showHiddenReports, setShowHiddenReports] = useState<boolean>();
@@ -81,6 +91,19 @@ export const FormDataProvider: FunctionComponent = props => {
     const clearTargetGroups = useCallback(() => {
         setTargetGroups([]);
     }, []);
+
+    function resetForm() {
+        setReportIdToEdit(NewReport);
+        setAddress('');
+        setAvailableVaccines(undefined);
+        setCity('');
+        setComments('');
+        setServiceEndTime(initialServiceEndTime.toJSON());
+        setHealthCareService('');
+        setHideReport(false);
+        setMinimalAge(undefined);
+        clearTargetGroups();
+    }
 
     return (
         <FormDataContext.Provider value={{
@@ -113,7 +136,8 @@ export const FormDataProvider: FunctionComponent = props => {
             reportIdToEdit,
             setReportIdToEdit,
             comingFeedbackCount: undefined,
-            canSendReport
+            canSendReport,
+            resetForm
         }}>
             {props.children}
         </FormDataContext.Provider>

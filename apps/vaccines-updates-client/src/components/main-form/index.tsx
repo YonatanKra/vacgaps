@@ -93,7 +93,7 @@ export const MainForm: FunctionComponent<{ className?: string }> = props => {
     const sendReport = useSendReport();
     const [formState, setFormState] = useState<FormState>('idle');
 
-    const { canSendReport, availableReportsToEdit, setAvailableReportsToEdit, setReportIdToEdit } = useFormData();
+    const { canSendReport, availableReportsToEdit, setAvailableReportsToEdit, setReportIdToEdit, resetForm } = useFormData();
 
     function createOrUpdateReport(report: VaccinesReport) {
         if (report.id) {
@@ -115,6 +115,7 @@ export const MainForm: FunctionComponent<{ className?: string }> = props => {
             setReportIdToEdit(NewReport);
             createOrUpdateReport(report);
             setAvailableReportsToEdit(availableReportsToEdit);
+            resetForm();
         } catch (error) {
             setFormState('has-error');
         }
