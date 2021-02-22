@@ -38,6 +38,17 @@ function addFieldToRow(rowState: { isAddedField: boolean }, fieldPrefix: string,
     return result;
 }
 
+function formatDateTime(timeJson: string) {
+    const time = new Date(timeJson);
+    let formatted = '';
+    const currentTime = new Date(Date.now());
+    if (currentTime.getDate() !== time.getDate() || currentTime.getMonth() !== time.getMonth()) {
+        formatted += time.getDate() + '/' + (time.getMonth() + 1) + ' ';
+    }
+    formatted += time.getHours() + ':' + (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
+    return formatted;
+}
+
 const Comp: FunctionComponent<{ className?: string; }> = props => {
     const [facebookPost, setFacebookPost] = useState<string>();
     const [textAreaRows, setTextAreaRows] = useState<number>();
@@ -71,16 +82,8 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
                 
                 post += addFieldToRow(rowState, 'בכתובת ', reports[i].address);
                 post += addFieldToRow(rowState, 'מעל גיל ', reports[i].minimalAge?.toString());
-                post += addFieldToRow(rowState, 'עד ', reports[i].serviceEndTime, function(timeJson) {
-                    const time = new Date(timeJson);
-                    let formatted = '';
-                    const currentTime = new Date(Date.now());
-                    if (currentTime.getDate() !== time.getDate() || currentTime.getMonth() !== time.getMonth()) {
-                        formatted += time.getDate() + '/' + (time.getMonth() + 1) + ' ';
-                    }
-                    formatted += time.getHours() + ':' + (time.getMinutes() < 10 ? '0' : '') + time.getMinutes();
-                    return formatted;
-                });
+                post += addFieldToRow(rowState, 'מ ', reports[i].serviceStartTime, formatDateTime);
+                post += addFieldToRow(rowState, 'עד ', reports[i].serviceEndTime, formatDateTime);
 
                 if (reports[i].comments) {
                     post += ' (' + reports[i].comments + ')';

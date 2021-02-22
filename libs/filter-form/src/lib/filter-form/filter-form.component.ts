@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { NotificationsFilter } from '@vacgaps/interfaces';
-import { DISTRICTS, CITIES, HEALTH_CARE_SERVICES } from '@vacgaps/constants';
+import { DISTRICTS, CITIES, HEALTH_CARE_SERVICES_WITHOUT_ALL } from '@vacgaps/constants';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -42,7 +42,7 @@ export class FilterFormComponent implements OnInit {
 
   @ViewChild('districtsInput') districtsInput: ElementRef<HTMLInputElement>;
 
-  healthCareServices = new Map(Object.entries(HEALTH_CARE_SERVICES));
+  healthCareServices = new Map(Object.entries(HEALTH_CARE_SERVICES_WITHOUT_ALL));
 
   constructor() {}
 

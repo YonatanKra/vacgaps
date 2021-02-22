@@ -58,12 +58,6 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
 
     const setReportToEdit = useCallback((report: ReportOrNew) => {
         if (!report || report === NewReport) {
-            const initialServiceEndTime = new Date();
-            initialServiceEndTime.setHours(20);
-            initialServiceEndTime.setMinutes(0);
-            initialServiceEndTime.setSeconds(0);
-            initialServiceEndTime.setMilliseconds(0);
-
             formData.resetForm();
             return;
         }
@@ -74,6 +68,7 @@ const Comp: FunctionComponent<{ className?: string; }> = props => {
         formData.setAvailableVaccines(existingReport.availableVaccines);
         formData.setCity(existingReport.city);
         formData.setComments(existingReport.comments);
+        formData.setServiceStartTime(existingReport.serviceStartTime);
         formData.setServiceEndTime(existingReport.serviceEndTime);
         formData.setHealthCareService(existingReport.healthCareService);
         formData.setHideReport(!!existingReport.hideReport);

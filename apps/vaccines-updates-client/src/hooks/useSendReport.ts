@@ -16,6 +16,7 @@ export const useSendReport: () => () => Promise<VaccinesReport> = () => {
             healthCareService: formData.healthCareService,
             updateTime: formData.updateTime,
             branchName: formData.branchName,
+            serviceStartTime: formData.serviceStartTime,
             serviceEndTime: formData.serviceEndTime,
             displayEndTime: formData.displayEndTime,
             targetGroups: formData.targetGroups,

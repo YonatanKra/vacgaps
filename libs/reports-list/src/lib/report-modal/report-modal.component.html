@@ -23,6 +23,12 @@
       <mat-label class="field-value">{{ report?.address }}</mat-label>
     </mat-grid-tile>
     <mat-grid-tile>
+      <mat-label class="field-name">זמן פתיחה:</mat-label>
+      <mat-label class="field-value">{{
+        report?.serviceStartTime | date: 'short':'IST':'il'
+      }}</mat-label>
+    </mat-grid-tile>
+    <mat-grid-tile>
       <mat-label class="field-name">זמן סגירה:</mat-label>
       <mat-label class="field-value">{{
         report?.serviceEndTime | date: 'short':'IST':'il'

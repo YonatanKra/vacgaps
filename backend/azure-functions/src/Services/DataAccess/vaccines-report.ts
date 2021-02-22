@@ -10,6 +10,7 @@ export type VaccinesReport = {
     displayEndTime: string;
     updateTime?: number;
     branchName?: string;
+    serviceStartTime?: string;
     serviceEndTime?: string;
     targetGroups?: string[]; // enum
     minimalAge?: number;

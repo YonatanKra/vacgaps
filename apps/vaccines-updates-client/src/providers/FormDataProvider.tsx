@@ -12,6 +12,7 @@ export type FormDataContextProps = Omit<VaccinesReport, "id"> & {
     removeTargetGroup: (value: TargetGroup) => void;
     clearTargetGroups: () => void;
     setAvailableVaccines: (newValue: number) => void;
+    setServiceStartTime: (newValue: string) => void;
     setServiceEndTime: (newValue: string) => void;
     setDisplayEndTime: (newValue: string) => void;
     setComments: (newValue: string) => void;
@@ -61,6 +62,7 @@ export const FormDataProvider: FunctionComponent = props => {
     const [minimalAge, setMinimalAge] = useState<number>();
     const [targetGroups, setTargetGroups] = useState<TargetGroup[]>([]);
     const [availableVaccines, setAvailableVaccines] = useState<number>();
+    const [serviceStartTime, setServiceStartTime] = useState<string>('');
     const [serviceEndTime, setServiceEndTime] = useState<string>(initialServiceEndTime.toJSON());
     const [displayEndTime, setDisplayEndTime] = useState<string>(initialServiceEndTime.toJSON());
     const [comments, setComments] = useState<string>();
@@ -98,6 +100,7 @@ export const FormDataProvider: FunctionComponent = props => {
         setAvailableVaccines(undefined);
         setCity('');
         setComments('');
+        setServiceStartTime('');
         setServiceEndTime(initialServiceEndTime.toJSON());
         setHealthCareService('');
         setHideReport(false);
@@ -113,6 +116,8 @@ export const FormDataProvider: FunctionComponent = props => {
             setCity,
             address,
             setAddress,
+            serviceStartTime,
+            setServiceStartTime,
             serviceEndTime,
             setServiceEndTime,
             displayEndTime,
