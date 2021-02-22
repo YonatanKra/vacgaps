@@ -6,6 +6,15 @@ import dateFormat from 'dateformat';
 import { AutoComplete, OptionType } from '../common/auto-complete';
 import DateTimePicker from 'react-datetime-picker';
 
+const WorkingHoursWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+
+    >*{
+        width: 100%;
+    }
+`;
+
 const DateTimePickerWrapper = styled.div`
     display: flex;
     flex-direction: row;
@@ -19,22 +28,30 @@ const DateTimePickerWrapper = styled.div`
 `;
 
 const Comp: FunctionComponent<{ className?: string; }> = props => {
-    const { serviceEndTime, setServiceEndTime } = useFormData();
-
-    const partialEndingTime: string = useMemo(() => {
-        return dateFormat(Date.now(), 'dd/mm/yyyy');
-    }, []);
+    const { serviceStartTime, setServiceStartTime, serviceEndTime, setServiceEndTime } = useFormData();
 
     return (
-        <FormItem className={props.className}>
-            <h3>זמן סיום פעילות</h3>
-            <DateTimePickerWrapper>
-                <DateTimePicker
-                    value={new Date(serviceEndTime)}
-                    onChange={value=>setServiceEndTime(value.toJSON())}
-                />
-            </DateTimePickerWrapper>
-        </FormItem>
+        <WorkingHoursWrapper>
+            <FormItem className={props.className}>
+                <h3>זמן תחילת פעילות</h3>
+                <DateTimePickerWrapper>
+                    <DateTimePicker
+                        value={serviceStartTime ? new Date(serviceStartTime) : ''}
+                        onChange={value=>setServiceStartTime(value?.toJSON())}
+                    />
+                </DateTimePickerWrapper>
+            </FormItem>
+
+            <FormItem className={props.className}>
+                <h3>זמן סיום פעילות</h3>
+                <DateTimePickerWrapper>
+                    <DateTimePicker
+                        value={new Date(serviceEndTime)}
+                        onChange={value=>setServiceEndTime(value.toJSON())}
+                    />
+                </DateTimePickerWrapper>
+            </FormItem>
+        </WorkingHoursWrapper>
     );
 };
 

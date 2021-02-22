@@ -12,6 +12,7 @@ export interface VaccinesReport {
   displayEndTime?: string;
   updateTime?: number;
   branchName?: string;
+  serviceStartTime?: string;
   serviceEndTime?: string;
   targetGroups?: TargetGroup[];
   minimalAge?: number;

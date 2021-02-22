@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { NotificationsFilter, VaccinesReport } from '@vacgaps/interfaces';
 import { VaccinesReportsService } from '@vacgaps/vaccines-reporter';
 import { interval, Observable, Subject, throwError } from 'rxjs';
-import { CITIES } from '@vacgaps/constants';
+import { CITIES, HEALTH_CARE_SERVICES, ALL_HEALTH_CARE_SERVICES } from '@vacgaps/constants';
 import { environment } from '../../environments/environment';
 import { catchError, retry, takeUntil } from 'rxjs/operators';
 import { AccountService } from '../account/account.service';
@@ -92,6 +92,7 @@ export class ReportListPageComponent implements OnInit, OnDestroy {
     return this.reportsList?.filter((report) => {
       return (
         (!notificationsFilter.healthCareService ||
+          report.healthCareService === ALL_HEALTH_CARE_SERVICES ||
           report.healthCareService === notificationsFilter.healthCareService) &&
         (!notificationsFilter.cities?.length ||
           notificationsFilter.cities.includes(report.city)) &&
